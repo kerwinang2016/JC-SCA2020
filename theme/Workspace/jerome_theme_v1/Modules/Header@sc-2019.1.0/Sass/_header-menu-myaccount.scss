@@ -1,0 +1,150 @@
+.header-menu-myaccount-back{
+	@extend .header-sidebar-menu-back;
+}
+
+.header-menu-myaccount-pop-icon {
+	@extend .header-sidebar-menu-pop-icon;
+}
+
+.header-menu-myaccount-menu-push-icon {
+	@extend .header-sidebar-menu-push-icon;
+}
+
+.header-sidebar-menu-wrapper .header-menu-myaccount-signout-link {
+	display: none;
+}
+
+.header-menu-myaccount a.active {
+	background-color: $sc-color-theme-background;
+}
+
+
+
+//applies only to the myaccount menu on desktop header
+.header-menu-profile {
+
+	.header-menu-myaccount-anchor {
+		display: none;
+	}
+
+	.header-menu-myaccount-overview-anchor {
+		@media (min-width: $screen-sm-min) {
+			font-size: $sc-font-size-m;
+			float: left;
+			padding: $sc-padding-lv3 0;
+		}
+	}
+
+	.header-menu-myaccount-back {
+		display: none;
+	}
+
+	.header-menu-myaccount-menu-push-icon{
+		display:none;
+	}
+
+	.header-menu-myaccount-overview {
+		// margin-bottom: $sc-margin-lv7;
+		// border-bottom: 1px solid $sc-color-theme-border-light;
+		@extend .clearfix;
+	}
+
+	.header-menu-myaccount-item-level2 {
+		//float: left;
+		width: 20%;
+		padding-right: $sc-padding-lv8;
+	}
+	.header-menu-myaccount-anchor-level2 {
+		@extend .header-menu-level2-anchor;
+	}
+
+
+	.header-menu-myaccount-anchor-level3 {
+		@extend .header-menu-level3-anchor;
+	}
+
+	.header-menu-myaccount-signout-link {
+		float: right;
+		display:block;
+		padding: $sc-padding-lv3 0;
+	}
+
+	.header-menu-myaccount-signout-icon{
+		@extend .fa;
+		@extend %fa-sign-out;
+		font-size: $sc-font-size-m;
+	}
+}
+
+.header-menu-myaccount-level4 {
+
+	@media (min-width: $screen-md-min) {
+		display: none;
+	}
+}
+
+
+.header-profile-menu-myaccount-container{width: 210px !important; left: auto !important;border-radius: 5px;border: 1px solid #d0d0d0;padding-bottom:3px !important;}
+.header-profile-menu-myaccount-container > li{width: auto !important;padding-right: 0 !important;padding-left:0;}
+
+.header-menu-myaccount-item-level2{position: relative;width: 100% !important; padding-right: 0 !important;}
+.header-menu-myaccount-level3{
+	position: absolute;
+    // right: -115px;
+    text-align: left;
+    top: 0;
+	display: none;
+	background: white;
+    border-radius: 5px;
+    border: 1px solid #d0d0d0;
+    z-index: 9;
+    padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	box-shadow: 0 6px 12px rgba(77, 82, 86, 0.175);
+}
+ .header-menu-myaccount-item-level2:hover .header-menu-myaccount-level3{display:block !important;}
+ .header-menu-myaccount-anchor-level2{text-align: left;padding-left:15px;padding-top: 5px !important}
+ .header-menu-profile .header-menu-myaccount-signout-link{float: left;width: 100%;text-align: left;}
+ /**** zain 19-07-19 start ****/
+ .header-menu-myaccount li:nth-child(3) ul {right: -95px;} // zain 22-07-19
+ .header-menu-myaccount li:nth-child(4) ul {right: -121px;}
+ .header-menu-myaccount li:nth-child(5) ul {right: -127px;}
+ .header-menu-myaccount li:nth-child(6) ul {right: -168px;}
+ .header-menu-myaccount li:nth-child(8) ul {right: -107px;}
+ /**** zain 19-07-19 end ****/
+.header-menu-myaccount-overview-anchor, .header-menu-myaccount-anchor-level2, .header-menu-myaccount-signout-link
+	{font-weight: normal !important;
+    line-height: 18px !important;
+    color: #333 !important;
+    white-space: nowrap !important;
+	text-transform: capitalize !important;
+	border-bottom: none !important;
+	font-size: 12px;}
+.header-menu-signout{border-top: 1px solid #d8d8d8;margin-left: 0px !important;}
+.header-menu-myaccount-signout-link{padding-left: 16px !important;}
+.header-menu-myaccount-anchor-level2 span{    
+	font-size: 30px;
+    float: right;
+    margin-right: 8px;
+	color: #ccc;}
+.header-menu-myaccount-item-level2:hover{background: #cccccc;}
+.header-menu-myaccount-item-level2:hover a.header-menu-myaccount-anchor-level2{color:white !important;}
+.header-menu-myaccount-overview-anchor{padding-top: 5px !important;
+    padding-bottom: 5px !important;
+	margin-bottom: 0px;
+    width: 100%;
+    text-align: left;
+	padding-left: 15px !important;
+	font-size: 12px !important;}
+.header-menu-myaccount-overview-anchor:hover{background: #cccccc;color:white !important; text-decoration:none;}
+.header-menu-myaccount-signout-link:hover{
+	background: #cccccc;color: white !important;
+    width: 100%;
+	text-align: left;}
+.header-profile-menu-myaccount-container .arrow-top{position: absolute;
+    top: -16px;
+    color: white;
+	right: 14px;
+	font-size: 16px;}
+

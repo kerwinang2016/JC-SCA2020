@@ -1,0 +1,95 @@
+.myaccount-layout {
+	@extend %sc-layout;
+}
+
+.myaccount-layout-container{
+	// Footer module will set a bottom padding with the size of the footer	(on Footer.View.js)
+	@extend .container;
+}
+
+.myaccount-layout-header {
+	@include box-shadow(3px 0px 6px $sc-color-secondary);
+  margin-bottom: $sc-margin-lv5;
+}
+
+.myaccount-layout-row{
+	@extend .row;
+}
+
+.myaccount-layout-main{
+	@extend .col-xs-12;
+	@extend .col-sm-9;
+
+	@media (min-width: $screen-sm-min){
+		margin-bottom: 70px;
+	}
+	.page-not-found {
+		overflow: hidden;
+	}
+}
+
+.myaccount-layout-footer {
+	@extend %sc-footer !optional;
+}
+.container-wrapper{background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9f9f9), color-stop(50%, #ffffff), color-stop(50%, #ffffff), color-stop(100%, #ffffff));
+    /* background: -webkit-linear-gradient(top, #f9f9f9 0%, #ffffff 50%, #ffffff 50%, #ffffff 100%); */
+    background: -o-linear-gradient(top, #f9f9f9 0%, #ffffff 50%, #ffffff 50%, #ffffff 100%);
+    background: -ms-linear-gradient(top, #f9f9f9 0%, #ffffff 50%, #ffffff 50%, #ffffff 100%);
+    /* background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 50%, #ffffff 50%, #ffffff 100%); */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#ffffffff', GradientType=0);}
+.myaccount-layout-title{    
+	font-weight: 400;
+    font-size: 20px;
+    color: #a6a6a6;
+		line-height: 24px;
+		padding-top:30px;}
+.myaccount-layout-title{
+	margin-bottom: $sc-margin-lv4;
+	display:none;
+	
+
+	@media (min-width: $screen-sm-min){
+		display: block;
+	}
+}
+.order-history-list-header {
+	h2{
+		font-weight: 400;
+    font-size: 20px;
+    color: #a6a6a6;
+	}
+}
+.myaccount-layout-breadcrumb{background: white;padding: 16px;border-bottom: #e0e0e0 1px solid;}
+.myaccount-layout #site-header{margin-bottom: 0;}
+.global-views-breadcrumb{margin-bottom: 0 !important ;margin: 0 auto !important;width: 86%;}
+.myaccount-layout-no-javascript-msg {
+	@extend .message-warning;
+	width: 100%;
+}
+
+.myaccount-layout-side-nav{
+
+	@extend .col-sm-3;
+	display: none;
+
+	@media (min-width: $screen-sm-min){
+		display: block;
+	}
+}
+
+.force-hide-side-nav{
+
+	.myaccount-layout-side-nav{
+		display: none;
+	}
+
+	.myaccount-layout-title{
+		display: none;
+		
+	}
+
+	.myaccount-layout-main{
+		@extend .col-sm-12;
+	}
+}
+

@@ -1,0 +1,220 @@
+.overview-profile-header {
+    @extend .overview-shipping-header;
+   
+}
+.overview-profile-header h4 {
+    margin: $sc-margin-lv2 0;
+}
+.overview-shipping-header h3, .overview-profile-header h3, .overview-profile-name-title{
+    font-weight: normal !important;
+}
+.overview-shipping-header h3, .overview-profile-header h3{font-size: 20px;
+    color: #a6a6a6;}
+.overview-profile-card {
+    @extend .overview-shipping-card;
+}
+.overview-profile-card-content {
+    @extend .overview-shipping-card-content; 
+    
+    
+}
+.overview-home-mysettings hr, .divider-small {
+    margin: 18px 0;
+    background: #eee;
+}
+.overview-profile-card-button-edit {
+    @extend .overview-shipping-card-button-edit
+}
+.overview-profile-company, .overview-profile-name-title {
+	font-weight: $sc-font-weight-bold;
+}
+/**** contact us start ****/
+.contact-us-header, .terms-n-conditions{
+    h2{
+    margin-bottom: 10px;
+    font-weight: 400;
+    color: #a6a6a6;
+    line-height: 24px;
+    margin-bottom: 10px;
+    margin-top: 12px;
+    font-size: 27px;
+    }
+}
+.ContactUs{
+    address{
+        p:first-child, p:nth-child(2){
+            margin-bottom: 15px;
+        }
+    }
+}
+/**** contact us end ****/
+/**** terms and conditions start ****/
+.TermsandConditions {
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+        }
+    }
+    .TermsandConditions {
+    .accordion-option{
+        margin-top: 0;
+        margin-bottom: 0;
+        }
+    }
+    
+.TermsandConditions{
+    #accordion{
+        h4.panel-title{
+            a{
+                font-family: 'Raleway', sans-serif;
+                font-weight: 400;
+                font-size: 20px;
+                color: #787878;
+                line-height: 24px;
+                padding-top: 17px;
+                padding-bottom: 17px;
+            }
+        }
+    }
+}
+.TermsandConditions{
+    #accordion{
+        h4.panel-title{
+            a:hover{
+                color: #333333;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+.TermsandConditions{
+    #accordion{
+.panel.panel-default {
+    border: 1px solid #e5e5e5;
+    margin-bottom: 2px;
+}
+    }
+}
+.TermsandConditions{
+    #accordion{
+.panel.panel-default {
+    .panel-collapse{
+    padding-left: 16px;
+    padding-right: 16px;
+                }
+            }
+         }
+    }
+.TermsandConditions{
+    #accordion{
+        .panel.panel-default {
+            .panel-body{
+                text-align: justify;
+                line-height: 1.5;
+            }
+        }
+
+    }
+}
+/**** terms and conditions end ****/
+
+/**** stocklist start ****/
+.StockListView{
+    padding-top: 20px;
+}
+.StockListView{
+    table{
+        td{
+            a{color: #777777 !important;}
+        }
+    }
+}
+.StockListView{
+    table{
+        td{
+            a:hover{color: #333333 !important;text-decoration: underline;}
+        }
+    }
+}
+/**** stocklist end ****/
+
+/**** training guides start ****/
+.trainingGuides {
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+        }
+    }
+.trainingGuides {
+.accordion-option{
+    margin-top: 0;
+    margin-bottom: 0;
+    }
+}
+    
+.trainingGuides{
+    #accordion{
+        h4.panel-title{
+            a{
+                font-family: 'Raleway', sans-serif;
+                font-weight: 400;
+                font-size: 20px;
+                color: #787878;
+                line-height: 24px;
+                padding-top: 17px;
+                padding-bottom: 17px;
+            }
+        }
+    }
+}
+.trainingGuides{
+    #accordion{
+        h4.panel-title{
+            a:hover{
+                color: #333333;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+.trainingGuides{
+    #accordion{
+.panel.panel-default {
+    border: 1px solid #e5e5e5;
+    margin-bottom: 2px;
+}
+    }
+}
+.trainingGuides{
+    #accordion{
+.panel.panel-default {
+    .panel-collapse{
+    padding-left: 16px;
+    padding-right: 16px;
+                }
+            }
+         }
+    }
+.trainingGuides{
+    #accordion{
+        .panel.panel-default {
+            .panel-body{
+                text-align: justify;
+                line-height: 1.5;
+            }
+        }
+
+    }
+}
+/**** training guides end ****/
+
+/**** favourite fit tools start ****/
+.FavouriteFitTools h3{font-weight: normal;
+    font-size: 20px;
+    color: #a6a6a6;
+    line-height: 24px;
+    margin-top: 10px;
+    font-family: 'Raleway', sans-serif;}
+    .FavouriteFitTools .tab-content h3.section-header {color: black;}
+
+    /**** favourite fit tools end ****/

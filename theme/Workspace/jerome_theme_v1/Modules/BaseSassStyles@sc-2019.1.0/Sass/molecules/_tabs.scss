@@ -1,0 +1,420 @@
+// Tabs
+//
+// Tabs are used in medium and large devices to divide content into different meaningful sections
+// with a clear "tab" visual indicator of what section the user is currently viewing.
+// Tabs resemble folder tabs. Users request the content they are interested in by clicking on the content corresponding to the tab.
+// Tabs are only used for tablet and bigger screen sizes.
+//
+// Markup:
+// <div role="tabpanel">
+//   <ul class="content-tabs" role="tablist">
+//     <li class="content-tabs-title active" role="presentation">
+//       <a href="#"data-toggle="tab" data-target="#tab-1" aria-expanded="true">Tab 1</a>
+//     </li>
+//     <li class="content-tabs-title" role="presentation">
+//       <a href="#"data-toggle="tab" data-target="#tab-2">Tab 2</a>
+//     </li>
+//   </ul>
+//   <div class="tab-content"  data-action="tab-content">
+//     <div role="tabpanel" class="tab-content-panel active" id="tab-1"">
+//       <h3 class="tab-content-panel-title">Lorem Ipsum</h3>
+//       <div class="tab-content-container">Content tab 1</div>
+//     </div>
+//     <div role="tabpanel" class="tab-content-panel" id="tab-2"">
+//       <h3 class="tab-content-panel-title">Lorem Ipsum</h3>
+//       <div class="tab-content-container">Content tab 2</div>
+//     </div>
+//   </div>
+// </div>
+//
+// Styleguide 3.8
+
+.content-tabs {
+	display: none;
+	margin-bottom: $sc-margin-lv3;
+
+	@media (min-width: $screen-sm-min){
+		display: block;
+	}
+}
+
+.content-tabs-title {
+	&.active a, &:hover a {
+		color: $sc-color-secondary;
+		border-bottom: 2px solid $sc-color-theme-700;
+	}
+
+	&:only-child {
+		display: none;
+	}
+
+	a {
+		padding: $sc-padding-lv3;
+		float: left;
+		font-size: $sc-font-size-xl;
+		color: $sc-color-copy-light;
+		border-bottom: 2px solid $sc-color-theme-border-light;
+	}
+}
+
+.tab-content {
+	clear:both;
+
+	@media (min-width: $screen-sm-min){
+		padding: $sc-padding-lv3 0;
+	}
+}
+
+.tab-content-panel {
+
+	@media (min-width: $screen-sm-min){
+		padding-bottom: 0;
+		-webkit-transition: all 0.5s ease;
+		-moz-transition: all 0.5s ease;
+		-ms-transition: all 0.5s ease;
+		-o-transition: all 0.5s ease;
+		transition: all 0.5s ease;
+
+		overflow: hidden;
+		max-height: 400px;
+
+		opacity: 0;
+		height: 0;
+		overflow: hidden;
+		&.active {
+			opacity: 1;
+			height: auto;
+		}
+	}
+}
+
+.tab-content-panel-title {
+	margin-bottom: $sc-margin-lv4;
+}
+
+.tab-action {
+	display: none;
+
+	@media (min-width: $screen-sm-min){
+		display: block;
+	}
+}
+
+.tab-action-more {
+	margin-top: $sc-margin-lv2;
+	display:block;
+}
+
+.tab-action-less {
+	display: none;
+	margin-top: $sc-margin-lv2;
+}
+.main-section {
+	div{
+		label{
+			float: left;
+    font-family: 'Raleway', sans-serif;
+    color: #777777;
+    font-size: 14px;
+    font-weight: normal;
+    width: 25%;
+		}
+	}
+}
+.main-section {
+	div{
+		select{
+			height: 30px;
+			padding: 4px;
+			border: 1px solid #ccc;
+			width: 90px;
+			background-size: 19px !important;
+			float: left;
+			margin-right: 75px;
+		}
+	}
+}
+.main-section {
+	div{
+		// clear: both;
+		overflow: hidden;
+    	margin-bottom: 9px;
+	   }
+}
+.empty-label{width: 24.8% !important;}
+.max-label{width: 19% !important;
+    font-family: 'Raleway', sans-serif !important;
+    color: #777777 !important;
+    font-size: 14px !important;
+	font-weight: normal !important;
+}
+.min-label{
+	font-family: 'Raleway', sans-serif !important;
+    color: #777777 !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+// #favourite_fit_tools {
+// 	.section-header{
+// 		font-family:  'Raleway', sans-serif !important;
+// 		color: #000;
+//     font-size: 19.5px;
+// 	}
+// }
+// .fav-fit-tools-top-heading{
+// 	font-family: 'Raleway', sans-serif;
+//     font-weight: 400;
+//     font-size: 20px;
+//     color: #a6a6a6;
+// 	line-height: 24px;}
+ul.nav-tabs{
+	li{
+		a{color: gray !important;}
+	}
+}  
+ul.nav-tabs{
+	li.active{
+		a{color: rgb(88, 88, 88) !important;}
+	}
+}  
+#favourite_fit_tools{
+	.span3{
+	
+				float: left;
+			
+	}
+}
+#favourite_fit_tools{
+	.span2{
+	
+				float: left;
+			
+	}
+}
+#favourite_fit_tools{
+	.row-fluid{
+		margin-bottom: 10px;overflow: hidden;
+	}
+}
+#favourite_fit_tools{
+	.row-fluid{
+		clear: both;
+	}
+}
+#favourite_fit_tools{
+	h4{
+		clear: both;
+		margin-bottom: 10px;
+		margin-top: 15px;
+	}
+}
+#favourite_fit_tools{
+	h4.section-header{
+	
+		color:black;
+	}
+}
+#favourite_fit_tools{
+	.row-fluid{
+		select{
+			background-size: 20px;border: 1px solid #c8c8c8;
+			width: 100px !important;height: 31px;padding: 5px;
+		}
+	}
+}
+@media (max-width: 600px){
+	#favourite_fit_tools .row-fluid select{
+		width: auto !important;
+	}
+}
+#design_option{
+	label.control-label{
+	display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: normal;
+    font-family: 'Raleway', sans-serif;
+	}
+}
+#design_option{
+	select.input-xlarge{
+		width: 270px;
+		height: auto;
+		line-height: 28px;
+		background-size: 17px;
+		margin-bottom: 10px;
+		padding: 0;
+		padding-left: 5px;
+		background-position: 97% 100% !important;
+	}
+}
+#design_option{
+	h4{
+		font-size: 16.5px;
+		font-weight: normal;
+    	font-family: 'Raleway', sans-serif;
+	}
+}
+#design_option{
+.custom-class-multiple{
+	select.input-xlarge{
+		height: auto !important;
+		background-image: none !important;
+	}
+  }
+} 
+#design_option{
+	.tab-content{
+		margin-top: 20px;
+	}
+}
+.tab-content{
+	border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+#design_option{
+	button.btn-primary{float: right;}
+}
+#favourite_fit_tools{
+	button.btn-primary{float: right;}
+}
+
+.FavouriteFitTools .nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+.FavouriteFitTools .nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+.FavouriteFitTools ol, .FavouriteFitTools ul {
+    margin-top: 0;
+}
+.FavouriteFitTools .btn-group-vertical>.btn-group:after, .FavouriteFitTools .btn-group-vertical>.btn-group:before, .FavouriteFitTools .btn-toolbar:after, .FavouriteFitTools .btn-toolbar:before, .FavouriteFitTools .clearfix:after, .FavouriteFitTools .clearfix:before, .FavouriteFitTools .container-fluid:after, .FavouriteFitTools .container-fluid:before, .FavouriteFitTools .container:after, .FavouriteFitTools .container:before, .FavouriteFitTools .dl-horizontal dd:after, .FavouriteFitTools .dl-horizontal dd:before, .FavouriteFitTools .form-horizontal .form-group:after, .FavouriteFitTools .form-horizontal .form-group:before, .FavouriteFitTools .modal-footer:after, .FavouriteFitTools .modal-footer:before, .FavouriteFitTools .modal-header:after, .FavouriteFitTools .modal-header:before, .FavouriteFitTools .nav:after, .FavouriteFitTools .nav:before, .FavouriteFitTools .navbar-collapse:after, .FavouriteFitTools .navbar-collapse:before, .FavouriteFitTools .navbar-header:after, .FavouriteFitTools .navbar-header:before, .FavouriteFitTools .navbar:after, .FavouriteFitTools .navbar:before, .FavouriteFitTools .pager:after, .FavouriteFitTools .pager:before, .FavouriteFitTools .panel-body:after, .FavouriteFitTools .panel-body:before, .FavouriteFitTools .row:after, .FavouriteFitTools .row:before {
+    display: table;
+    content: " ";
+}
+.FavouriteFitTools .btn-group-vertical>.btn-group:after, .FavouriteFitTools .btn-toolbar:after, .FavouriteFitTools .clearfix:after, .FavouriteFitTools .container-fluid:after, .FavouriteFitTools .container:after, .FavouriteFitTools .dl-horizontal dd:after, .FavouriteFitTools .form-horizontal .form-group:after, .FavouriteFitTools .modal-footer:after, .FavouriteFitTools .modal-header:after, .FavouriteFitTools .nav:after, .FavouriteFitTools .navbar-collapse:after, .FavouriteFitTools .navbar-header:after, .FavouriteFitTools .navbar:after, .FavouriteFitTools .pager:after, .FavouriteFitTools .panel-body:after, .FavouriteFitTools .row:after {
+    clear: both;
+}
+.FavouriteFitTools .nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+}
+.FavouriteFitTools .nav>li {
+    position: relative;
+    display: block;
+}
+.FavouriteFitTools .nav {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.FavouriteFitTools .nav-tabs>li.active>a, .FavouriteFitTools .nav-tabs>li.active>a:focus, .FavouriteFitTools .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.FavouriteFitTools .nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.FavouriteFitTools .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+.FavouriteFitTools a {
+    text-decoration: none;
+}
+.FavouriteFitTools .tab-content>.active {
+    display: block !important;
+}
+.FavouriteFitTools .tab-content>.tab-pane {
+    display: none;
+}
+.FavouriteFitTools .h4, .FavouriteFitTools h4 {
+    font-size: 18px;
+}
+.FavouriteFitTools .h4, .FavouriteFitTools h4 {
+    font-size: 18px;
+}
+.FavouriteFitTools .h1, .FavouriteFitTools .h2, .FavouriteFitTools .h3, .FavouriteFitTools .h4, .FavouriteFitTools .h5, .FavouriteFitTools .h6, .FavouriteFitTools h1, .FavouriteFitTools h2, .FavouriteFitTools h3, .FavouriteFitTools h4, .FavouriteFitTools h5, .FavouriteFitTools h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+
+
+
+
+#design_option .nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+#design_option .nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+#design_option ol, #design_option ul {
+    margin-top: 0;
+}
+#design_option .btn-group-vertical>.btn-group:after, #design_option .btn-group-vertical>.btn-group:before, #design_option .btn-toolbar:after, #design_option .btn-toolbar:before, #design_option .clearfix:after, #design_option .clearfix:before, #design_option .container-fluid:after, #design_option .container-fluid:before, #design_option .container:after, #design_option .container:before, #design_option .dl-horizontal dd:after, #design_option .dl-horizontal dd:before, #design_option .form-horizontal .form-group:after, #design_option .form-horizontal .form-group:before, #design_option .modal-footer:after, #design_option .modal-footer:before, #design_option .modal-header:after, #design_option .modal-header:before, #design_option .nav:after, #design_option .nav:before, #design_option .navbar-collapse:after, #design_option .navbar-collapse:before, #design_option .navbar-header:after, #design_option .navbar-header:before, #design_option .navbar:after, #design_option .navbar:before, #design_option .pager:after, #design_option .pager:before, #design_option .panel-body:after, #design_option .panel-body:before, #design_option .row:after, #design_option .row:before {
+    display: table;
+    content: " ";
+}
+#design_option .btn-group-vertical>.btn-group:after, #design_option .btn-toolbar:after, #design_option .clearfix:after, #design_option .container-fluid:after, #design_option .container:after, #design_option .dl-horizontal dd:after, #design_option .form-horizontal .form-group:after, #design_option .modal-footer:after, #design_option .modal-header:after, #design_option .nav:after, #design_option .navbar-collapse:after, #design_option .navbar-header:after, #design_option .navbar:after, #design_option .pager:after, #design_option .panel-body:after, #design_option .row:after {
+    clear: both;
+}
+#design_option .nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+}
+#design_option .nav>li {
+    position: relative;
+    display: block;
+}
+#design_option .nav {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+#design_option .nav-tabs>li.active>a, #design_option .nav-tabs>li.active>a:focus, #design_option .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+#design_option .nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+#design_option .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+#design_option a {
+    text-decoration: none;
+}
+#design_option .tab-content>.active {
+    display: block !important;
+}
+#design_option .tab-content>.tab-pane {
+    display: none;
+}
+#design_option .h4, #design_option h4 {
+    font-size: 18px;
+}
+#design_option .h4, #design_option h4 {
+    font-size: 18px;
+}
+#design_option .h1, #design_option .h2, #design_option .h3, #design_option .h4, #design_option .h5, #design_option .h6, #design_option h1, #design_option h2, #design_option h3, #design_option h4, #design_option h5, #design_option h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}

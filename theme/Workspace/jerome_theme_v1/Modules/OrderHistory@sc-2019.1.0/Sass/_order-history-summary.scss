@@ -1,0 +1,135 @@
+.order-history-summary-summary-title{
+	@extend .summary-title;
+	margin: 5px 0;
+    color: #777777;
+    font-size: 14px;
+    text-align: left;
+    padding: 0;
+    padding-bottom: 6px;
+    background: none;
+    font-weight: bold;
+    margin-top: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.order-history-summary-summary-container{
+	margin-bottom: $sc-margin-lv4;
+	// box-shadow: 0 3px 0 $sc-color-theme-background;
+	// -moz-box-shadow: 0 3px 0 $sc-color-theme-background;
+	// -webkit-box-shadow: 0 3px 0 $sc-color-theme-background;
+} 
+
+.order-history-summary-summary-total{
+	p{
+		@extend .summary-total;
+	}
+}
+
+.order-history-summary-summary-subtotal{
+	@extend .summary-subtotal;
+	// margin-bottom:$sc-margin-lv3;
+}
+
+.order-history-summary-summary-grid-float{
+	@extend .summary-grid-float;
+	padding: 0;
+    color: #777777;
+    font-size: 14px;
+    text-align: left;
+    padding-bottom: 6px;
+    background: none;
+    font-weight: normal;
+    border-bottom: 1px solid #e0e0e0;
+    text-transform: capitalize !important;
+}
+
+.order-history-summary-summary-amount-subtotal{
+	@extend .summary-grid-right;
+}
+
+.order-history-summary-summary-amount-discount{
+	@extend .summary-grid-right;
+}
+
+.order-history-summary-summary-amount-shipping{
+	@extend .summary-grid-right;
+}
+
+.order-history-summary-summary-amount-handling{
+	@extend .summary-grid-right;
+}
+
+.order-history-summary-summary-amount-certificate{
+	@extend .summary-grid-right;
+}
+
+.order-history-summary-summary-amount-promocode{
+	@extend .summary-grid-right;
+}
+
+.order-history-summary-summary-amount-tax{
+	@extend .summary-grid-right;
+}
+
+.order-history-summary-summary-amount-total{
+	@extend .summary-grid-right;
+}
+
+
+
+
+
+.order-history-summary-summary-col{
+	width:34.5%;
+	float: left;
+}
+
+.order-history-summary-button-reorder{
+	@extend .button-secondary;
+	@extend .button-medium;
+	@extend .button-generic;
+	margin-bottom:$sc-margin-lv2;
+	display:block;
+}
+
+.order-history-summary-button-download-pdf{
+	@extend .button-secondary;
+	@extend .button-medium;
+	@extend .button-generic;
+	margin-bottom:$sc-margin-lv2;
+	display:block;
+}
+
+.order-history-summary-button-request-return{
+	@extend .button-tertiary;
+	@extend .button-medium;
+	@extend .button-generic;
+	margin-bottom:$sc-margin-lv2;
+	display:block;
+}
+
+.order-history-summary-button-view-invoice{
+	@extend .button-tertiary;
+	@extend .button-medium;
+	@extend .button-generic;
+	margin-bottom:$sc-margin-lv2;
+	display:block;
+	@media(min-width: $screen-sm-min) {
+		margin-bottom:0;
+	}
+}
+
+
+
+.order-history-summary-button-cancel-order{
+	@extend .button-tertiary;
+	@extend .button-medium;
+	@extend .button-generic;
+	margin-bottom:$sc-margin-lv2;
+	display:block;
+}
+
+.order-history-summary-pickup-label-free {
+	@extend .summary-grid-right;
+	color: $sc-color-success;
+}

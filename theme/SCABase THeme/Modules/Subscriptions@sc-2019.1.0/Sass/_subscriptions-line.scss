@@ -1,0 +1,70 @@
+.subscriptions-line {
+
+  @extend .row;
+  @extend .info-card;
+  margin: 0;
+  margin-bottom: $sc-margin-lv2;
+
+  h4.subscriptions-line-info-card-content{
+    display: inline-block;
+    width: 60%;
+    margin-bottom: $sc-margin-lv4;
+    @media (min-width: $screen-md-min) {
+      width: 25%;
+      margin: 0;
+    }
+  }
+
+  .subscriptions-line-info-card-content{
+    @extend .info-card-content;
+    margin: 0;
+    &.subscriptions-line-label-container, &.subscriptions-line-button {
+      float: right;
+    }
+    &.subscriptions-line-date {
+      margin-top: $sc-margin-lv3;
+    }
+    @media (min-width: $screen-md-min) {
+      display: inline-block;
+      vertical-align: middle;
+      padding-right: $sc-padding-lv2;
+      &.subscriptions-line-date {
+        width: 25%;
+        margin: 0;
+      }
+      &.subscriptions-line-info-container {
+        width: 20%
+      }
+      &.subscriptions-line-label-container {
+        width: 20%;
+        float: none;
+      }
+      &.subscriptions-line-button {
+        padding:0;
+        margin-top: $sc-margin-lv3;
+      }
+    }
+  }
+
+  .label{
+      font-size: $sc-font-size-s;
+      font-weight: $sc-font-weight-bold;
+  }
+
+  .subscriptions-line-label-active {
+    @extend .label-success;
+  }
+
+  .subscriptions-line-label-suspended, .subscriptions-line-label-processing {
+    @extend .label-warning;
+  }
+  .subscriptions-line-label-closed {
+    @extend .label-error;
+  }
+
+  a.subscriptions-line-button-edit {
+    @extend .button-link;
+    margin: 0;
+    padding: 0;
+  }
+}

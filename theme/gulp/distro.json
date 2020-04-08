@@ -1,0 +1,7 @@
+{
+    "name": "ThemeDevelopmentTools-19.2.0.",
+    "folders": {
+        "distribution": "FileCabinet/SuiteScripts/extension-mechanism",
+        "attributes": "FileCabinet/SuiteScripts/extension-mechanism/.attributes"
+    }
+}

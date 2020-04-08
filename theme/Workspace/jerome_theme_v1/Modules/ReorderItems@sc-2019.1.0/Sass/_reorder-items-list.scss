@@ -1,0 +1,113 @@
+.reorder-items-list-button-back {
+	@extend .button-back;
+}
+
+.reorder-items-list-button-back-icon {
+	@extend .button-back-icon;
+}
+
+.reorder-items-list-hedaer {
+	padding: $sc-padding-lv3 0;
+}
+.reorder-items-list-hedaer{
+	h2{    font-weight: 400;
+		font-size: 20px;
+		color: #a6a6a6;
+	    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;}
+}
+.reorder-items-list .transaction-line-views-cell-actionable-options {
+	@media (min-width: $screen-sm-min){
+		margin-bottom:$sc-margin-lv2;
+	}
+}
+.reorder-items-list-paginator {
+	div:last-child{
+		float: left;
+		padding-top: 0 !important;
+	}
+}
+#ReorderHistory{
+.reorder-items-list .reorder-items-list-reorder-items-table tr{
+	border-bottom: 1px solid #e0e0e0;
+	}
+}
+.list-header-view-accordion{padding-bottom: 4px !important;}
+#ReorderHistory{
+.transaction-line-views-cell-actionable-thumbnail{
+	img{
+	    width: 126px !important;
+	}
+  } 
+}
+#ReorderHistory{
+.transaction-line-views-cell-actionable-table-first{
+	width: 19% !important;
+  }
+}
+.reorder-items-list-paginator{
+	margin-top: 0;
+}
+.reorder-items-list .list-header-view-filters {
+	padding: 0;
+}
+.reorder-items-list	.transaction-line-views-cell-actionable-table{
+	border-bottom: 1px solid $sc-color-theme-border-light;
+	@extend .table-row-with-border;
+}
+
+
+.reorder-items-actions-quantity{
+	clear:both;
+	display: block;
+	overflow: hidden;
+	margin-bottom:$sc-margin-lv2;
+	float: right;
+}
+.transaction-line-views-cell-actionable-name, .transaction-line-views-cell-actionable-price, 
+.product-line-sku-container, .transaction-line-views-cell-actionable-options {margin-bottom: 0 !important;}
+.reorder-items-list-empty {
+	@extend .list-empty;
+}
+.transaction-line-views-cell-actionable-name {
+	a{
+	color: #706f6f;
+    font-weight: lighter;
+	}
+}
+.transaction-line-views-cell-actionable-name{
+	a:hover{text-decoration: underline; color:#706f6f}
+}
+.reorder-items-list-reorder-items-table{
+	@extend .transaction-line-views-cell-actionable-table;
+}
+.reorder-items-list-reorder-items-table tr:hover{
+	cursor: pointer;
+	background-color: #fafafa;
+}
+
+.reorder-items-list-paginator{
+	@extend .case-list-paginator !optional;
+}
+
+
+
+.reorder-items-list-empty-section {
+	padding:$sc-padding-lv8 $sc-padding-lv3 $sc-padding-lv3 $sc-padding-lv3;
+ 	text-align:center;
+}
+.reorder-items-list {
+	.quantity-pricing-flyout-content {
+		padding: 0;
+
+		tr {
+			border-bottom: 0;
+		}
+		th,
+		.quantity-pricing-table-body-quantity,
+		.quantity-pricing-table-body-price {
+			display: table-cell;
+			padding: $sc-padding-lv1;
+		}
+	}
+}

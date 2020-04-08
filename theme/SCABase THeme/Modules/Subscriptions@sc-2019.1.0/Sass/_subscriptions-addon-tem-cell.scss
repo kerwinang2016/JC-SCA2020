@@ -1,0 +1,19 @@
+.subscriptions-addon-item-cell-view-span3 {
+  @extend .col-xs-6;
+  @extend .col-sm-4;
+  @media (max-width: $screen-xs-max) {
+    margin-bottom: $sc-margin-lv6;
+  }
+}
+
+.subscriptions-addon-item-cell-grid-description {
+  font-size: $sc-font-size-s;
+}
+
+.subscriptions-addon-item-cell-grid-title-link {
+  @extend .item-cell-title;
+}
+
+.subscriptions-addon-item-cell-grid-price {
+  @extend .middle-price;
+}

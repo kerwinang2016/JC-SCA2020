@@ -1,0 +1,11 @@
+{
+	"gulp": {
+		"javascript": [
+			"almond.custom.js"
+		]
+	,	"ssp-libraries": [
+			"almond.js"
+		]
+	}
+,	"jshint": "false"
+}

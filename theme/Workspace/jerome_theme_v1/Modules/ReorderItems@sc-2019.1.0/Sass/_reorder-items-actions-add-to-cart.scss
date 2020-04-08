@@ -1,0 +1,32 @@
+.reorder-items-actions-add-to-cart{
+	color: #2A2B2D;
+    text-shadow: 1px 1px 1px #f1f1f1;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+22,cccccc+82 */
+background: #eeeeee; /* Old browsers */
+background: -moz-linear-gradient(top, #eeeeee 22%, #cccccc 82%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #eeeeee 22%,#cccccc 82%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #eeeeee 22%,#cccccc 82%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+    background-repeat: repeat-x;
+    border-color: #cccccc #cccccc #d9d9d9;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    background-color: #cccccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding: 5px 16px;
+    font-size: 12px;
+	width:auto;
+}
+button.reorder-items-actions-add-to-cart:hover{background: #cccccc !important; color:black !important;}
+
+.reorder-items-actions-add-to-cart-button-container{
+	@media(min-width: $screen-sm-min){
+		text-align: right;
+	}
+}

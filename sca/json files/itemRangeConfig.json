@@ -1,0 +1,268 @@
+[
+    {
+        "type": "Shirt",
+        "config": [
+            {
+                "name": "Neck",
+                "min": 22,
+                "max": 68
+            },
+            {
+                "name": "Shoulder",
+                "min": 26,
+                "max": 78
+            },
+            {
+                "name": "Chest",
+                "min": 52,
+                "max": 220
+            },
+            {
+                "name": "Waist",
+                "min": 50,
+                "max": 218
+            },
+            {
+                "name": "Hips",
+                "min": 42,
+                "max": 230
+            },
+            {
+                "name": "Upperarm",
+                "min": 26,
+                "max":77
+            },
+            {
+                "name": "Sleeve-Left",
+                "min": 42,
+                "max": 91
+            },
+            {
+                "name": "Sleeve-Right",
+                "min":42,
+                "max": 91
+            },
+            {
+                "name": "Cuff-Left",
+                "min": 15,
+                "max": 39
+            },
+            {
+                "name": "Cuff-Right",
+                "min": 15,
+                "max": 39
+            },
+            {
+                "name": "Back-Length",
+                "min": 49,
+                "max": 112
+            },
+            {
+                "name": "Front-Length",
+                "min": 49,
+                "max": 103
+            }
+        ]
+    },
+    {
+        "type": "Jacket",
+        "config": [
+            {
+                "name": "Shoulder",
+                "min": 34,
+                "max": 72
+            },
+            {
+                "name": "Chest",
+                "min": 76,
+                "max": 201
+            },
+            {
+                "name": "Waist",
+                "min": 67,
+                "max": 197
+            },
+            {
+                "name": "Seat",
+                "min": 76,
+                "max": 202
+            },
+            {
+                "name": "Back-Lt",
+                "min": 60,
+                "max": 98
+            },
+            {
+                "name": "Sleeve L",
+                "min": 47,
+                "max": 84
+            },
+            {
+                "name": "Sleeve R",
+                "min": 47,
+                "max": 84
+            },
+            {
+                "name": "Upperarm",
+                "min": 31,
+                "max": 64
+            },
+            {
+                "name": "Cuff",
+                "min": 19,
+                "max": 45
+            },
+            {
+                "name": "Front-Lt",
+                "min": 60,
+                "max": 95
+            },
+            {
+                "name": "Top-Button",
+                "min": 25,
+                "max": 65
+            }
+        ]
+    },
+    {
+        "type": "Trouser",
+        "config": [
+            {
+                "name": "waist",
+                "min": 56,
+                "max": 182
+            },
+            {
+                "name": "seat",
+                "min": 74,
+                "max": 198
+            },
+            {
+                "name": "u-rise",
+                "min": 50,
+                "max": 102
+            },
+            {
+                "name": "outseam-l",
+                "min": 77,
+                "max": 133
+            },
+            {
+                "name": "outseam-r",
+                "min": 77,
+                "max": 133
+            },
+            {
+                "name": "thigh",
+                "min": 51,
+                "max": 117
+            },
+            {
+                "name": "knee",
+                "min": 32,
+                "max": 82
+            }
+			,
+            {
+                "name": "foot",
+                "min": 27,
+                "max": 75
+            }
+        ]
+    },
+    {
+        "type": "Waistcoat",
+        "config": [
+            {
+                "name": "chest",
+                "min": 72,
+                "max": 196
+            },
+            {
+                "name": "waist",
+                "min": 68,
+                "max": 193
+            },
+            {
+                "name": "back-lt",
+                "min": 40,
+                "max": 77
+            },
+            {
+                "name": "front-lt",
+                "min": 48,
+                "max": 86
+            },
+            {
+                "name": "top-button",
+                "min": 20,
+                "max": 58
+     	    }
+        ]
+    },
+    {
+	"type": "Short-Sleeves-Shirt",
+        "config": [
+            {
+                "name": "Neck",
+                "min": 22,
+                "max": 68
+            },
+            {
+                "name": "Shoulder",
+                "min": 26,
+                "max": 78
+            },
+            {
+                "name": "Chest",
+                "min": 52,
+                "max": 220
+            },
+            {
+                "name": "Waist",
+                "min": 50,
+                "max": 218
+            },
+            {
+                "name": "Hips",
+                "min": 42,
+                "max": 230
+            },
+            {
+                "name": "Upperarm",
+                "min": 26,
+                "max":77
+            },
+            {
+                "name": "Sleeve-Left",
+                "min": 18,
+                "max": 38
+            },
+            {
+                "name": "Sleeve-Right",
+                "min": 18,
+                "max": 38
+            },
+            {
+                "name": "Cuff-Left",
+                "min": 26,
+                "max": 66
+            },
+            {
+                "name": "Cuff-Right",
+                "min": 26,
+                "max": 66
+            },
+            {
+                "name": "Back-Length",
+                "min": 49,
+                "max": 112
+            },
+            {
+                "name": "Front-Length",
+                "min": 49,
+                "max": 103
+            }
+        ]
+    }
+]
