@@ -101,7 +101,6 @@ define('OrderHistory.Packages.View'
 						model: this.address
 					,	hideDefaults: true
 					,	hideActions: true
-					,	hideSelector: true
 					});
 				}
 			}

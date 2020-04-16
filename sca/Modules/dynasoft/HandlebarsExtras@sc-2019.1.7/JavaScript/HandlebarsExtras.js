@@ -136,7 +136,7 @@ define(
         Handlebars.registerHelper('ifContains', function (v1, v2, options) {
           if(v1){
             /*jslint eqeq: true*/
-            if (v2.indexOf(v1) != -1) {
+            if (v1.indexOf(v2) != -1) {
                 return options.fn(this);
             }
           }

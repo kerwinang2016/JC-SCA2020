@@ -8,19 +8,16 @@
 // @module OrderHistory
 // Implements the experience of seeing all the customer Orders experience, this is the 'Order History' experience in MyAccount. Includes the Order module (Model, Collection, Views, Router)
 define('OrderHistory'
-,	[
-		'OrderHistory.List.View'
-	,	'OrderHistory.Details.View'
+,	[	
+		'OrderHistory.Router'
 	,	'SC.Configuration'
 	,	'underscore'
 	,	'Utils'
 	]
 ,	function (
-		OrderHistoryListView
-	,	OrderHistoryDetailsView
+		Router
 	,	Configuration
 	,	_
-	,	Utils
 	)
 {
 	'use strict';
@@ -61,33 +58,7 @@ define('OrderHistory'
 		// @method mountToApp
 	,	mountToApp: function (application)
 		{
-			var pageType = application.getComponent('PageType');
-			var routes = ['purchases', 'purchases?:options', 'open-purchases', 'open-purchases?:options'];
-			if(Configuration.get('siteSettings.isSCISIntegrationEnabled', false))
-			{
-				routes.push('instore-purchases');
-				routes.push('instore-purchases?:options');
-			}
-			pageType.registerPageType({
-				'name': 'PurchaseHistory'
-			,	'routes': routes
-			,	'view': OrderHistoryListView
-			,	'defaultTemplate': {
-					'name': 'order_history_list.tpl'
-				,	'displayName': 'Purchase history default'
-				,	'thumbnail': Utils.getAbsoluteUrl('img/default-layout-transaction-list.png')
-				}
-			});
-			pageType.registerPageType({
-				'name': 'PurchaseDetail'
-			,	'routes': ['purchases/view/:recordtype/:id']
-			,	'view': OrderHistoryDetailsView
-			,	'defaultTemplate': {
-					'name': 'order_history_details.tpl'
-				,	'displayName': 'Purchase history details default'
-				,	'thumbnail': Utils.getAbsoluteUrl('img/default-layout-purchase-detail.png')
-				}
-			});
+			return new Router(application);
 		}
 	};
 });

@@ -55,8 +55,8 @@ define(
 			{
 				var sortt = this.request.getParameter('sortt'),		//29/08/2019 Saad Saad
 					search = this.request.getParameter('search'),
-					startdate = this.request.getParameter('startdate') || this.request.getParameter('from'),
-					enddate = this.request.getParameter('enddate') || this.request.getParameter('to'),
+					startdate = this.request.getParameter('startdate'),
+					enddate = this.request.getParameter('enddate'),
 					cmtstatus = this.request.getParameter('cmtstatus'),
 					cmtdate = this.request.getParameter('cmtdate')
 					clientName = '',
@@ -92,9 +92,10 @@ define(
 					,	page: this.request.getParameter('page') || 1
 					,	results_per_page: this.request.getParameter('results_per_page')
 					,	client_name: clientName?clientName:""
-					,	client_id: clientid?clientid:""
-					,	search_so_id: soid?soid:""
-					,	sort_list: sortt?"true":"false"			//29/08/2019 Saad Saad
+					, search: search
+					// ,	client_id: clientid?clientid:""
+					// ,	search_so_id: soid?soid:""
+					// ,	sort_list: sortt?"true":"false"			//29/08/2019 Saad Saad
 					, recordtype: 'salesorder'
 					, parent: profile.parent
 					, startdate: startdate

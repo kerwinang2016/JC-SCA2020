@@ -40,7 +40,7 @@ define(
 
 	,	getContext: function ()
 		{
-			return {				
+			return {
 
 				model: this.model
 				//@property {String} id

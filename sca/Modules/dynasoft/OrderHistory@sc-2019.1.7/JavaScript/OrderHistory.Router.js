@@ -40,8 +40,8 @@ define('OrderHistory.Router'
 		,	'open-purchases': 'listOpenPurchases'
 		,	'open-purchases?:options': 'listOpenPurchases'
 		,	'cart':'saveditems'
-		,	'purchases/search?:key' :'searchbar'             //02/07/2019 Saad
-		,	'purchases/sortt/:keyData' :'sortbar'             //29/08/2019 Saad Saad
+		// ,	'purchases/search?:key' :'searchbar'             //02/07/2019 Saad
+		// ,	'purchases/sortt/:keyData' :'sortbar'             //29/08/2019 Saad Saad
 
 		}
 
@@ -61,70 +61,80 @@ define('OrderHistory.Router'
 		//@method listAllPurchases list orders @param {Object} options
 	,	listAllPurchases: function (options)
 		{
+
 			options = (options) ? Utils.parseUrlOptions(options) : {page: 1};
 			options.page = options.page || 1;
 			options.search = options.search || "";
-			options.sortt = options.sortt || "";			//29/08/2019 Saad Saad
+			options.sort = options.sort || "";			//29/08/2019 Saad Saad
 
-			var collection = new OrderHistoryCollection()
-			,	view = new OrderHistoryListView({
-					application: this.application
-				,	page: options.page
-				,	search: options.search        //02/07/2019 Saad
-				,	sortt:options.sortt			//29/08/2019 Saad Saad
-				,	collection: collection
-				});
-
-			collection.on('reset', view.showContent, view);
-
-			view.showContent();
-		}
-
-	,	searchbar: function (options)          //02/07/2019 Saad
-		{
-			options = (options) ? Utils.parseUrlOptions(options) :  {page: 1};
-			options.search = options.search? options.search : "";
 			options.startdate = options.startdate? options.startdate : "";
 			options.enddate = options.enddate? options.enddate : "";
 			options.cmtstatus = options.cmtstatus? options.cmtstatus : "";
 			options.cmtdate = options.cmtdate? options.cmtdate : "";
-			var collection = new OrderHistoryCollection([], {
-				search: options.search
-				, startdate: options.startdate
-				, enddate: options.enddate
-				, cmtstatus: options.cmtstatus
-				, cmtdate: options.cmtdate
-			})
-			,	view = new OrderHistoryListView({
+
+			var collection = new OrderHistoryCollection();
+			var	view = new OrderHistoryListView({
 					application: this.application
+				,	page: options.page
+				,	search: options.search        //02/07/2019 Saad
+				,	sort:options.sort			//29/08/2019 Saad Saad
 				,	collection: collection
-				,	search: options.search
+
 				, startdate: options.startdate
 				, enddate: options.enddate
 				, cmtstatus: options.cmtstatus
 				, cmtdate: options.cmtdate
 				});
-
 			collection.on('reset', view.showContent, view);
 
 			view.showContent();
 		}
 
-	,	sortbar: function (keyData)          //29/08/2019 Saad Saad
-		{
-			var collection = new OrderHistoryCollection([], {
-				sortt: keyData.toString()
-			})
-			,	view = new OrderHistoryListView({
-					application: this.application
-				,	collection: collection
-				,	sortt : keyData
-				});
+	// ,	searchbar: function (options)          //02/07/2019 Saad
+	// 	{
+	// 		options = (options) ? Utils.parseUrlOptions(options) :  {page: 1};
+	// 		options.search = options.search? options.search : "";
+	// 		options.startdate = options.startdate? options.startdate : "";
+	// 		options.enddate = options.enddate? options.enddate : "";
+	// 		options.cmtstatus = options.cmtstatus? options.cmtstatus : "";
+	// 		options.cmtdate = options.cmtdate? options.cmtdate : "";
+	// 		var collection = new OrderHistoryCollection([], {
+	// 			search: options.search
+	// 			, startdate: options.startdate
+	// 			, enddate: options.enddate
+	// 			, cmtstatus: options.cmtstatus
+	// 			, cmtdate: options.cmtdate
+	// 		})
+	// 		,	view = new OrderHistoryListView({
+	// 				application: this.application
+	// 			,	collection: collection
+	// 			,	search: options.search
+	// 			, startdate: options.startdate
+	// 			, enddate: options.enddate
+	// 			, cmtstatus: options.cmtstatus
+	// 			, cmtdate: options.cmtdate
+	// 			});
+	//
+	// 		collection.on('reset', view.showContent, view);
+	//
+	// 		view.showContent();
+	// 	}
 
-			collection.on('reset', view.showContent, view);
-
-			view.showContent();
-		}
+	// ,	sortbar: function (keyData)          //29/08/2019 Saad Saad
+	// 	{
+	// 		var collection = new OrderHistoryCollection([], {
+	// 			sortt: keyData.toString()
+	// 		})
+	// 		,	view = new OrderHistoryListView({
+	// 				application: this.application
+	// 			,	collection: collection
+	// 			,	sortt : keyData
+	// 			});
+	//
+	// 		collection.on('reset', view.showContent, view);
+	//
+	// 		view.showContent();
+	// 	}
 
 		//@method listOpenPurchases list orders @param {Object} options
 	,	listOpenPurchases: function (options)

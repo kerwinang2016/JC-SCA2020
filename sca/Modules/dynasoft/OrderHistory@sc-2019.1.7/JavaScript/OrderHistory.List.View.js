@@ -7,13 +7,11 @@
 
 //@module OrderHistory
 define('OrderHistory.List.View'
-,	[	'Transaction.List.View'
-	, 'SC.Configuration'
+,	[	'SC.Configuration'
 	,	'GlobalViews.Pagination.View'
 	,	'GlobalViews.ShowingCurrent.View'
-	,	'OrderHistory.Collection'
 	//,	'ListHeader.View'
-	// ,	'Backbone.CompositeView'
+	,	'Backbone.CompositeView'
 	,	'Backbone.CollectionView'
 	,	'OrderHistory.List.Tracking.Number.View'
 	,	'OrderHistoryRecords.View'
@@ -24,16 +22,13 @@ define('OrderHistory.List.View'
 	,	'Backbone'
 	,	'underscore'
 	,	'jQuery'
-	,	'Utils'
 	]
 ,	function (
-	  TransactionListView
-	,	Configuration
+		Configuration
 	,	GlobalViewsPaginationView
 	,	GlobalViewsShowingCurrentView
-	,	OrderHistoryCollection
 	//,	ListHeaderView
-	// ,	BackboneCompositeView
+	,	BackboneCompositeView
 	,	BackboneCollectionView
 	,	OrderHistoryListTrackingNumberView
 	,	OrderHistoryRecordsView
@@ -66,16 +61,55 @@ define('OrderHistory.List.View'
 		//@property {Object} events
 	,	events: {
 			'click [data-action="navigate"]': 'navigateToOrder'   //23-06-2019
-
 			, 'change [data-name="flag"]': 'updateFlag'             //23-06-2019
 			, 'click #modalContainerSave' : 'updateFlagDetails'    //23-06-2019
 			, 'click [data-dismiss="modal"]': 'closemodal'    //23-06-2019
-			, 'click button[rel=search]': 'search'   //23-06-2019
-			, 'click #searchorders': 'search'
-			, 'blur [name="oh_dateneeded"]': 'updateDateNeeded'  //23-06-2019
-			, 'change [name="oh_dateneeded"]': 'updateDateNeeded'  //30-06-2019
+			, 'click button[rel="search"]': 'searchorders'   //23-06-2019
+			, 'click #searchorders': 'searchorders'
+			// , 'blur [name="oh_dateneeded"]': 'updateDateNeeded'  //23-06-2019
+			// , 'change [name="oh_dateneeded"]': 'updateDateNeeded'  //30-06-2019
 			, 'click button[id="sortred"]': 'sortRed'   //29/08/2019 Saad Saad
 		}
+
+			//@method initialize
+		,	initialize: function (options)
+			{
+				this.search = options.search;      //01/07/2019 Saad
+				this.application = options.application;
+				this.collection = options.collection;
+				this.startdate = options.startdate;
+				this.enddate = options.enddate;
+				this.cmtstatus = options.cmtstatus;
+				this.cmtdate = options.cmtdate;
+				this.page = options.page;
+				this.sort = options.sort;
+				this.isSCISIntegrationEnabled = Configuration.get('siteSettings.isSCISIntegrationEnabled', false);
+
+				var isoDate = _.dateToString(new Date());
+
+				// this.rangeFilterOptions = {
+				// 	fromMin: '1800-01-02'
+				// ,	fromMax: isoDate
+				// ,	toMin: '1800-01-02'
+				// ,	toMax: isoDate
+				// };
+
+				this.listenCollection();
+				//BackboneCompositeView.add(this);
+				this.collection.update({
+						filter: this.customFilters || options.filter && options.filter.value
+					// ,	sort: options.sort.value
+					// ,	order: options.order
+					,	page: this.page
+					,	search: this.search
+					,	sort: this.sort   //29/08/2019 Saad Saad
+					, startdate: this.startdate
+					, enddate: this.enddate
+					, cmtstatus: this.cmtstatus
+					, cmtdate: this.cmtdate
+					});
+			}
+
 		//@method getSelectedMenu
 	,	getSelectedMenu: function ()
 		{
@@ -138,23 +172,27 @@ define('OrderHistory.List.View'
 		//var placed-order-model = this.collection.find(function(model) { return model.get('custcol_avt_saleorder_line_key') === 'Lee'; });
 	}
 
-	,	search: function (e) {   //23-06-2019             //02/07/2019 Saad
+	,	searchorders: function (e) {   //23-06-2019             //02/07/2019 Saad
 			e.preventDefault();
-			var url = "purchases"
-				, search_keyword = jQuery("input[rel=search]").val();
-			//if (search_keyword) {
-				url += "/search?search=" + search_keyword+"&cmtdate="+jQuery('#cmtdate').val()+"&startdate="+jQuery('#from').val()+"&enddate="+jQuery('#to').val()+"&cmtstatus="+jQuery('#filter_cmtstatus').val();
-			//}
+		 	var search_keyword = jQuery("input[rel=search]").val();
+			var startdate = jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):"";
+			var enddate = jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):"";
+			var cmtdate = jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):"";
+			var	url = "purchases?search=" + search_keyword+"&cmtdate="+cmtdate+
+				"&startdate="+startdate+"&enddate="+enddate+
+				"&cmtstatus="+jQuery('#filter_cmtstatus').val();
 			Backbone.history.navigate(url, true);
 		}
 
 	, 	sortRed: function (e) {		//29/08/2019 Saad Saad
 			e.preventDefault();
-			var url = "purchases",
-				sorturl="true"
-
-				url += "/sortt/"+sorturl;
-
+			var search_keyword = jQuery("input[rel=search]").val();
+			var startdate = jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):"";
+			var enddate = jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):"";
+			var cmtdate = jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):"";
+			var	url = "purchases?sort=true&search=" + search_keyword+"&cmtdate="+cmtdate+
+				"&startdate="+startdate+"&enddate="+enddate+
+				"&cmtstatus="+jQuery('#filter_cmtstatus').val();
 			Backbone.history.navigate(url, true);
 		}
 
@@ -172,84 +210,6 @@ define('OrderHistory.List.View'
 		}
 		// 19/07/2019 Saad  end
 
-		//@method initialize
-	,	initialize: function (options)
-		{
-			this.searchvalue = this.options.search;      //01/07/2019 Saad
-			this.application = options.application;
-			this.collection = options.collection;
-			this.startdate = this.options.startdate;
-			this.enddate = this.options.enddate;
-			this.cmtstatus = this.cmtstatus;
-			if (Backbone.history.fragment.indexOf('open-purchases') === 0)
-			{
-				this.collection = new OrderHistoryCollection([], {
-					filters: 'status:open'
-				});
-				this.activeTab = 'open';
-			}
-			else if (Backbone.history.fragment.indexOf('instore-purchases') === 0)
-			{
-				this.collection = new OrderHistoryCollection([], {
-					filters: 'origin:instore'
-				});
-				this.activeTab = 'instore';
-			}
-			else
-			{
-				this.collection = new OrderHistoryCollection();
-				this.activeTab = 'all';
-			}
-			this.isSCISIntegrationEnabled = Configuration.get('siteSettings.isSCISIntegrationEnabled', false);
-
-			var isoDate = _.dateToString(new Date());
-
-			this.rangeFilterOptions = {
-				fromMin: '1800-01-02'
-			,	fromMax: isoDate
-			,	toMin: '1800-01-02'
-			,	toMax: isoDate
-			};
-
-			this.listenCollection();
-
-			// Manages sorting and filtering of the collection
-			// this.listHeader = new ListHeaderView({
-			// 	view: this
-			// ,	application: this.application
-			// ,	collection: this.collection
-			// ,	sorts: this.sortOptions
-			// , filters: this.filters
-			// ,	rangeFilter: 'date'
-			// ,	rangeFilterLabel: _('From').translate()
-			// ,	hidePagination: true
-			// , allowEmptyBoundaries: true
-			// });
-
-			// BackboneCompositeView.add(this);
-			var range = options.range || {}
-			,	data = {
-					filter: this.customFilters || options.filter && options.filter.value
-				,	sort: options.sort.value
-				,	order: options.order
-				,	from: range.from
-				,	to: range.to
-				,	page: options.page
-				,	search: this.searchKey
-				,	sortt: this.sortkey   //29/08/2019 Saad Saad
-				, startdate: this.startdate
-				, enddate: this.enddate
-				, cmtstatus: this.cmtstatus
-				, cmtdate: this.cmtdate
-				};
-
-			this.fetch({
-				data: data
-			,	reset: true
-			,	killerId: options.killerId
-			});
-			this.collection.on('reset', this.showContent, this);
-		}
 		//@method navigateToOrder
 	,	navigateToOrder: function (e)
 		{
@@ -367,7 +327,9 @@ define('OrderHistory.List.View'
 						}
 
 						var tempDateNeeded =  new Date(order.get('dateneeded'));
-						var order_date_needed = (tempDateNeeded.getMonth()+1)+"/"+tempDateNeeded.getDate()+"/"+tempDateNeeded.getFullYear();
+						var mo = (parseFloat(tempDateNeeded.getMonth())+1);
+						var order_date_needed = mo+"/"+tempDateNeeded.getDate()+"/"+tempDateNeeded.getFullYear();
+
 
 						var columns = [
 							{
@@ -467,13 +429,24 @@ define('OrderHistory.List.View'
 		//@method getContext @return OrderHistory.List.View.Context
 	,	getContext: function ()
 		{
+			var dummydate = this.startdate.split('-');
+			var s_date ="",e_date="",c_date="";
+			if(dummydate[0])
+				s_date = dummydate[1]+'/'+dummydate[0]+'/'+dummydate[2];
+			dummydate = this.enddate.split('-')
+			if(dummydate[0])
+				e_date = dummydate[1]+'/'+dummydate[0]+'/'+dummydate[2];
+			dummydate = this.cmtdate.split('-')
+			if(dummydate[0])
+				c_date = dummydate[1]+'/'+dummydate[0]+'/'+dummydate[2];
 			//@class OrderHistory.List.View.Context
 			return {
 
-				searchvalue:this.searchvalue           //01/07/2019 Saad
-			, startdate : this.startdate
-			, enddate : this.enddate
+				searchvalue:this.search          //01/07/2019 Saad
+			, startdate : s_date
+			, enddate : e_date
 			, cmtstatus : this.cmtstatus
+			, cmtdate: c_date
 				//@property {String} pageHeader
 			,	pageHeader: this.page_header
 				//@property {Boolean} collectionLengthGreaterThan0

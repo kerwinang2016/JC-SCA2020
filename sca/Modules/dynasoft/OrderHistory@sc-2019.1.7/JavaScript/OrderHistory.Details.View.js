@@ -14,7 +14,6 @@ define('OrderHistory.Details.View'
 	,	'Transaction.Line.Views.Cell.Actionable.View'
 	,	'OrderHistory.Item.Actions.View'
 	,	'Transaction.Line.Views.QuantityAmount.View'
-	,	'OrderHistory.Model'
 	,	'OrderHistory.Payments.View'
 	,	'OrderHistory.Other.Payments.View'
 	,	'OrderHistory.ReturnAutorization.View'
@@ -35,7 +34,6 @@ define('OrderHistory.Details.View'
 	,	'Tracker'
 	,	'LiveOrder.Model'
 	,	'bignumber'
-	,	'AjaxRequestsKiller'
 	,	'Utils'
 	]
 ,	function (
@@ -45,7 +43,6 @@ define('OrderHistory.Details.View'
 	,	TransactionLineViewsCellActionableView
 	,	OrderHistoryItemActionsView
 	,	TransactionLineViewsQuantityAmountView
-	,	OrderHistoryModel
 	,	OrderHistoryPayments
 	,	OrderHistoryOtherPayments
 	,	OrderHistoryReturnAutorizationView
@@ -66,7 +63,6 @@ define('OrderHistory.Details.View'
 	,	Tracker
 	,	LiveOrderModel
 	,	BigNumber
-	,	AjaxRequestsKiller
 	,	Utils
 	)
 {
@@ -100,13 +96,10 @@ define('OrderHistory.Details.View'
 	,	initialize: function (options)
 		{
 			this.application = options.application;
-			this.id = options.routerArguments[1];
-			this.recordtype = options.routerArguments[0]
+
 			this.is_basic = !!this.application.getConfig('isBasic');
 
 			var self = this;
-			this.model = new OrderHistoryModel();
-
 			this.model.on('change:cancel_response', function (model, response_code)
 			{
 				var message = ''
@@ -141,37 +134,9 @@ define('OrderHistory.Details.View'
 					}
 				}
 			});
-		}
-	,	beforeShowContent: function()
-		{
 
-			var	suiteTaxEnabled = Configuration.get('siteSettings.isSuiteTaxEnabled')
-			,	suiteTaxPromise
-			,	self = this;
+			BackboneCompositeView.add(this);
 
-			var fetch = this.model.fetch({
-					data: {
-						internalid: self.id
-					,	recordtype: self.recordtype
-					}
-				,	killerId: AjaxRequestsKiller.getKillerId()
-			});
-			
-			if(suiteTaxEnabled)
-			{
-				var defer = jQuery.Deferred();
-				fetch.then(function(){
-					jQuery.get(Utils.getAbsoluteUrl('services/OrderHistory.Service2.ss?internalid='+self.id,true)).then(function(result){
-						
-						self.model.set('taxesPerType',_.isArray(result) ? result : []);
-					}).always(function(){
-						defer.resolve();
-					});
-				});
-				return defer;
-			}		
-
-			return fetch;
 		}
 
 		//@method getReturnAuthorizations
@@ -705,7 +670,6 @@ define('OrderHistory.Details.View'
 					model: this.billaddress
 				,	hideDefaults: true
 				,	hideActions: true
-				,	hideSelector: true
 				});
 			}
 

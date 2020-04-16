@@ -156,26 +156,30 @@ define(                                     //23/06/2019 Saad          //   26/0
 			nlapiLogExecution('debug','data',JSON.stringify(data));
       if(data.page)
         parameters += "&page="+ data.page;
-      if(data.client_name)
-        parameters += "&clientname="+data.client_name;
-      if(data.search_so_id)
-        parameters += "&soid="+data.search_so_id;
-      if(data.sort_list)
-        parameters += "&sort="+data.sort_list;
-      if(data.client_id)
-        parameters += "&clientid="+data.client_id;
+				if(data.search){
+					if(data.search.indexOf('SO-') != -1){
+							parameters += "&soid="+data.search;
+					}else{
+							parameters += "&clientname="+data.client_name;
+					}
+				}
+
+      if(data.sort)
+        parameters += "&sort="+data.sort;
+      // if(data.client_id)
+      //   parameters += "&clientid="+data.client_id;
       if(data.cmtstatus)
         parameters += "&cmtstatus="+data.cmtstatus;
       if(data.startdate){
-				var s_date = data.startdate;
+				var s_date = data.startdate.split('-').join('/');
 				parameters += "&startdate="+s_date;
 			}
       if(data.enddate){
-				var e_date = data.enddate;
+				var e_date = data.enddate.split('-').join('/');
 				parameters += "&enddate="+e_date;
 			}
       if(data.cmtdate)
-        parameters += "&cmtdate="+data.cmtdate;
+        parameters += "&cmtdate="+data.cmtdate.split('-').join('/');
 
 			var res = nlapiRequestURL(url + parameters);
 			return JSON.parse(res.getBody());

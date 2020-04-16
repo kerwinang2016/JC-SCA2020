@@ -966,7 +966,7 @@
 		},
 
 		fill: function(){
-			var d = new Date(this.viewDate),
+      var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
 				month = d.getUTCMonth(),
 				startYear = this.o.startDate !== -Infinity ? this.o.startDate.getUTCFullYear() : -Infinity,
@@ -1233,7 +1233,7 @@
 			if (this.picker.is(':visible') && this._focused_from){
 				$(this._focused_from).trigger('focus');
 			}
-			
+
 			delete this._focused_from;
 		},
 
@@ -1699,7 +1699,7 @@
 		datesDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
-		format: 'mm/dd/yyyy',
+		format: 'dd/mm/yyyy',
 		keepEmptyValues: false,
 		keyboardNavigation: true,
 		language: 'en',

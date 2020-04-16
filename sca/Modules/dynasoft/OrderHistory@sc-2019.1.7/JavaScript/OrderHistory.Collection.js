@@ -29,13 +29,12 @@ define('OrderHistory.Collection'
 
 	,	initialize: function (models, options)
 		{
-
 			TransactionCollection.prototype.initialize.apply(this, arguments);
-			this.searchKey = options && options.search;
+			this.search = options && options.search;
 			this.cmtstatus = options && options.cmtstatus;
 			this.startdate = options && options.startdate;
 			this.enddate = options && options.enddate;
-			this.sortkey = options && options.sortt               //29/08/2019 Saad Saad
+			this.sort = options && options.sort               //29/08/2019 Saad Saad
 			this.customFilters = options && options.filters;
 			this.cmtdate = options && options.cmtdate;
 		}
@@ -59,17 +58,15 @@ define('OrderHistory.Collection'
 			var range = options.range || {}
 			,	data = {
 					filter: this.customFilters || options.filter && options.filter.value
-				,	sort: options.sort.value
-				,	order: options.order
-				,	from: range.from
-				,	to: range.to
+				// ,	sort: options.sort
+				// ,	order: options.order
 				,	page: options.page
-				,	search: this.searchKey
-				,	sortt: this.sortkey   //29/08/2019 Saad Saad
-				, startdate: this.startdate
-				, enddate: this.enddate
-				, cmtstatus: this.cmtstatus
-				, cmtdate: this.cmtdate
+				,	search: options.search
+				,	sort: options.sort   //29/08/2019 Saad Saad
+				, startdate: options.startdate
+				, enddate: options.enddate
+				, cmtstatus: options.cmtstatus
+				, cmtdate: options.cmtdate
 				};
 
 			this.fetch({

@@ -60,7 +60,11 @@ define('Backbone.View.Plugin.DatePicker'
 									,	autoclose: true
 									, 	zIndexOffset: 1200
 									,	todayHighlight: $date_picker.data('todayhighlight')
+
 								});
+								if($date_picker[0].defaultValue)
+									$date_picker.datepicker('setDate', new Date($date_picker[0].defaultValue));
+								// $date_picker.datepicker('update');
 							});
 						}
 					}
