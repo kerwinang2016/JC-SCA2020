@@ -9,7 +9,7 @@
 				<span class="recordviews-actionable-composite" data-view="{{compositeKey}}"></span>
 			{{else}}
 				{{#if date_needed}}
-					<input name="oh_dateneeded" class="date_needed_class" placeholder="mm/dd/yyyy" id="" type="text" value="{{value}}" style="width:100px;font-size:10px;"> <a id="" class="close clear-dates">&times;</a>
+					<input name="oh_dateneeded" class="date_needed_class" data-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" type="date" value="{{value}}" style="width:100px;font-size:10px;"> <a id="" class="close clear-dates">&times;</a>
 				{{else if status_image}}
 					<img src="https://checkout.na2.netsuite.com/c.3857857/myaccount/img/{{value}}.png">
 				{{else}}

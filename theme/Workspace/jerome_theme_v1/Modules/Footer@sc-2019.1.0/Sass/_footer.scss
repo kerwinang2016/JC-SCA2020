@@ -1442,15 +1442,11 @@ table.transaction-history-list-results-table td.recordviews-title span.recordvie
 
 /**** zain 16-07-19 start ****/
 iframe {
-    width: 102%;
+    width: 100%;
     height: 560px;
     border-left: 0;
-    position: relative;
-    top: -132px;
     overflow-y: hidden;
     overscroll-behavior-y: none;
-    right: -4px;
-    pointer-events: none;
 }
 
 .iframe-modal .global-views-modal-content {

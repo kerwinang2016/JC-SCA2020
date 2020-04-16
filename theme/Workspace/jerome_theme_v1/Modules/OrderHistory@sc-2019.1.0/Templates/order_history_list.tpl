@@ -31,51 +31,60 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 		<!-- 22-06-2019 -->
 
 	</header>
-	<div class="list-header-view-datepicker-from">
-		<label class="list-header-view-from" for="from">{{rangeFilterLabel}}</label>
+	<button class="orderfilters"type="button" data-toggle="collapse" data-target="#orderfilters" aria-expanded="false" aria-controls="orderfilters">
+    Filters
+  </button>
+	<div class="collapse" id="orderfilters">
+		<div class="list-header-view-datepicker-from">
+			<label class="list-header-view-from" for="from">{{rangeFilterLabel}}</label>
 
-		<div class="list-header-view-datepicker-container-input">
-			<input class="list-header-view-accordion-body-input" id="from" name="from" type="date" autocomplete="off" data-format="yyyy-mm-dd" data-start-date="{{rangeFilterFromMin}}" data-end-date="{{rangeFilterFromMax}}" value="{{startdate}}" data-action="range-filter" data-todayhighlight="true" placeholder="yyyy-mm-dd"/>
-			<i class="list-header-view-accordion-body-calendar-icon"></i>
-			<a class="list-header-view-accordion-body-clear" data-action="clear-value">
-				<i class="list-header-view-accordion-body-clear-icon"></i>
-			</a>
-		</div>
-	</div>
-	<div class="list-header-view-datepicker-to">
-		<label class="list-header-view-to" for="to">{{translate 'to'}}</label>
-
-		<div class="list-header-view-datepicker-container-input">
-			<input class="list-header-view-accordion-body-input" id="to" name="to" type="date" autocomplete="off" data-format="yyyy-mm-dd" data-start-date="{{rangeFilterToMin}}" data-end-date="{{rangeFilterToMax}}" value="{{enddate}}" data-action="range-filter" data-todayhighlight="true" placeholder="yyyy-mm-dd"/>
-			<i class="list-header-view-accordion-body-calendar-icon"></i>
-			<a class="list-header-view-accordion-body-clear" data-action="clear-value">
-				<i class="list-header-view-accordion-body-clear-icon"></i>
-			</a>
-		</div>
-	</div>
-	<div>
-		<div style="display:inline-block;">
-			<select id="filter_cmtstatus">
-				<option value="">CMT Status</option>
-			  <option value="2" {{#ifContains cmtstatus '2'}}selected{{/ifContains}}>In Production</option>
-			  <option value="3" {{#ifContains cmtstatus '3'}}selected{{/ifContains}}>Shipped</option>
-			  <option value="[7,8]" {{#ifContains cmtstatus ['7','8']}}selected{{/ifContains}}>Processed/Confirmed</option>
-				<option value="[9,10]" {{#ifContains cmtstatus ['9','10']}}selected{{/ifContains}}>Left Factory/Delivered</option>
-			  <option value="14" {{#ifContains cmtstatus '14'}}selected{{/ifContains}}>Production Complete</option>
-			</select>
-		</div>
-		<div class="list-header-view-datepicker-cmtdate" style="display:inline-block;">
 			<div class="list-header-view-datepicker-container-input">
-				<input class="list-header-view-accordion-body-input" id="cmtdate" name="cmtdate" type="date" autocomplete="off" data-format="yyyy-mm-dd" data-start-date="{{rangeFilterCMTDateMin}}" data-end-date="{{rangeFilterCMTDateMax}}" value="{{cmtdate}}" data-action="range-filter" data-todayhighlight="true" placeholder="CMT Date"/>
+				<input class="list-header-view-accordion-body-input" id="from" name="from" type="date"
+				autocomplete="off" data-format="dd/mm/yyyy" value="{{startdate}}" data-todayhighlight="true"
+				placeholder="dd/mm/yyyy"/>
 				<i class="list-header-view-accordion-body-calendar-icon"></i>
 				<a class="list-header-view-accordion-body-clear" data-action="clear-value">
 					<i class="list-header-view-accordion-body-clear-icon"></i>
 				</a>
 			</div>
 		</div>
-		<button style="display:inline-block;" class="btn" id="searchorders">Search</btn>
-	</div>
+		<div class="list-header-view-datepicker-to">
+			<label class="list-header-view-to" for="to">{{translate 'to'}}</label>
 
+			<div class="list-header-view-datepicker-container-input">
+				<input class="list-header-view-accordion-body-input" id="to" name="to" type="date"
+				autocomplete="off" data-format="dd/mm/yyyy" value="{{enddate}}" data-todayhighlight="true"
+				placeholder="dd/mm/yyyy"/>
+				<i class="list-header-view-accordion-body-calendar-icon"></i>
+				<a class="list-header-view-accordion-body-clear" data-action="clear-value">
+					<i class="list-header-view-accordion-body-clear-icon"></i>
+				</a>
+			</div>
+		</div>
+		<div class="list-header-view-cmtstatus">
+			<select id="filter_cmtstatus" class="cmtstatus">
+				<option value="">CMT Status</option>
+			  <option value="2" {{#ifEquals cmtstatus '2'}}selected{{/ifEquals}}>In Production</option>
+			  <option value="3" {{#ifEquals cmtstatus '3'}}selected{{/ifEquals}}>Shipped</option>
+			  <option value="[7,8]" {{#ifEquals cmtstatus '[7,8]'}}selected{{/ifEquals}}>Processed/Confirmed</option>
+				<option value="[9,10]" {{#ifEquals cmtstatus '[9,10]'}}selected{{/ifEquals}}>Left Factory/Delivered</option>
+			  <option value="14" {{#ifEquals cmtstatus '14'}}selected{{/ifEquals}}>Production Complete</option>
+			</select>
+		</div>
+		<div class="list-header-view-datepicker-cmtdate" style="display:inline-block;">
+			<div class="list-header-view-datepicker-container-input">
+				<input class="list-header-view-accordion-body-input" id="cmtdate" name="cmtdate"
+				type="date" autocomplete="off" data-todayhighlight="true" data-format='dd/mm/yyyy'
+				placeholder="CMT Date" value="{{cmtdate}}"/>
+				
+				<i class="list-header-view-accordion-body-calendar-icon"></i>
+				<a class="list-header-view-accordion-body-clear">
+					<i class="list-header-view-accordion-body-clear-icon"></i>
+				</a>
+			</div>
+		</div>
+		<button class="btn d-inline-block searchordersbtn" id="searchorders">Search</btn>
+	</div>
 	<!-- <div class="order-history-list-header-nav">
 		<div class="order-history-list-header-button-group">
 			{{#if openIsActive}}
@@ -232,18 +241,15 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 	</div>
 </div>
 
-<!-- 02/08/2019 -->
 <script>
 $(document).ready(function(){
-	var $dates = $('.date_needed_class').datepicker();
+	// var $dates = $('.date_needed_class').datepicker({format:'dd/mm/yyyy'});
 	$('.clear-dates').on('click', function () {
 		$(this).closest('.recordviews-actionable-date').find('.date_needed_class').datepicker('setDate', null);
 	});
 
 });
-	</script>
-
-	<!-- 02/08/2019 -->
+	</script>	<!-- 02/08/2019 -->
 {{!----
 Use the following context variables when customizing this template:
 
