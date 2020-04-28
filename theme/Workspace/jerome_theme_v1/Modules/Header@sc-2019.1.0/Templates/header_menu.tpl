@@ -44,8 +44,8 @@
 
 
 {{!----
-Use the following context variables when customizing this template: 
-	
+Use the following context variables when customizing this template:
+
 	categories (Array)
 	showExtendedMenu (Boolean)
 	showLanguages (Boolean)

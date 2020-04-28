@@ -41,7 +41,7 @@
 }
 @media (min-width: 1200px) {
 .header-menu-level1 > li {
-	 width: 180px !important; // zain 18-07-19 // 11-12-19
+	 width: 150px !important; // zain 18-07-19 // 11-12-19
 	 text-align: center; // 11-12-19
 }
 }
@@ -123,7 +123,7 @@
 	font-weight: $sc-font-weight-semibold;
 	color: $sc-main-navigation-submenu-heading-color;
 	padding-bottom: $sc-padding-lv1;
-	// margin-bottom: $sc-margin-lv2; 
+	// margin-bottom: $sc-margin-lv2;
 	border-bottom: 1px solid $sc-main-navigation-submenu-heading-border-color;
 	display: block;
 

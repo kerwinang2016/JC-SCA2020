@@ -13,7 +13,7 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 <section class="order-history-list">
 	<header class="order-history-list-header">
 		<h2>{{pageHeader}}</h2>
-		<button id="sortred" class="custom-btn" style="height:33px;margin-left:5px;">Sort</button>
+
 		<img id="searchhint" src="https://checkout.na2.netsuite.com/c.3857857/myaccount/img/info_icon.gif" class="weboption-tooltip ox-tooltip-icon tooltipstered" data-toggle="tooltip" data-original-title="Example:<br/>Searching orders: SO-XXXX <br/> Searching clients: Client Name" data-html="true">
 		<div class="inner-addon right-addon pull-right">
 			<form class="form-search">
@@ -36,13 +36,11 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
   </button>
 	<div class="collapse" id="orderfilters">
 		<div class="list-header-view-datepicker-from">
-			<label class="list-header-view-from" for="from">{{rangeFilterLabel}}</label>
-
 			<div class="list-header-view-datepicker-container-input">
 				<input class="list-header-view-accordion-body-input" id="from" name="from" type="date"
 				autocomplete="off" data-format="dd/mm/yyyy" value="{{startdate}}" data-todayhighlight="true"
 				placeholder="dd/mm/yyyy"/>
-				<i class="list-header-view-accordion-body-calendar-icon"></i>
+				<i class="list-header-view-accordion-body-calendar-icon" style="padding:8px;"></i>
 				<a class="list-header-view-accordion-body-clear" data-action="clear-value">
 					<i class="list-header-view-accordion-body-clear-icon"></i>
 				</a>
@@ -55,14 +53,14 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 				<input class="list-header-view-accordion-body-input" id="to" name="to" type="date"
 				autocomplete="off" data-format="dd/mm/yyyy" value="{{enddate}}" data-todayhighlight="true"
 				placeholder="dd/mm/yyyy"/>
-				<i class="list-header-view-accordion-body-calendar-icon"></i>
+				<i class="list-header-view-accordion-body-calendar-icon" style="padding:8px;"></i>
 				<a class="list-header-view-accordion-body-clear" data-action="clear-value">
 					<i class="list-header-view-accordion-body-clear-icon"></i>
 				</a>
 			</div>
 		</div>
 		<div class="list-header-view-cmtstatus">
-			<select id="filter_cmtstatus" class="cmtstatus">
+			<select style="{{#if cmtstatus}}color:#4D5256;{{else}}color:rgba(77,82,86,0.25);{{/if}}" id="filter_cmtstatus" class="cmtstatus">
 				<option value="">CMT Status</option>
 			  <option value="2" {{#ifEquals cmtstatus '2'}}selected{{/ifEquals}}>In Production</option>
 			  <option value="3" {{#ifEquals cmtstatus '3'}}selected{{/ifEquals}}>Shipped</option>
@@ -71,19 +69,21 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 			  <option value="14" {{#ifEquals cmtstatus '14'}}selected{{/ifEquals}}>Production Complete</option>
 			</select>
 		</div>
-		<div class="list-header-view-datepicker-cmtdate" style="display:inline-block;">
+		<div class="list-header-view-datepicker-cmtdate" style="display:inline-block;margin-left:10px;">
 			<div class="list-header-view-datepicker-container-input">
 				<input class="list-header-view-accordion-body-input" id="cmtdate" name="cmtdate"
 				type="date" autocomplete="off" data-todayhighlight="true" data-format='dd/mm/yyyy'
 				placeholder="CMT Date" value="{{cmtdate}}"/>
-				
-				<i class="list-header-view-accordion-body-calendar-icon"></i>
-				<a class="list-header-view-accordion-body-clear">
-					<i class="list-header-view-accordion-body-clear-icon"></i>
-				</a>
 			</div>
 		</div>
-		<button class="btn d-inline-block searchordersbtn" id="searchorders">Search</btn>
+		<div style="float:right;">
+		<button class="custom-btn" id="searchorders">Search</button>
+		<button class="custom-btn" id="clearfilters">Clear</button>
+		<button id="sortred" class="custom-btn" style="width:30px;background-image: url(/myaccount/img/red.png);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-color: #e6e6e6;">&nbsp;</button>
+		</div>
 	</div>
 	<!-- <div class="order-history-list-header-nav">
 		<div class="order-history-list-header-button-group">
@@ -124,12 +124,18 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 			<!-- {{/if}} -->
 		</div>
 	{{/if}}
+	<div>
+		<input type="checkbox" id="selectall">  Select All
+		<div style="float:right;">
+			<button class="custom-btn" id="downloadorders">Download</input>
+		</div>
+	</div>
 	<table class="order-history-list-recordviews-actionable-table">
 		<thead class="order-history-list-recordviews-actionable-header">
 			<tr>
-				<!-- <th class="order-history-list-recordviews-actionable-title-header">
-					<span>{{translate 'Purchase No.'}}</span>
-				</th> -->
+				<th class="order-history-list-recordviews-actionable-title-header">
+					<span>{{translate 'Select'}}</span>
+				</th>
 				<th class="order-history-list-recordviews-actionable-date-header">
 					<span>{{translate 'Date'}}</span>
 				</th>
@@ -195,17 +201,7 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 			<p class="order-history-list-empty">{{translate 'Loading...'}}</p>
 		{{else}}
 			<div class="order-history-list-empty-section">
-				<h5>{{translate 'You don\'t have any purchases in your account right now.'}}</h5>
-
-				{{#unless allIsActive}}
-					<p>{{translate 'To see a list of all your past purchases, you can go to the tab <a href="/purchases" class="">All</a>.'}}</p>
-				{{/unless}}
-
-				{{#if isSCISIntegrationEnabled}}
-					{{#if openIsActive}}
-						<p>{{translate 'If you are looking to review some past purchases made in one of our brick and mortar stores, please check the tab <a href="/instore-purchases" class="">In Store</a>.'}}</p>
-					{{/if}}
-				{{/if}}
+				<h5>{{translate 'Your search has zero results.'}}</h5>
 			</div>
 		{{/if}}
 

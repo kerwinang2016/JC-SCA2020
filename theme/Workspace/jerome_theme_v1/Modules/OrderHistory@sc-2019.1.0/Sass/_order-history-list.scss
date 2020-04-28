@@ -194,17 +194,18 @@
 }
 .OrderListView{
 	 .list-header-view-accordion-body-input{
-		 height:40px;
+		 height:30px;
 	 }
 	 .list-header-view-cmtstatus{
 		 display: inline-block;
 		 height: 40px;
 		 vertical-align: top;
 		 .cmtstatus{
-			 	padding: 10px 5px;
-		    height: 40px;
+			 margin-left: 10px;
+		    height: 30px;
 		    border: 1px solid #ccc;
 		    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+				padding: 0 0 0 10px;
 		}
 	 }
 	 .list-header-view-datepicker-cmtdate{
@@ -220,4 +221,19 @@
 		 height: 40px;
 	 }
 
+}
+.list-header-view-datepicker-from label, .list-header-view-datepicker-to label{
+	margin:0px;
+}
+.list-header-view-datepicker-from, .list-header-view-datepicker-to{
+	margin:0px;
+}
+.list-header-view-accordion-body-calendar-icon{
+		padding:8px;
+}
+input.list-header-view-accordion-body-input{
+	width: 130px;
+}
+input, select, textarea{
+	font-size:10px;
 }
