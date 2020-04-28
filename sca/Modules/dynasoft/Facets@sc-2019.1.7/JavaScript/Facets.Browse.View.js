@@ -6,19 +6,63 @@
 */
 
 // @module Facets
-define('Facets.Browse.View', ['SC.Configuration', 'LiveOrder.Model', 'Categories.Utils', 'Facets.FacetedNavigation.View', 'Facets.FacetedNavigationItem.View', 'Facets.FacetsDisplay.View', 'Facets.ItemListDisplaySelector.View', 'Facets.ItemListSortSelector.View', 'Facets.ItemListShowSelector.View', 'Facets.ItemCell.View', 'Facets.Empty.View', 'Facets.Browse.CategoryHeading.View', 'Facets.CategoryCell.View', 'Facets.FacetedNavigationItemCategory.View', 'Facets.Helper', 'GlobalViews.Pagination.View', 'Tracker'
-
-	, 'facets_facet_browse.tpl', 'facets_items_collection.tpl', 'facets_items_collection_view_cell.tpl', 'facets_items_collection_view_row.tpl'
-
-	, 'Backbone', 'Backbone.CollectionView', 'Backbone.CompositeView', 'underscore', 'jQuery', 'Utils', 'Bootstrap.Slider'
-], function (
-	Configuration, LiveOrderModel, CategoriesUtils, FacetsFacetedNavigationView, FacetsFacetedNavigationItemView, FacetsFacetsDisplayView, FacetsItemListDisplaySelectorView, FacetsItemListSortSelectorView, FacetsItemListShowSelectorView, FacetsItemCellView, FacetsEmptyView, FacetsBrowseCategoryHeadingView, FacetsCategoryCellView, FacetsFacetedNavigationItemCategoryView, FacetsHelper, GlobalViewsPaginationView, Tracker
-
-	, facets_facet_browse_tpl, facets_items_collection_tpl, facets_items_collection_view_cell_tpl, facets_items_collection_view_row_tpl
-
-	, Backbone, BackboneCollectionView, BackboneCompositeView
-
-	, _, jQuery, Utils
+define('Facets.Browse.View'
+, 	[	'SC.Configuration'
+		, 'LiveOrder.Model'
+		, 'Categories.Utils'
+		, 'Facets.FacetedNavigation.View'
+		, 'Facets.FacetedNavigationItem.View'
+		, 'Facets.FacetsDisplay.View'
+		, 'Facets.ItemListDisplaySelector.View'
+		, 'Facets.ItemListSortSelector.View'
+		, 'Facets.ItemListShowSelector.View'
+		, 'Facets.ItemCell.View'
+		, 'Facets.Empty.View'
+		, 'Facets.Browse.CategoryHeading.View'
+		, 'Facets.CategoryCell.View'
+		, 'Facets.FacetedNavigationItemCategory.View'
+		, 'Facets.Helper'
+		, 'GlobalViews.Pagination.View'
+		, 'Tracker'
+		, 'facets_facet_browse.tpl'
+		, 'facets_items_collection.tpl'
+		, 'facets_items_collection_view_cell.tpl'
+		, 'facets_items_collection_view_row.tpl'
+		, 'Backbone'
+		, 'Backbone.CollectionView'
+		, 'Backbone.CompositeView'
+		, 'underscore'
+		, 'jQuery'
+		, 'Utils'
+		, 'Bootstrap.Slider'
+	], function (
+			Configuration
+		, LiveOrderModel
+		, CategoriesUtils
+		, FacetsFacetedNavigationView
+		, FacetsFacetedNavigationItemView
+		, FacetsFacetsDisplayView
+		, FacetsItemListDisplaySelectorView
+		, FacetsItemListSortSelectorView
+		, FacetsItemListShowSelectorView
+		, FacetsItemCellView
+		, FacetsEmptyView
+		, FacetsBrowseCategoryHeadingView
+		, FacetsCategoryCellView
+		, FacetsFacetedNavigationItemCategoryView
+		, FacetsHelper
+		, GlobalViewsPaginationView
+		, Tracker
+		, facets_facet_browse_tpl
+		, facets_items_collection_tpl
+		, facets_items_collection_view_cell_tpl
+		, facets_items_collection_view_row_tpl
+		, Backbone
+		, BackboneCollectionView
+		, BackboneCompositeView
+		, _
+		, jQuery
+		, Utils
 ) {
 	'use strict';
 
@@ -101,12 +145,12 @@ define('Facets.Browse.View', ['SC.Configuration', 'LiveOrder.Model', 'Categories
 						self.keywordsFound = true;
 					}
 				});
-				
+
 				var href =  window.location.href;
 				if (!this.keywordsFound && href.includes('item-type')) {
 						this.model.set('total', 0);
 					}
-				
+
 			}
 
 			// @method getPagination Return the info of the current options in the PLP
@@ -128,12 +172,12 @@ define('Facets.Browse.View', ['SC.Configuration', 'LiveOrder.Model', 'Categories
 		,	keyAction: function(e)
 		{
 			var code = e.keyCode || e.which;
-			if(code == 13) { 
-				if($("#item-search-key-value1") || $("#item-search-key-value"))	
+			if(code == 13) {
+				if($("#item-search-key-value1") || $("#item-search-key-value"))
 				{
-					$("#search-item-keyword").click(); 
+					$("#search-item-keyword").click();
 				}
-				
+
 			}
 		}
 		,	searchItemKeyword: function () //15/01/2020
@@ -391,12 +435,12 @@ define('Facets.Browse.View', ['SC.Configuration', 'LiveOrder.Model', 'Categories
 				var facets = this.options.translator.facets,
 					category = this.model.get('category'),
 					title = category ? category.get('pagetitle') || _.pluck(this.getBreadcrumbPages(), 'text').join(' > ') : this.title;
-			
+
 				if (facets && facets.length) {
 					var buffer = [],
 						facet = null;
 
-					for (var i = 0; i < facets.length; i++) { 
+					for (var i = 0; i < facets.length; i++) {
 						facet = facets[i];
 						buffer.push(this.formatFacetTitle(facet));
 
@@ -523,13 +567,14 @@ define('Facets.Browse.View', ['SC.Configuration', 'LiveOrder.Model', 'Categories
 			,
 		getBreadcrumbPages: function () {
 				var breadcrumb = [];
-				
+
 				if (this.model.get('category')) {
 					var list = this.model.get('category').get('breadcrumb'),
 						self = this;
 					var client;
 					var hash = window.location.href.split(window.location.host + '/')[1];
-					if (hash.indexOf('Inventory/Fabrics') == -1 && hash.indexOf('Inventory/Inventory-Accessories') == -1 && hash.indexOf('Inventory/Packaging') == -1) {
+
+					if (hash!= 'applications' && hash.indexOf('Inventory/Fabrics') == -1 && hash.indexOf('Inventory/Inventory-Accessories') == -1 && hash.indexOf('Inventory/Packaging') == -1) {
 						var paramarr;
 						if (hash.indexOf('item-type/') != -1) {
 							paramarr = hash.split('item-type/')[1];
@@ -721,7 +766,7 @@ define('Facets.Browse.View', ['SC.Configuration', 'LiveOrder.Model', 'Categories
 			'Facets.Items': function () {  //15/01/2020
 				var items = this.model.get('items'); //17/12/2019 saad
 				// var urlParams = (window.location.search != "") ? window.location.search.split('&') : window.location.hash.split('&');
-				
+
 				var self = this,
 					display_option = _.find(this.itemsDisplayOptions, function (option) {
 						return option.id === self.options.translator.getOptionValue('display');
@@ -839,7 +884,7 @@ define('Facets.Browse.View', ['SC.Configuration', 'LiveOrder.Model', 'Categories
 			var urlParameters = (window.location.href.indexOf('?')!=-1)? window.location.href.split('?')[1].split('&'):[]
 		, 	clientParam = _.find(urlParameters, function(option){return (option.indexOf('client')!=-1)})
 		,	client = (clientParam) ? "&client="+clientParam.split('=')[1] : "";
-		
+
 			var itemtype_category = false;
 			var hasSelectedFacets = this.translator.cloneWithoutFacetId('category').getAllFacets().length,
 				hasSubcategories = this.model.get('category') ? this.model.get('category').get('categories').length : false,

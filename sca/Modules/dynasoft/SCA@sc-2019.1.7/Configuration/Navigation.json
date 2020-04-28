@@ -75,7 +75,7 @@
                     "level": "1",
                     "classnames": "header-menu-home-anchor"
                 },
-        
+
                 {
                     "text": "Orders",
                     "href": "/purchases",
@@ -84,7 +84,7 @@
                      "level": "1",
                     "classnames": "header-menu-shop-anchor"
                 },
-        
+
                 {
                     "text": "Clients",
                     "href": "/fitprofile",
@@ -93,7 +93,7 @@
                      "level": "1",
                     "classnames": "header-menu-shop-anchor"
                 },
-                
+
                 {
                     "text": "Materials",
                     "href": "/Inventory",
@@ -102,7 +102,7 @@
                     "level": "1",
                     "classnames": "header-menu-shop-anchor"
                 },
-        
+
                 {
                     "text": "My Account",
                     "href": "/overview",
@@ -111,25 +111,16 @@
                     "level": "1",
                     "classnames": "header-menu-shop-anchor"
                 },
-        
+
                 {
-                    "text": "Support",
-                    "href": "/cases",
+                    "text": "Training Guides",
+                    "href": "/trainingguides",
                     "dataTouchpoint": "customercenter",
-                    "dataHashtag": "#/cases",
+                    "dataHashtag": "#/trainingguides",
                     "level": "1",
                     "classnames": "header-menu-shop-anchor"
                 },
-        
-                {
-                    "text": "Shop",
-                    "href": "/search",
-                    "dataTouchpoint": "home",
-                    "dataHashtag": "#/search",
-                    "level": "1",
-                    "classnames": "header-menu-shop-anchor"
-                },
-        
+
                 {
                     "text": "Categories placeholder",
                     "level": "1",

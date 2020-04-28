@@ -68,7 +68,11 @@ define('OrderHistory.List.View'
 			, 'click #searchorders': 'searchorders'
 			// , 'blur [name="oh_dateneeded"]': 'updateDateNeeded'  //23-06-2019
 			// , 'change [name="oh_dateneeded"]': 'updateDateNeeded'  //30-06-2019
+			, 'click #downloadorders': 'downloadOrders'
+			, 'click #selectall': 'selectAll'
 			, 'click button[id="sortred"]': 'sortRed'   //29/08/2019 Saad Saad
+			, 'click #clearfilters': 'clearFilters'
+			, 'click [data-name*="downloadfile"]': 'downloadCheckboxClicked'
 		}
 
 			//@method initialize
@@ -127,7 +131,85 @@ define('OrderHistory.List.View'
 	, closemodal: function(){  //23-06-2019
 			jQuery('#modalContainer').modal('hide')
 		}
+	, downloadCheckboxClicked: function(e){
+		if(jQuery('#selectall').prop('checked') == true){
+			jQuery('#selectall').prop('checked', false);
+		}
+	}
+	, clearFilters: function(e){
+			e.preventDefault();
+			jQuery('#to').val("");
+			jQuery('#from').val("");
+			jQuery('#filter_cmtstatus').val("");
+			jQuery('#cmtdate').val("");
+			jQuery('[rel="search"]').val("");
+	}
+	, selectAll: function(e){
+		if(jQuery('#selectall').prop('checked') == true){
+			jQuery('[data-id*="downloadfile"]').prop('checked', true);
+		}
+		else{
+			jQuery('[data-id*="downloadfile"]').prop('checked', false);
+		}
+	}
+	, downloadOrders: function(e){
+		e.preventDefault();
+		var data1 = {};
+		data1.contents = "data:text/csv;charset=utf-8,Date,Order,ClientName,Item,Fabric,CMT,DateNeeded\n";
 
+		if(jQuery('#selectall').prop('checked') == true){
+			//if it is checked
+
+			var data = {
+				page: 'all'
+				,	search: jQuery("input[rel=search]").val()
+				,	sort: this.sort
+				, startdate: jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):""
+				, enddate: jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):""
+				, cmtstatus: jQuery('#filter_cmtstatus').val()
+				, cmtdate: jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):""
+			};
+			this.collection.fetch({
+				data: data
+			}).done(function(d){
+				if(d.records.length >0){
+						for(var i=0;i<d.records.length;i++){
+								data1.contents+=d.records[i].date + ',';
+							data1.contents+=d.records[i].so_id + ',';
+							data1.contents+=d.records[i].client_name + ',';
+							data1.contents+=d.records[i].customitemtext + ',';
+							data1.contents+=d.records[i].fabricstatus + ',';
+							data1.contents+=d.records[i].cmt_status + ',';
+							data1.contents+=d.records[i].date_needed + '\n';
+						}
+					var link = document.createElement("a");
+					var encodedUri = encodeURI(data1.contents);
+					link.setAttribute("href", encodedUri);
+					link.setAttribute("download", "OrderDetails.csv");
+					document.body.appendChild(link);
+					link.click();
+				}
+			});
+		}else{
+			_.each(jQuery('[data-id*="downloadfile"]:checked'),function(data){
+				var id = jQuery(data).data('id').split('_')[1];
+				data1.contents+=jQuery('[data-name="date_'+id+'"]').text() + ',';
+				data1.contents+=jQuery('[data-name="order_'+id+'"]').text() + ',';
+				data1.contents+=jQuery('[data-name="client_'+id+'"]').text() + ',';
+				data1.contents+=jQuery('[data-name="item_'+id+'"]').text() + ',';
+				data1.contents+=jQuery('[data-name="fabric_'+id+'"]').text() + ',';
+				data1.contents+=jQuery('[data-name="cmtstatus_'+id+'"]').text() + ',';
+				data1.contents+=jQuery('[data-name="dateneeded_'+id+'"]').val() + '\n';
+			});
+			var link = document.createElement("a");
+			var encodedUri = encodeURI(data1.contents);
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "OrderDetails.csv");
+			document.body.appendChild(link);
+			link.click();
+		}
+
+	}
 		// 19/07/2019 Saad start
 
 		, updateFlag: function(e){
@@ -333,54 +415,60 @@ define('OrderHistory.List.View'
 
 						var columns = [
 							{
+								label: _('Select:').translate()
+							,	type: 'checkbox'
+							,	name: 'downloadfile_'+order.get('so_id')
+							}
+						,
+							{
 								label: _('Date:').translate()
 							,	type: 'date'
-							,	name: 'date'
+							,	name: 'date_'+order.get('so_id')
 							,	value: order.get('trandate')
 							}
 
 						,	{
 								label: _('Order#').translate()
 							,	type: 'order'
-							,	name: 'order'
+							,	name: 'order_'+order.get('so_id')
 							,	value: order.get('so_id')
 							}
 						,	{
 								label: _('Client').translate()
 							,	type: 'client'
-							,	name: 'client'
+							,	name: 'client_'+order.get('so_id')
 							,	value: order.get('customer_name')
 							}
 						,	{
 								label: _('Item').translate()
 							,	type: 'item'
-							,	name: 'item'
+							,	name: 'item_'+order.get('so_id')
 							,	value: order.item
 							}
 
 						,	{
 								label: _('Fabric').translate()
 							,	type: 'fabric'
-							,	name: 'fabric'
+							,	name: 'fabric_'+order.get('so_id')
 							,	value: order.get('fabricstatus')
 							}
 						,	{
 								label: _('Status').translate()
 							,	type: 'status'
-							,	name: 'status'
+							,	name: 'cmtstatus_'+order.get('so_id')
 							,	value: order.get('cmtstatus')
 							}
 							,	{
 								label: _('Date Needed').translate()
 							,	type: 'date'
-							,	name: 'date'
+							,	name: 'dateneeded_'+order.get('so_id')
 							,	value: order_date_needed
 							,	date_needed:true
 							}
 						,	{
 								label: _('Status').translate()
 							,	type: 'image'
-							,	name: 'Status'
+							,	name: 'status_'+order.get('so_id')
 							,	value: status_value
 							,	status_image: true
 							}
