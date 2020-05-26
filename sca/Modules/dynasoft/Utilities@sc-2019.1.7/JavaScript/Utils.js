@@ -1600,7 +1600,7 @@ define('Utils', [
 		return inputHtml;
 	}
 	//Generate Design Option Single Field values html.
-	function designOptionSingleField(fields, values) {
+	function designOptionSingleField(fields, values, tag) {
 		var inputHtml = '';
 		var favouriteOptions;
 		// if (SC._applications.MyAccount.getUser().get('favouriteOptions') && SC._applications.MyAccount.getUser().get('favouriteOptions') != "") {
@@ -1608,6 +1608,7 @@ define('Utils', [
 		// } else {
 		favouriteOptions = values;
 		// }
+
 
 
 		if (fields && fields.options.length > 1) {
@@ -1628,8 +1629,12 @@ define('Utils', [
 					inputHtml += '<select id="' + field_item.name + '" class="input-xlarge" name="' + field_item.name + '" data-type="fav-option-customization">';
 					_.each(field_item.texts, function (texts, count) {
 						inputHtml += '<option';
-						if (favouriteOptions != "" && favouriteOptions[field_item.name] && favouriteOptions[field_item.name] == field_item.values[count]) {
-							inputHtml += ' selected ';
+						if (favouriteOptions != ""){
+							if( favouriteOptions[tag+'_'+field_item.name] && favouriteOptions[tag+'_'+field_item.name] == field_item.values[count] ){
+								inputHtml += "selected"
+							}else if( favouriteOptions[field_item.name] && favouriteOptions[field_item.name] == field_item.values[count] ){
+							 	inputHtml += "selected"
+							}
 						}
 						inputHtml += ' value="' + field_item.values[count] + '" >';
 						inputHtml += texts;
@@ -2507,7 +2512,7 @@ define('Utils', [
 
 	// fitProfileClientorderHistoryMacro Function (Start)
 
-	function fitProfileClientorderHistoryMacro(orders) { 
+	function fitProfileClientorderHistoryMacro(orders) {
 
 		var template = "";
 
@@ -3490,14 +3495,13 @@ define('Utils', [
 	}
 
 
-	function itemDetailsDesignOptions(designOptions, selectedValuesObj) {
+	function itemDetailsDesignOptions(designOptions, selectedValuesObj, customerliningurl) {
 
 		var template = "";
 		var selectedDesignOptionMessage = '';
 		if (selectedValuesObj) {
 			selectedDesignOptionMessage = selectedValuesObj["custcol_designoption_message"];
 		}
-	
 		var collapse = [];
 		collapse['Jacket'] = ['Monogram Underside Collar', 'Monogram Lining', 'Branding'];
 		collapse['Trouser'] = ['Monogram', 'Branding'];
@@ -3514,7 +3518,7 @@ define('Utils', [
 
 		if (designOptions && Object.keys(designOptions).length > 0) {
 			template += '<h2 class="section-header" style="margin-top: 30px">Design Options</h2><hr/>';
-	
+
 			template += '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">';
 			template += '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>';
 			template += '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">';
@@ -3535,9 +3539,9 @@ define('Utils', [
 			template += '.accord-arrow-down-inner{font-size: 50px;margin-top: -23px;}';
 			template += '</style>';
 			template += '<div class="accordion" id="design-option">';
-			
+
 			for (var clothingType in designOptions) {
-				
+
 				var tempClothingType = clothingType;
 				if(clothingType.toLowerCase().indexOf('short-sleeves-shirt')!=-1){clothingType = 'ssshirt';} //added to change the field name for liveorder line model saving
 				var mapSlectedFildsObj = {};
@@ -3560,16 +3564,16 @@ define('Utils', [
 				template += '</h4>';
 				template += '</div>';
 				template += '<div id="design-option-' + clothingType + '" class="panel-collapse collapse">';
-	
+
 				template += '<div class="panel-body">';
 				template += '<div class="panel-group" id="accordion2">';
 				template += '<div class="panel panel-default">';
-	
+
 				var index1 = 0;
 				for (var component in currentClothingType) {
 					index1++;
 					var currentComponent = currentClothingType[component];
-	
+
 					template += '<div class="panel-heading" data-input="canvas_canvas_jacket" id="design-option-control-group-' + clothingType + '-' + index1 + '">';
 					if (collapse[tempClothingType].indexOf(component) != -1) {
 						template += '<a data-toggle="collapse" data-target="#design-option-members-' + clothingType + '-' + index1 + '" data-parent="#design-option-control-group' + index1 + '" >';
@@ -3580,16 +3584,16 @@ define('Utils', [
 						template += '<h4 class="accordion-toggle">' + component + '<span class="accord-arrow-down accord-arrow-down-inner">&#8227;</span></h4>'; // zain 24-07-19
 						template += '</a>';
 					}
-	
+
 					//template += '<hr/>'; // zain 24-07-19
-	
+
 					if (collapse[tempClothingType].indexOf(component) != -1) {
 						template += '<div id="design-option-members-' + clothingType + '-' + index1 + '" class="collapse" style="background-color:#ececec;height:0px;">';
 					} else {
 						template += '<div id="design-option-members-' + clothingType + '-' + index1 + '" class="in collapse" style="background-color:#ececec;">';
 					}
-	
-	
+
+
 					for (var field in currentComponent) {
 						var currentField = currentComponent[field];
 						// 04-12-2019 umer & saad
@@ -3600,12 +3604,12 @@ define('Utils', [
 						template += '<div style="width:200px;display:inline-block;" >';
 						template += '<label style="float:left;" class="control-label" for="canvas_canvas_jacket">' + field + '</label>'; // zain 16-07-19
 						template += '</div>';
-	
+
 						var isSelectType = (currentField.type == "select") ? true : false;
 						var isTextType = (currentField.type == "text") ? true : false;
 						var isNumberType = (currentField.type == "number") ? true : false;
-	
-	
+
+
 						if (singleDesignOptionsValues) { //To Set edit values
 							if (isSelectType) {
 								template += '<div class="controls" style="display:inline-block;">';
@@ -3618,7 +3622,7 @@ define('Utils', [
 									}
 								});
 								template += '</select>';
-	
+
 								template += '<div class="show-options-img" id="more-info_' + currentField.name + '" >';
 								_.each(currentField.values, function (option, index) {
 									if (option.isFavourite == true || option.isFavourite == "true") {
@@ -3626,13 +3630,18 @@ define('Utils', [
 									}
 								})
 								template += '</div>';
+								if (currentField.name == 'li-b-j' || currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'li-bl-tc'||currentField.name == 'li-b-lj') {
+									console.log('name '+currentField.name)
+									template += '<a href="'+customerliningurl+'" target="_blank">New</a>';
+								}
+
 								if (currentField.name == 'li-b-j' || currentField.name == 'T010227' || currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'T010415' ||currentField.name == 'T027230'||currentField.name == 'li-bl-tc'||currentField.name == 'li-b-lj') {
 									template += '<span class="show-lining-img" id="liningstatusimage">';
 									template += '</span>'; // zain 19-08-19
 								}
 								template += '</div>';
 							}
-	
+
 							if (isTextType) {
 								currentField.value = currentField.value ? currentField.value : ''
 								template += '<div class="controls" style="margin-bottom: 15px;display:inline-block">';
@@ -3647,7 +3656,7 @@ define('Utils', [
 								template += '</div>';
 							}
 							if (isNumberType) {
-	
+
 								template += '<div class="controls" style="margin-bottom: 15px;display:inline-block">';
 								if (mapSlectedFildsObj[currentField.name.trim()]) {
 									if (clothingType == 'Jacket') {
@@ -3664,18 +3673,18 @@ define('Utils', [
 										template += '<input style="width: 95%;float: left;" type="number" fieldname="' + field + ' " step="0.01" min="0.84" id="' + currentField.name + '" class="input-xlarge" name="' + currentField.name + '" value="" data-type="fav-option-customization">'; //zain 16-07-19
 									} else {
 										template += '<input style="width: 95%;float: left;" type="number" fieldname="' + field + ' " step="0.01" min="0" id="' + currentField.name + '" class="input-xlarge" name="' + currentField.name + '" value="" data-type="fav-option-customization">'; //zain 16-07-19
-	
+
 									}
-	
+
 								}
 								template += '<div class="show-options-img" id="more-info_' + currentField.name + '">'; //zain 16-07-19
 								template += '</div>';
 								template += Utils.displayMoreInfo(currentField.name + "|" + currentField.label)
 								template += '</div>';
 							}
-	
+
 						} else {
-	
+
 							if (isSelectType) {
 								template += '<div class="controls" style="display:inline-block;">';
 								template += '<select fieldname="' + field + '" id="' + currentField.name + '" class="input-xlarge display-option-dropdown" name="' + currentField.name + '" data-type="fav-option-customization">';
@@ -3687,7 +3696,7 @@ define('Utils', [
 									}
 								});
 								template += '</select>';
-	
+
 								template += '<div class="show-options-img" id="more-info_' + currentField.name + '" >';
 								_.each(currentField.values, function (option, index) {
 									if (option.isFavourite == true || option.isFavourite == "true") {
@@ -3695,20 +3704,25 @@ define('Utils', [
 									}
 								})
 								template += '</div>';
+								if (currentField.name == 'li-b-j' || currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'li-bl-tc'||currentField.name == 'li-b-lj') {
+									console.log('name '+currentField.name)
+									template += '<a href="'+customerliningurl+'" target="_blank">New</a>';
+								}
+
 								if (currentField.name == 'li-b-j' || currentField.name == 'T010227' || currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'T010415'||currentField.name == 'T027230'||currentField.name == 'li-bl-tc'||currentField.name == 'li-b-lj') {
 									template += '<span class="show-lining-img" id="liningstatusimage">';
 									template += '</span>'; // zain 19-08-19
 								}
 								template += '</div>';
 							}
-	
+
 							if (isTextType) {
 								currentField.value = currentField.value ? currentField.value : ''
 								template += '<div class="controls" style="display:inline-block">';
 								template += '<input style="width: 95%;float: left;" data-type="' + currentField.datatype + '" data-placeholder="' + currentField.dataplaceholder + '" placeholder="' + currentField.placeholder + '" type="text" maxlength="' + currentField.maxlength + '" fieldname="' + field + '" id="' + currentField.name + '" class="input-xlarge" name="' + currentField.name + '" value="' + currentField.value + '" data-type="fav-option-customization" >'; //zain 16-07-19
 								template += '<div class="show-options-img" id="more-info_' + currentField.name + '">'; //zain 16-07-19
 								template += '</div>';
-	
+
 								template += Utils.displayMoreInfo(currentField.name + "|" + currentField.label)
 								template += '</div>';
 							}
@@ -3726,7 +3740,7 @@ define('Utils', [
 								template += Utils.displayMoreInfo(currentField.name + "|" + currentField.label)
 								template += '</div>';
 							}
-	
+
 						}
 						template += '</div>';
 					}
@@ -3738,7 +3752,7 @@ define('Utils', [
 					template += '</script>';
 					// zain 28-10-19 end
 					template += '</div>';
-	
+
 				}
 				template += '</div>';
 				template += '</div>';
@@ -3753,17 +3767,17 @@ define('Utils', [
 			template += '<div class="controls">';
 			if (selectedDesignOptionMessage) {
 				template += '<textarea class="input-xxlarge designoption-message" id="designoption-message" name="designoption-message">' + selectedDesignOptionMessage + '</textarea>';
-	
+
 			} else {
 				template += '<textarea class="input-xxlarge designoption-message" id="designoption-message" name="designoption-message"></textarea>';
-	
+
 			}
 			template += '</div>';
 			template += '</div>';
-	
+
 		}
-	
-	
+
+
 		return template;
 	}
 

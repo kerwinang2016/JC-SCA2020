@@ -15,12 +15,12 @@ define('ProductList.DetailsLater.View'
 		,	'LiveOrder.Model'
 		,	'Profile.Model'
 		,	'ProductList.Item.Collection'
-		
+
 		,	'Backbone.CollectionView'
 		,	'Backbone.CompositeView'
 
 		,	'products_detail_later_cell.tpl'
-		,	'backbone_collection_view_row.tpl'		
+		,	'backbone_collection_view_row.tpl'
 
 		,	'underscore'
 		,	'jQuery'
@@ -41,10 +41,10 @@ define('ProductList.DetailsLater.View'
 		,	BackboneCompositeView
 
 		,	products_detail_later_cell_tpl
-		,	backbone_collection_view_row_tpl		
+		,	backbone_collection_view_row_tpl
 
 		,	_
-		,	jQuery		
+		,	jQuery
 		,	Backbone
 		)
 {
@@ -73,9 +73,9 @@ define('ProductList.DetailsLater.View'
 		{
 			//this.loadProductList();
 			BackboneCompositeView.add(this);
-		
+
 			this.options = options;
-			this.application = options.application; 
+			this.application = options.application;
 			this.cart = LiveOrderModel.getInstance();
 
 			this.model.on('change', this.render, this);
@@ -93,7 +93,7 @@ define('ProductList.DetailsLater.View'
 			if (ProfileModel.getInstance().get('isLoggedIn') === 'T')
 			{
 				this._render();
-				
+
 				this.$('[data-action="pushable"]').scPush();
 					}
 			else
@@ -144,7 +144,7 @@ define('ProductList.DetailsLater.View'
 			}
 
 			var itemModel = this.model.get('items').get(product_list_itemid);
-			
+
 			if(optionsValue){
 				for(var i = 0; i < optionsValue.length; i++){
 					if(optionsValue[i].cartOptionId == 'custcol_saved_for_later_comment'){
@@ -163,13 +163,13 @@ define('ProductList.DetailsLater.View'
 							break;
 						}
 					}
-				
+
 				}
 			}
 
 			itemModel.save(null, {validate: false});
-	
-		}	
+
+		}
 
 		// @method addItemToCartHandler Add a particular item into the cart
 	,	addItemToCartHandler : function (e)
@@ -182,9 +182,9 @@ define('ProductList.DetailsLater.View'
 			for(var j = 0; j < selected_product_list_item.get('options').models.length; j++){
 				if(selected_product_list_item.get('options').models[j].attributes.cartOptionId == 'custcol_avt_wbs_copy_key'){
 					var selectedItemInternalId = selected_product_list_item.get('item').get('internalid');
-					var itemUniqueCopy = selectedItemInternalId + '_' + new Date().getTime();	
+					var itemUniqueCopy = selectedItemInternalId + '_' + new Date().getTime();
 					selected_product_list_item.get('options').models[j].attributes.value = {internalid: itemUniqueCopy, label: itemUniqueCopy};
-				} 
+				}
 
 				if(selected_product_list_item.get('options').models[j].attributes.cartOptionId == 'custcol_site_cogs'){
 					var dateNeeded = '1/1/1900';
@@ -200,14 +200,14 @@ define('ProductList.DetailsLater.View'
 				if(selected_product_list_item.get('options').models[j].attributes.cartOptionId == 'custcol_avt_date_needed'){
 					var dateNeeded = '1/1/1900';
 					selected_product_list_item.get('options').models[j].attributes.value = {internalid: dateNeeded, label: dateNeeded};
-				} 
+				}
 
 			}
 			var	add_to_cart_promise = this.cart.addLine(selected_product_list_item)
 			,	whole_promise = jQuery.when(add_to_cart_promise, this.deleteListItem(selected_product_list_item));//.then(jQuery.proxy(this, 'executeAddToCartCallback'));
 
 			this.disableElementsOnPromise(whole_promise,  this.$(e.target).closest('article').find('button'));
-			
+
 		}
 
 		//@method addItemsToCartBulkHandler
@@ -225,7 +225,7 @@ define('ProductList.DetailsLater.View'
 			{
 				return;
 			}
-	
+
 			for(var i = 0; i < selected_models.items.models.length; i++){
 				var optionsLength = selected_models.items.models[i].get('options').models.length;
 				var selectedEditOptions;
@@ -290,7 +290,7 @@ define('ProductList.DetailsLater.View'
 			});
 
 			this.application.getLayout().showInModal(this.addedToCartView);
-		}	
+		}
 
 	// @method _getSelection @return {items:ProductList.Item.Collection,items_for_cart:Array<Backbone.Model>,button_selector:String}
 	,	_getSelection: function()
@@ -303,7 +303,7 @@ define('ProductList.DetailsLater.View'
 			{
 				//irrelevant items: no-op
 				var lineId = pli.get('internalid');
-				var isLineChecked = jQuery('#line_check_box_' + lineId).is(":checked"); 
+				var isLineChecked = jQuery('#line_check_box_' + lineId).is(":checked");
 				if (isLineChecked !== true)
 				{
 					return;
@@ -318,10 +318,10 @@ define('ProductList.DetailsLater.View'
 				items: new ProductListItemCollection(items)
 			,	button_selector: button_selector
 			};
-		}	
+		}
 
 		// @method addQuantity Increase the product's Quantity by 1
-		// @param {HTMLEvent} e 
+		// @param {HTMLEvent} e
 	,	addQuantity: function (e)
 		{
 			e.preventDefault();
@@ -394,20 +394,20 @@ define('ProductList.DetailsLater.View'
 				self.showConfirmationMessage(_('The item was removed from your product list').translate(), true);
 			};
 
-			self.model.get('items').remove(product_list_item);		
+			self.model.get('items').remove(product_list_item);
 			self.deleteListItem(product_list_item, success);
 		}
 
 	,	deleteListItem: ProductListDetailsView.prototype.deleteListItem
 
-	,	deleteItemsHandlerForSavedItem: ProductListDetailsView.prototype.deleteItemsHandlerForSavedItem 
+	,	deleteItemsHandlerForSavedItem: ProductListDetailsView.prototype.deleteItemsHandlerForSavedItem
 
 	,	disableElementsOnPromise: ProductListDetailsView.prototype.disableElementsOnPromise
 
 	,	updateItemQuantity : ProductListDetailsView.prototype.updateItemQuantity
 
 	,	updateItemQuantityHelper: ProductListDetailsView.prototype.updateItemQuantityHelper
-	
+
 	,	childViews:
 		{
 			'ProductList.DetailsLater.Collection': function()
@@ -422,7 +422,7 @@ define('ProductList.DetailsLater.View'
 						application: this.application
 					}
 				});
-			} 
+			}
 		}
 
 		// @method getContext @return {ProductList.DetailsLater.View.Context}
@@ -430,13 +430,13 @@ define('ProductList.DetailsLater.View'
 		{
 			var items = this.model.get('items')
 			,	itemsLength = items.length;
-			
+
 			if(!window.fitterDetailObjectArr){
-				window.trackFitterIds = [];			
+				window.trackFitterIds = [];
 				window.fitterDetailObjectArr = [];
 			}
 
-			
+
 			if(itemsLength > 0){
 				for(var i = 0; i < itemsLength; i++){
 					var obj = {};
@@ -453,7 +453,7 @@ define('ProductList.DetailsLater.View'
 					}
 				}
 			}
-			
+
 			// @class ProductList.DetailsLater.View.Context
 			return {
 				// @property {Integer} itemsLength

@@ -111,8 +111,11 @@ define('ProductList.DetailsLaterMacro.View'
 				}
 
 			}
+			var producttype = _.find(optionsValue,function(data){
+				return data.get('cartOptionId') == "custcol_producttype";
+			});
 			var item = this.model.get('item');
-			
+			var pt = this.model.get('item').get('itemid') + ' - ' + producttype.get('value').internalid;
 			// @class ProductList.DetailsLaterMacro.View.Context
 			return {
 				// @property {ProductList.Item.Model} model
@@ -135,6 +138,7 @@ define('ProductList.DetailsLaterMacro.View'
 			,	clientName: clientName
 			,	commentValue: commentValue
 			,	clientId: clientId ? clientId : ''
+			, itemname: pt
 			};
 			// @class ProductList.DetailsLaterMacro.View
 		}

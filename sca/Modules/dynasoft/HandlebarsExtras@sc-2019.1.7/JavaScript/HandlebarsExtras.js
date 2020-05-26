@@ -369,6 +369,18 @@ define(
         //Helper generate design Option Fields form html
         Handlebars.registerHelper('designOptionFields', function (fields, values, mode) {
             var template = '';
+            var tag = [];
+            tag['Jacket'] = 'j';
+            tag['Trouser'] = 't';
+            tag['Overcoat'] = 'o';
+            tag['Waistcoat'] = 'w';
+            tag['Shirt'] = 's';
+            tag['Short-Sleeves-Shirt'] = 'ss';
+            tag['Trenchcoat'] = 'tc';
+            tag['Shorts'] = 'sh';
+            tag['Ladies-Jacket'] = 'lj';
+            tag['Ladies-Pants'] = 'lp';
+            tag['Ladies-Skirt'] = 'ls';
             if (fields && fields.length > 1) {
                 template += '<ul class="nav nav-tabs design-option-list">';
                 _.each(fields, function (field, count) {
@@ -397,7 +409,7 @@ define(
                     template += Utils.designOptionMultiField(field, values)
                     //SC.macros.designOptionMultiField(field, values)
                 } else {
-                    template += Utils.designOptionSingleField(field, values)
+                    template += Utils.designOptionSingleField(field, values, tag[field["item_type"]])
                     //SC.macros.designOptionSingleField(field, count)
                 }
                 template += '</div>';

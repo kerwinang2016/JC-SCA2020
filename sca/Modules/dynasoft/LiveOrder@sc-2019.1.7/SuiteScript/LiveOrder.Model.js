@@ -743,7 +743,6 @@ define(
 		{
 			var items = []
 			,	self = this;
-
 			try {
 				this.storePromosPrevState();
 				customer_values = Profile.get();
@@ -791,10 +790,11 @@ define(
 						fabrictext += "<div><b>Total COGS:</b> " + totalcogs.toFixed(2) + "</div>";
 					}
 
-
+					nlapiLogExecution('debug','tailorclient',optionsObjData.custcol_tailor_client);
 					var tcrec = nlapiLoadRecord('customrecord_sc_tailor_client', optionsObjData.custcol_tailor_client);
-					if (tcrec.getFieldValue('custrecord_tc_tailor') == nlapiGetContext().getUser() ||
-						tcrec.getFieldValue('custrecord_tc_tailor') == parent) {
+
+					// if (tcrec.getFieldValue('custrecord_tc_tailor') == nlapiGetContext().getUser() ||
+					// 	tcrec.getFieldValue('custrecord_tc_tailor') == parent) {
 
 						var item = {
 								internalid: line_data.item.internalid.toString()
@@ -811,7 +811,7 @@ define(
 						}// -End-
 
 						items.push(item);
-					}
+					// }
 
 					// if (self.isPickupInStoreEnabled && line_data.fulfillmentChoice === 'pickup' && line_data.location)
 					// {
@@ -1437,7 +1437,7 @@ define(
 		    			description:do_surcharges[k].getValue('custrecord_do_description'),
 		    			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
 		    			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-		          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+		          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge')?do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(','):''
 		          });
 		    		}
 		    		else{
@@ -1449,7 +1449,7 @@ define(
 		    			description:do_surcharges[k].getValue('custrecord_do_description'),
 		    			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
 		    			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-		          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+		          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge')? do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(','):''
 		          }]
 		    		});
 		    		}

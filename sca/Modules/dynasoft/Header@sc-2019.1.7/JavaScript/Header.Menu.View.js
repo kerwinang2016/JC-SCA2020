@@ -114,7 +114,7 @@ define(
 			,	environment = SC.ENVIRONMENT
 			,	show_languages = environment.availableHosts && environment.availableHosts.length > 1
 			,	show_currencies = environment.availableCurrencies && environment.availableCurrencies.length > 1 && !Configuration.get('header.notShowCurrencySelector');
-			console.log(Configuration.navigationData);
+			// console.log(Configuration.navigationData);
 			// @class Header.Sidebar.View.Context
 			return {
 				// @property {Array<NavigationData>} navigationItems

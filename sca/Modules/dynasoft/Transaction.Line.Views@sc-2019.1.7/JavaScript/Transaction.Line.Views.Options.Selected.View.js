@@ -272,8 +272,6 @@ define('Transaction.Line.Views.Options.Selected.View'
 														});
 
 											}
-
-
 										};
 									}
 								}
@@ -387,7 +385,7 @@ define('Transaction.Line.Views.Options.Selected.View'
 										model.set('value', {label: JSON.stringify(fitProfileDetail), internalid: JSON.stringify(fitProfileDetail)});
 									}
 									if(model.get('cartOptionId') == 'custcol_fabric_quantity'){
-										model.set('value', {label: quantity.toFixed(2), internalid: quantity.toFixed(2)})
+										// model.set('value', {label: quantity.toFixed(2), internalid: quantity.toFixed(2)})
 									}
 								});
 							}

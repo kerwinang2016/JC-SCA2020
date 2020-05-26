@@ -17,7 +17,8 @@ define(
 	,	'ProductList.Item.Search'
 	,	'Utils'
 	,	'Configuration'
-	,	'underscore']
+	,	'underscore'
+	]
 ,	function(
 		SCModel
 	,	Application
@@ -25,10 +26,10 @@ define(
 	,	ProductListItemSearch
 	,	Utils
 	,	Configuration
-	,	_)
+	,	_
+	)
 {
 	'use strict';
-
 	return SCModel.extend({
 		name: 'ProductList'
 		// ## General settings
@@ -66,10 +67,11 @@ define(
 
 			var filters = [new nlobjSearchFilter('internalid', null, 'is', id)
 				,	new nlobjSearchFilter('isinactive', null, 'is', 'F')
-				,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', user)
-				]
-			,	product_lists = this.searchHelper(filters, this.getColumns(), true);
 
+				]
+			,	product_lists = this.searchHelper(filters, this.getColumns(), true, "", "", "",user);
+			if(user)
+				filters.push(new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', user));
 			if (product_lists.length >= 1)
 			{
 				return product_lists[0];
@@ -96,10 +98,11 @@ define(
 
 			this.verifySession();
 			var filters = [new nlobjSearchFilter('custrecord_ns_pl_pl_type', null, 'is', type_id)
-				,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', user)
+
 				,	new nlobjSearchFilter('isinactive', null, 'is', 'F')];
-			
-			product_lists = this.searchHelper(filters, this.getColumns(), true, '', '', customFiltersObj);
+				if(user)
+				filters.push(new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', user));
+			product_lists = this.searchHelper(filters, this.getColumns(), true, '', '', customFiltersObj, user);
 
 			if (product_lists.length >= 1)
 			{
@@ -135,7 +138,7 @@ define(
 			return text ? text.replace(/<br>/g, '\n').replace(/</g, '&lt;').replace(/\>/g, '&gt;') : '';
 		}
 
-	,	searchHelper: function(filters, columns, include_store_items, order, template_ids, customFiltersObj)
+	,	searchHelper: function(filters, columns, include_store_items, order, template_ids, customFiltersObj, user)
 		{
 			// Sets the sort order
 			var order_tokens = order && order.split(':') || []
@@ -170,20 +173,35 @@ define(
 					,	created: productListSearchRecord.getValue('created')
 					,	lastmodified: productListSearchRecord.getValue('lastmodified')
 					,	lastmodifieddate: last_modified_date_str
-					,	items: ProductListItemSearch.search(productListSearchRecord.getValue('custrecord_ns_pl_pl_owner'), productListSearchRecord.getId(), include_store_items, {
-								sort: 'created'
-							,	order: '-1'
-							,	page: -1
-						}, customFiltersObj)
+					,	items: []
+					// ProductListItemSearch.search(productListSearchRecord.getValue('custrecord_ns_pl_pl_owner'), productListSearchRecord.getId(), include_store_items, {
+					// 			sort: 'created'
+					// 		,	order: '-1'
+					// 		,	page: -1
+					// 	}, customFiltersObj)
 					};
 
 				if (template_ids && productList.templateId)
 				{
 					template_ids.push(productList.templateId);
 				}
-
 				productLists.push(productList);
 			});
+			var plitems = ProductListItemSearch.search(user, null, include_store_items, {
+	          sort: 'created'
+	        ,	order: '-1'
+	        ,	page: -1
+	      },customFiltersObj
+	    );
+
+			nlapiLogExecution('debug','plitems',plitems.length);
+			for(var i=0; i<productLists.length; i++){
+
+				var items = _.filter(plitems, function(pli){
+					return pli.productListId == productLists[i].internalid;
+				});
+				productLists[i].items = items;
+			}
 			return productLists;
 		}
 
@@ -193,12 +211,14 @@ define(
 
 			var filters = [
 					new nlobjSearchFilter('isinactive', null, 'is', 'F')
-				,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', user)
+
 				]
 			,	template_ids = []
 			,	product_lists = this.searchHelper(filters, this.getColumns(), false, order, template_ids)
 			,	self = this;
-
+			if(user){
+				filters.push(new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', user));
+			}
 			// Add possible missing predefined list templates
 			_(this.configuration.listTemplates).each(function(template) {
 				if (!_(template_ids).contains(template.templateId))
@@ -274,7 +294,7 @@ define(
 			// return nlapiSubmitRecord(productList);
 
 			try {
-		
+
 				this.verifySession();
 
 				var parent = user;

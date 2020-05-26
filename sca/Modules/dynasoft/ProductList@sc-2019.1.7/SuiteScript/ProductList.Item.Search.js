@@ -67,31 +67,36 @@ define('ProductList.Item.Search'
 	,	search: function (user, product_list_id, include_store_item, sort_and_paging_data, customFiltersObj)
 		{
 			var filters = [
-				new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id)
-			,	new nlobjSearchFilter('isinactive', null, 'is', 'F') // 09/01/2020 filter added
-			,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', 'custrecord_ns_pl_pli_productlist', 'is', user)]
+				new nlobjSearchFilter('isinactive', null, 'is', 'F') // 09/01/2020 filter added
+			]
 			,	sort_column = sort_and_paging_data.sort
 			,	sort_direction = sort_and_paging_data.order;
-	
+			if(user){
+
+				filters.push(new nlobjSearchFilter('custrecord_ns_pl_pl_owner', 'custrecord_ns_pl_pli_productlist', 'is', user));
+			}
+			if(product_list_id){
+				filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id));
+			}
 			var to = new Date();
 			var from = new Date();
 			from.setMonth(to.getMonth() - 3);
 			to.setHours('24');
-			// filters.push(new nlobjSearchFilter('created', null, 'onOrAfter', 'ninetyDaysAgo')); // 09/01/2020 RFC: added filter to stop limit being exceeded. 
-			
+			// filters.push(new nlobjSearchFilter('created', null, 'onOrAfter', 'ninetyDaysAgo')); // 09/01/2020 RFC: added filter to stop limit being exceeded.
+
 			if (customFiltersObj != '{}' && customFiltersObj) {
 				var custFiltersObj = JSON.parse(customFiltersObj);
 				if (custFiltersObj && custFiltersObj.custrecord_ns_pl_pli_fitter) {
 					filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_fitter', null, 'anyof', custFiltersObj.custrecord_ns_pl_pli_fitter))
 				}
-			
+
 				if(custFiltersObj.from_date != undefined && custFiltersObj.to_date != undefined){
 					fromDate = custFiltersObj.from_date.split('-');
 					from = new Date(fromDate[0], fromDate[1]-1, fromDate[2]);
 					toDate = custFiltersObj.to_date.split('-');
 					to = new Date(toDate[0], toDate[1]-1, toDate[2]);
 				}
-	
+
 				if (custFiltersObj && custFiltersObj.custrecord_ns_pl_pli_isarchived) {
 					filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_isarchived', null, 'is', custFiltersObj.custrecord_ns_pl_pli_isarchived))
 				}
@@ -104,33 +109,33 @@ define('ProductList.Item.Search'
 			} else {
 				filters.push(new nlobjSearchFilter('isinactive', null, 'is', 'F'))
 			}
-			
+
 			filters.push(new nlobjSearchFilter('created', null, 'within', from, to));
-	
+
 			if (!sort_column)
 			{
 				sort_column = 'created';
 			}
-	
+
 			if (sort_column === 'priority')
 			{
 				sort_column = 'priority_value';
 			}
-	
+
 			if (!sort_direction)
 			{
 				sort_direction = '-1';
 			}
-	
+
 			var search_lines = this.searchHelper(filters, sort_column, sort_direction === '-1' ? 'DESC' : 'ASC', include_store_item, customFiltersObj);
-	
-	
+
+
 			if (include_store_item && sort_column === 'price')
 			{
 				//-1 for descending, 1 for ascending
 				search_lines = this.sortLinesByPrice(search_lines, sort_direction === '-1' ? -1 : 1);
 			}
-	
+
 			return search_lines;
 		}
 
@@ -182,6 +187,83 @@ define('ProductList.Item.Search'
 			return result;
 		}
 
+	,	getObjClientInternalid: function (paramOptions)
+		{
+			var clientInternalId = '';
+
+			var objPlOptions= paramOptions;
+			var isObjKeyTailorClientExist = (this.isObjectExist(objPlOptions['custcol_tailor_client'])) ? true : false;
+
+			if (isObjKeyTailorClientExist)
+			{
+				var objCustColClient = objPlOptions['custcol_tailor_client'];
+				var isObjKeyCustcolTailorClientValueExist = (this.isObjectExist(objCustColClient['value'])) ? true : false;
+
+				if (isObjKeyCustcolTailorClientValueExist)
+				{
+					clientInternalId = objCustColClient['value'];
+				}
+			}
+
+			return clientInternalId;
+		}
+
+	,	isObjectExist: function(objFld)
+		{
+		   var isObjExist = (typeof objFld != "undefined") ? true : false;
+		   return isObjExist;
+		}
+	, isNullOrEmpty: function(valueStr)
+		{
+		   return(valueStr == null || valueStr == "" || valueStr == undefined);
+		}
+	,	getObjClientMapping: function (paramArrClientIds)
+		{
+			var objRet = {};
+			var arrClientIds = (!this.isNullOrEmpty(paramArrClientIds)) ? paramArrClientIds : [];
+			var arrClientIdsTotal = (!this.isNullOrEmpty(arrClientIds)) ? arrClientIds.length : 0;
+			var hasArrClientIds = (arrClientIdsTotal != 0) ? true : false;
+
+			if (hasArrClientIds)
+			{
+				var arrFilters = [  new nlobjSearchFilter('internalid', null, 'anyof', arrClientIds) ];
+				var arrColumns = [  new nlobjSearchColumn('custrecord_tc_first_name'), new nlobjSearchColumn('custrecord_tc_last_name') ];
+				var searchResults = nlapiSearchRecord('customrecord_sc_tailor_client', null, arrFilters, arrColumns);
+				var searchResultsTotal = (!this.isNullOrEmpty(searchResults)) ? searchResults.length : 0;
+				var hasSearchResults = (searchResultsTotal != 0) ? true : false;
+
+				if (hasSearchResults)
+				{
+					for (var xj = 0; xj < searchResultsTotal; xj++)
+					{
+						var searchResult = searchResults[xj];
+						var clientInternalId = searchResult.getId();
+						var clientFirstName = searchResult.getValue('custrecord_tc_first_name');
+						var clientLastName = searchResult.getValue('custrecord_tc_last_name');
+
+						var isObjKeyMappingExist = (this.isObjectExist(objRet['' + clientInternalId + ''])) ? true : false;
+
+						if (!isObjKeyMappingExist)
+						{
+							objRet['' + clientInternalId + ''] = {};
+							objRet['' + clientInternalId + '']['internalid'] = clientInternalId;
+							objRet['' + clientInternalId + '']['firstname'] = clientFirstName;
+							objRet['' + clientInternalId + '']['lastname'] = clientLastName;
+						}
+					}
+				}
+			}
+
+			return objRet;
+		}
+	, isNullOrEmptyObject:	function (obj)
+		{
+		   var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+		   if (obj.length && obj.length > 0) { return false; }
+		   for (var key in obj) { if (hasOwnProperty.call(obj, key)) return false; }
+		   return true;
+		}
 	,	searchHelper: function (filters, sort_column, sort_direction, include_store_item, customFiltersObj)
 		{
 			// Selects the columns
@@ -203,6 +285,7 @@ define('ProductList.Item.Search'
 			, 	fitter: new nlobjSearchColumn('custrecord_ns_pl_pli_fitter')
 			, 	custrecord_ns_pl_pli_isarchived: new nlobjSearchColumn('custrecord_ns_pl_pli_isarchived')
 			,	isinactive: new nlobjSearchColumn('isinactive')			//16/09/2019
+			, custrecord_ns_pl_pli_productlist: new nlobjSearchColumn('custrecord_ns_pl_pli_productlist')
 			};
 
 			productListItemColumns[sort_column] && productListItemColumns[sort_column].setSort(sort_direction === 'DESC');
@@ -216,6 +299,35 @@ define('ProductList.Item.Search'
 			if(customFiltersObj != '{}' && customFiltersObj) {
 				custFiltersObj = JSON.parse(customFiltersObj);
 			}
+			// nlapiLogExecution('debug','custFiltersObj',JSON.stringify(custFiltersObj));
+			var arrClientRecord = [];
+			//nlapiLogExecution('debug','PLI RECORDS LENGTH', records.length)
+			_(records).each(function (productListItemSearchRecord)
+			{
+				var objPlOptions = JSON.parse(productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') || '{}');
+				var hasObjPlOptions = (!self.isNullOrEmptyObject(objPlOptions)) ? true : false;
+
+				if (hasObjPlOptions)
+				{
+					var isObjKeyTailorClientExist = (self.isObjectExist(objPlOptions['custcol_tailor_client'])) ? true : false;
+
+					if (isObjKeyTailorClientExist)
+					{
+						var objCustColClient = objPlOptions['custcol_tailor_client']
+						var isObjKeyCustcolTailorClientValueExist = (self.isObjectExist(objCustColClient['value'])) ? true : false;
+
+						if (isObjKeyCustcolTailorClientValueExist)
+						{
+							var clientInternalId = objCustColClient['value'];
+							var hasClientInternalId = (!self.isNullOrEmpty(clientInternalId)) ? true : false;
+							var isPushArrClientRecord = (hasClientInternalId) ? arrClientRecord.push(clientInternalId) : '';
+						}
+					}
+				}
+			});
+
+			var objClientMapping = self.getObjClientMapping(arrClientRecord);
+			nlapiLogExecution('debug','objClientMapping',JSON.stringify(objClientMapping));
 			_(records).each(function (productListItemSearchRecord)
 			{
 				var itemInternalId = productListItemSearchRecord.getValue('custrecord_ns_pl_pli_item')
@@ -228,16 +340,17 @@ define('ProductList.Item.Search'
 						internalid: productListItemSearchRecord.getId()
 					,	description: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_description')
 					,	options: self.parseLineOptionsFromProductList(JSON.parse(productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') || '{}'))
+					, optionscopy: JSON.parse(productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') || '{}')
 					,	quantity: parseInt(productListItemSearchRecord.getValue('custrecord_ns_pl_pli_quantity'), 10)
 					,	created: productListItemSearchRecord.getValue('created')
 					,	createddate: created_date_str
 					,	lastmodified: productListItemSearchRecord.getValue('lastmodified')
 					,	custrecord_ns_pl_pli_isarchived: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_isarchived')
-					, 	fittername: productListItemSearchRecord.getText('custrecord_ns_pl_pli_fitter') ? productListItemSearchRecord.getText('custrecord_ns_pl_pli_fitter') : productListItemSearchRecord.getText('custrecord_ns_pl_pl_owner','custrecord_ns_pl_pli_productlist')
-					, 	fitterid:productListItemSearchRecord.getValue('custrecord_ns_pl_pli_fitter') ? productListItemSearchRecord.getValue('custrecord_ns_pl_pli_fitter') : productListItemSearchRecord.getValue('custrecord_ns_pl_pl_owner','custrecord_ns_pl_pli_productlist')
-					, 	productListId: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_productlist')
+					, fittername: productListItemSearchRecord.getText('custrecord_ns_pl_pli_fitter') ? productListItemSearchRecord.getText('custrecord_ns_pl_pli_fitter') : productListItemSearchRecord.getText('custrecord_ns_pl_pl_owner','custrecord_ns_pl_pli_productlist')
+					, fitterid:productListItemSearchRecord.getValue('custrecord_ns_pl_pli_fitter') ? productListItemSearchRecord.getValue('custrecord_ns_pl_pli_fitter') : productListItemSearchRecord.getValue('custrecord_ns_pl_pl_owner','custrecord_ns_pl_pli_productlist')
+					, productListId: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_productlist')
 					,	isinactive:	productListItemSearchRecord.getValue('isinactive')  //16/09/2019
-					
+
 					// we temporary store the item reference, after this loop we use StoreItem.preloadItems instead doing multiple StoreItem.get()
 					,	store_item_reference: {
 							id: itemInternalId
@@ -246,35 +359,56 @@ define('ProductList.Item.Search'
 						,	matrix_parent: itemMatrixParent
 						,	itemid: itemId
 						}
+					,	client: {
+							id: ''
+						,	firstname: ''
+						,	lastname: ''
+						}
 					,	priority: {
 							id: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_priority')
 						,	name: productListItemSearchRecord.getText('custrecord_ns_pl_pli_priority')
 						}
 					};
-				// if (custFiltersObj && custFiltersObj.client) {
-				// 	var clientName = '';
-				// 	var options = JSON.parse(productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options'));
-				// 	if(options.custcol_tailor_client_name){
-				// 		clientName = options.custcol_tailor_client_name.value || options.custcol_tailor_client_name.internalid;
-				// 	}
-				// 	var clientName = clientName.toUpperCase();
-				// 	if (clientName.indexOf(custFiltersObj.client.toUpperCase()) != -1) {
-				// 		productlist_items.push(productListItem);
-				// 	}
-				// } else {
-					productlist_items.push(productListItem);
-				//}
-			});
+					var clientInternalId = self.getObjClientInternalid(productListItem['optionscopy']);
+					// nlapiLogExecution('debug','internalid',productListItem['internalid']);
+					// nlapiLogExecution('debug','clientInternalId',JSON.stringify(clientInternalId));
+					var isClientInternalIdExistInMapping = (self.isObjectExist(objClientMapping['' + clientInternalId + ''])) ? true : false;
 
-		
+					if (isClientInternalIdExistInMapping)
+					{
+						productListItem['client']['id'] = objClientMapping['' + clientInternalId + '']['internalid']
+						productListItem['client']['firstname'] = objClientMapping['' + clientInternalId + '']['firstname']
+						productListItem['client']['lastname'] = objClientMapping['' + clientInternalId + '']['lastname']
+					}
+					var completename = productListItem['client']['firstname'] + " " + productListItem['client']['lastname'];
+					completename = completename.toLowerCase();
+
+					if(custFiltersObj && custFiltersObj.client){
+						custFiltersObj.client = custFiltersObj.client.toLowerCase();
+					}
+						// nlapiLogExecution('debug','custFiltersObj.client',custFiltersObj.client);
+					if(custFiltersObj && custFiltersObj.client && completename.indexOf(custFiltersObj.client) == -1){// &&
+						// productListItem.client.firstname.indexOf(plifilters.client) == -1 custFiltersObj
+						// productListItem.client.firstname.indexOf(plifilters.client) == -1)
+						// {}
+					}
+		      else{
+
+						// nlapiLogExecution('debug','custFiltersObj',JSON.stringify(custFiltersObj));
+		  			productlist_items.push(productListItem);
+		      }
+			});
+			nlapiLogExecution('debug','productlist_items',productlist_items.length);
+
 			var store_item_references = _(productlist_items).pluck('store_item_reference')
 			,	results = [];
 
 			// preload all the store items at once for performance
 			StoreItem && StoreItem.preloadItems(store_item_references);
-
 			_(productlist_items).each(function (productlist_item)
 			{
+				//nlapiLogExecution('debug','store_item_reference',JSON.stringify(productlist_item));
+				if(productlist_item.store_item_reference){
 				var store_item_reference = productlist_item.store_item_reference
 				// get the item - fast because it was preloaded before. Can be null!
 				,	store_item = StoreItem ? StoreItem.get(store_item_reference.id, store_item_reference.type) : store_item_reference;
@@ -310,6 +444,7 @@ define('ProductList.Item.Search'
 				}
 
 				results.push(productlist_item);
+				}
 			});
 
 			return results;

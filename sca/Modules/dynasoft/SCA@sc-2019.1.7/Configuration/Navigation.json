@@ -120,7 +120,14 @@
                     "level": "1",
                     "classnames": "header-menu-shop-anchor"
                 },
-
+								{
+										"text": "Applications",
+										"href": "/applications",
+										"dataTouchpoint": "home",
+										"dataHashtag": "#/applications",
+										"level": "1",
+										"classnames": "header-menu-shop-anchor"
+								},
                 {
                     "text": "Categories placeholder",
                     "level": "1",

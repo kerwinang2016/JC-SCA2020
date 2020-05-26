@@ -450,13 +450,13 @@ define('OrderHistory.List.View'
 								label: _('Fabric').translate()
 							,	type: 'fabric'
 							,	name: 'fabric_'+order.get('so_id')
-							,	value: order.get('fabricstatus')
+							,	value: order.get('fabricstatus')?order.get('fabricstatus'):"TBC"
 							}
 						,	{
 								label: _('Status').translate()
 							,	type: 'status'
 							,	name: 'cmtstatus_'+order.get('so_id')
-							,	value: order.get('cmtstatus')
+							,	value: order.get('cmtstatus')?order.get('cmtstatus'):"TBC"
 							}
 							,	{
 								label: _('Date Needed').translate()

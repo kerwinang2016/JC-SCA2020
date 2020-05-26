@@ -102,7 +102,7 @@ define('FitProfile.View',
                     window.cmConfig = data;
                     window.itemRangeConfig = data;
                 });
-                
+
                 jQuery.get(Utils.getAbsoluteUrl('services/influences.ss')).done(function (data) {
                     self.influences = data;
                 });
@@ -175,8 +175,8 @@ define('FitProfile.View',
                 jQuery("#profile-section").html(profileView.$el);
 
                 this.model = Utils.setFunc(this.profile_model, "current_profile", '');
-                
-                if(_.isEmpty(window.bodyBlockMeasurements)){ //get measurement value only once 
+
+                if(_.isEmpty(window.bodyBlockMeasurements)){ //get measurement value only once
                     this.getData(Utils.getAbsoluteUrl('services/bodyBlockMeasurements.ss'), {}, true, function(data){
                         window.bodyBlockMeasurements = data;
                     });
@@ -263,7 +263,7 @@ define('FitProfile.View',
                 var selectedProfileIdValue = e.target.getAttribute('swx-fitprofile-id');
                 var tailorID = this.profile_model.get('parent');
 
-                
+
                 if(_.isEmpty(window.bodyBlockMeasurements)){ //call must be synchronous in edit to display data
                     this.getData(Utils.getAbsoluteUrl('services/bodyBlockMeasurements.ss'), {}, false, function(data){
                         window.bodyBlockMeasurements = data;
@@ -385,7 +385,7 @@ define('FitProfile.View',
                     this.extra_fabric = jQuery('#fabric_extra').val();
                     jQuery('[name="custcol_fabric_quantity"]').val('0.00');
                 }
-                
+
                 self = this;
                 var quantity = 0.0;
                 if (self.blockQuantityMeasurementData) {
@@ -399,7 +399,7 @@ define('FitProfile.View',
                     } else {
                         productType = historyFragment.split("product=")[1];
                     }
-                
+
                     if (jQuery('#fabric_extra').val() != undefined && jQuery('#fabric_extra').val() != "" && jQuery('#fabric_extra').val().toLowerCase() != "please select" ) {
                         extraQuantityValue = parseFloat(jQuery('#fabric_extra').val())
                     }
@@ -431,7 +431,7 @@ define('FitProfile.View',
                     ,   "L-2PC-Skirt": ['Ladies-Jacket', 'Ladies-Skirt']
                     ,   "L-2PC-Pants": ['Ladies-Jacket', 'Ladies-Pants']
                     }
-                    
+
                     products = (productTypeArr[productType] != undefined) ? productTypeArr[productType] : [productType];
 
                     //24/12/2019 saad
@@ -450,7 +450,7 @@ define('FitProfile.View',
                             });
                         }
                     }
-                    
+
                     if (parseFloat(extraQuantityValue) > 0.0) {
                         quantity = parseFloat(extraQuantityValue) + parseFloat(bqmQty);
                         quantity = quantity.toFixed(2);
@@ -683,7 +683,7 @@ define('FitProfile.View',
                         return profile;
                     }
                 });
-                
+
                 if(fitprofile!=undefined){
                     var div = $('#name').closest('div');
                     var para = div.find('p');
@@ -898,9 +898,9 @@ define('FitProfile.View',
                         if(data){
                             //var tempData = JSON.parse(data);
                             fitprofileCreatedId = data.id ? data.id : '';
-                            self.blockValueMapping[fitprofileCreatedId] = (data.rec.custrecord_fp_product_type + '-' + data.rec.custrecord_fp_block_value).toLowerCase();           
+                            self.blockValueMapping[fitprofileCreatedId] = (data.rec.custrecord_fp_product_type + '-' + data.rec.custrecord_fp_block_value).toLowerCase();
                         }
-                        
+
                         for(var i = fragmentArray.length -1; i >= 0; i--){
                             if(fragmentArray[i].match('client')){
                                 clientId = fragmentArray[i].split("=")[1].split("&")[0];
@@ -1170,7 +1170,7 @@ define('FitProfile.View',
                                 jQuery(".show-remove-error-fitprofile").html("<div class='alert alert-success alert-dismissible fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> Record was deleted </div>");
                                 self.reCalculateQuantity();
                             })
-                            $("#fit-profile-modal").modal("toggle");                
+                            $("#fit-profile-modal").modal("toggle");
                         }
                     }
                 }
@@ -1244,7 +1244,7 @@ define('FitProfile.View',
                 jQuery("div[data-type='alert-placeholder']").empty();
 
                 var currentUser = this.profile_model.get("parent");
-                
+
                 this.getClientData(currentUser);
                 if (this.selected_client_data) {
 
@@ -1316,7 +1316,7 @@ define('FitProfile.View',
                 param.clientname = clientFullName1;
                 param.page = -1;
                 param.clientid = clientid;
-                
+
                 var filteredClientOrderHistory = [];
                 Utils.requestUrl("customscript_myaccountsuitelet", "customdeploy1", "GET", param).always(function (data) {
                     var collection = (data) ? JSON.parse(data).records : [];
@@ -1343,7 +1343,7 @@ define('FitProfile.View',
 
         ,   getClientData: function(clientId, async){
                 var async = (async) ? async : false;
-                var self = this, 
+                var self = this,
                 param = new Object();
                 param.type = "get_client";
                 param.data = JSON.stringify({
@@ -1362,7 +1362,7 @@ define('FitProfile.View',
 
         ,   getData: function(url, params, async, success_callback){
                 jQuery.ajax({
-                    url: url, 
+                    url: url,
                     data: params,
                     type: 'get',
                     async: async,
@@ -1411,7 +1411,7 @@ define('FitProfile.View',
                     }
                 }
             }
-            
+
         ,   swxOrderClientSearch: function (e) {     // 03/07/2019 Saad
                 if(e){
                     e.preventDefault();
@@ -1608,7 +1608,7 @@ define('FitProfile.View',
 
                 return template;
             }
-                
+
         ,    category: function (clientId) {
                 var template = '';
                 template += '<div class="view-header container" itemscope itemtype="http://schema.org/WebPage">';
@@ -1954,7 +1954,7 @@ define('FitProfile.View',
                 var formValues = jQuery("#clientedit_form").serialize().split("&");
                 var self = this;
                 var dataToSend = new Array();
-                
+
                 _.each(formValues, function (formValue) {
                     var field = formValue.split("=")[0],
                         value = formValue.split("=")[1],
@@ -1992,7 +1992,7 @@ define('FitProfile.View',
                 }
 
                 param.type = "update_client";
-                
+
                 param.data = JSON.stringify(dataToSend);
 
                 Utils.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
@@ -2007,7 +2007,7 @@ define('FitProfile.View',
                         }
                         return profile;
                     });
-    
+
                     var currentTailor = _.find(self.selected_client_data, function(profile){
                         return profile.internalid == newRec.id;
                     });
@@ -2017,7 +2017,7 @@ define('FitProfile.View',
                                 self.options.profileModel.tailor_measure_collection.add(newRec.rec);
                             }
                         }
-                        
+
                         if(newRec.rec){
                             jQuery("div[data-type='alert-placeholder']").empty();
                             jQuery("#fitProfileClientName").html(currentTailor.custrecord_tc_first_name+" "+currentTailor.custrecord_tc_last_name);
@@ -2034,7 +2034,7 @@ define('FitProfile.View',
                             jQuery(".cancel-action").trigger("click");
                             jQuery(".show-remove-error-fitprofile").html("<div class='alert alert-success alert-dismissible fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> Record was updated </div>");
                             setTimeout(function(){
-                                jQuery("[data-dismiss='alert']").trigger('click'); //to auto remove alert 
+                                jQuery("[data-dismiss='alert']").trigger('click'); //to auto remove alert
                             }, 3000);
                             var client_id = jQuery('#fitProfileClientInternalId').text();
                             self.swxClientProfileSelect('', client_id);
@@ -2250,7 +2250,7 @@ define('FitProfile.View',
                     this.clearBlockAndFinished();
                 }
             }
-            
+
         ,   clearBlockAndFinished: function () {          // 6/19/2019 Saad
                 jQuery('[data-container]').html('---');
             }
@@ -2496,7 +2496,7 @@ define('FitProfile.View',
                         } else {
                             showMessage = 'Record was updated';
                         }
-                        jQuery(".show-remove-error-fitprofile").html("<div class='alert alert-success alert-dismissible fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + showMessage + "</div>");        
+                        jQuery(".show-remove-error-fitprofile").html("<div class='alert alert-success alert-dismissible fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + showMessage + "</div>");
                         var client_id_main = jQuery('#fitProfileClientInternalId').text();  //21/08/2019 Saad SAAD
                         self.swxClientProfileSelect('', client_id_main);
 

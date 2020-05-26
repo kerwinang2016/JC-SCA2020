@@ -70,7 +70,7 @@ define(
 					var dateNeeded = '';
 					//this.data.options[1].value.internalid = 'test 1234'
 					for(var i = 0; i < this.data.options.length; i++){
-						if(this.data.options[i].cartOptionId == 'custcol_avt_modified_date_needed' && 
+						if(this.data.options[i].cartOptionId == 'custcol_avt_modified_date_needed' &&
 						this.data.options[i].value.internalid != '1/1/1900' && this.data.options[i].value.label != '1/1/1900'){
 							isDateAppliedOnAllLines = true;
 							dateNeeded = this.data.options[i].value.internalid || this.data.options[i].value.label;
@@ -79,7 +79,7 @@ define(
 					}
 					var liveOrder = LiveOrderModel.get();
 					var lines = liveOrder.lines;
-					
+
 					if(isDateAppliedOnAllLines) {
 						for(var i = 0; i < lines.length; i++){
 							var lineInternalId = lines[i].internalid;
@@ -93,14 +93,14 @@ define(
 								}
 							}
 							LiveOrderModel.updateLine(lineInternalId, lines[i]);
-	
+
 						}
 
 					} else {
 						LiveOrderModel.updateLine(id, this.data);
 					}
 				}
-				
+
 				return LiveOrderModel.get() || {};
 			}
 

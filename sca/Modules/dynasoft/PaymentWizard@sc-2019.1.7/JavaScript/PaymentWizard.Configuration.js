@@ -134,9 +134,9 @@ define(
                           items.push({name:credit.get('refnum'), quantity:1, unitPrice: parseFloat(credit.get('amount'))*-1})
                         }
                         //var orderid = SC.ENVIRONMENT.customer_internalid+"_"+a.getTime();
-                        console.log('this.wizard.model');
-                        console.log(this.wizard.model);
-                        var pm = this.wizard.model.get('paymentmethods').model[0];
+                        // console.log('this.wizard.model');
+                        // console.log(this.wizard.model);
+                        // var pm = this.wizard.model.get('paymentmethods').model[0];
                         var sourceOfFunds = {
                         	type:'CARD',
                         	provided:{
@@ -160,7 +160,7 @@ define(
                                             }
                                     , 'sourceOfFunds': sourceOfFunds
                                     }
-                        console.log(data);
+                        // console.log(data);
                           jQuery.ajax({
                             url: _.getAbsoluteUrl('services/PaymentIntegration.Service.ss'),
                             type: 'put',

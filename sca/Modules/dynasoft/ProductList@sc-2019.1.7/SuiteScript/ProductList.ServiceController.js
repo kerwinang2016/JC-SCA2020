@@ -80,6 +80,7 @@ define(
 				var id = this.getId()
 				,	user = this.getUser()
 				,	customFiltersObj = this.getCustomFiltersObject();
+
 				if (id)
 				{
 					if (id === 'later')

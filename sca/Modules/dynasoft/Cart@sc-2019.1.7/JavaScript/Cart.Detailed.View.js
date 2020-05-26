@@ -21,7 +21,9 @@ define('Cart.Detailed.View'
 	,	'Cart.Summary.View'
 	,	'Cart.Item.Summary.View'
 	,	'Cart.Item.Actions.View'
+	, 'Cart.CopyProduct.View'
 	,	'SC.Configuration'
+
 	,	'Tracker'
 
 	,	'cart_detailed.tpl'
@@ -33,6 +35,7 @@ define('Cart.Detailed.View'
 
 	,	'jQuery'
 	,	'jQuery.scStickyButton'
+
 	]
 ,	function (
 		BackboneCompositeView
@@ -49,6 +52,7 @@ define('Cart.Detailed.View'
 	,	CartSummaryView
 	,	CartItemSummaryView
 	,	CartItemActionsView
+	,	CartCopyProductView
 	,	Configuration
 	,	Tracker
 
@@ -106,7 +110,7 @@ define('Cart.Detailed.View'
 		,	'click [data-action="copy-to-cart"]' : 'copyItemToCartHandler'
 		,	'click [id="swx-butt-save-for-later-filter"]': 'saveForLaterFilter'
 		,	'click [id="swx-butt-save-for-later-filter-clear"]': 'saveForLaterClearFilter'
-		, 	'click [data-action="show-archived-items"]': 'showArchivedItems'
+		, 'click [data-action="show-archived-items"]': 'showArchivedItems'
 		}
 
 		// @method initialize
@@ -610,11 +614,6 @@ define('Cart.Detailed.View'
 			var option_values = []
 			var selected_options = product.get('options');
 
-			// _.each(selected_options, function(value, key) {
-			// 	option_values.push({id: key, value: value.value, displayvalue: value.displayvalue});
-			// });
-
-
 			var selected_item = product.get('item');
 			var selected_item_internalid = selected_item.get('internalid');
 			var item_detail = self.getItemForCart(selected_item_internalid, product.get('quantity'));
@@ -640,40 +639,44 @@ define('Cart.Detailed.View'
 					}
 				}
 			}
-			var add_to_cart_promise = this.copyItemToCart(item_detail, selected_options.models)
-			,	whole_promise = null;
+			var d = _.find(selected_options.models,function(data){
+				return data.get('cartOptionId') == "custcol_producttype";
+			});
+			if(d.get('value').internalid == 'Jacket' || d.get('value').internalid == 'Trouser' || d.get('value').internalid == 'Waistcoat' ||
+				d.get('value').internalid == 'Shirt' || d.get('value').internalid == 'Overcoat' || d.get('value').internalid == 'Short-Sleeves-Shirt' ||
+				d.get('value').internalid == 'Ladies-Jacket' || d.get('value').internalid == 'Ladies-Pants' || d.get('value').internalid == 'Ladies-Skirt' ||
+				d.get('value').internalid == 'Trenchcoat' || d.get('value').internalid == 'Shorts' ){
+
+				var add_to_cart_promise = this.copyItemToCart(item_detail, selected_options.models)
+				,	whole_promise = null;
 
 
-			if (this.sflMode)
-			{
-				//whole_promise = jQuery.when(add_to_cart_promise, this.deleteListItem(selected_product_list_item)).then(jQuery.proxy(this, 'executeAddToCartCallback'));
-				whole_promise = jQuery.when(add_to_cart_promise).then(jQuery.proxy(this, 'executeAddToCartCallback'));
+				if (this.sflMode)
+				{
+					//whole_promise = jQuery.when(add_to_cart_promise, this.deleteListItem(selected_product_list_item)).then(jQuery.proxy(this, 'executeAddToCartCallback'));
+					whole_promise = jQuery.when(add_to_cart_promise).then(jQuery.proxy(this, 'executeAddToCartCallback'));
+				}
+				else
+				{
+					//whole_promise = jQuery.when(add_to_cart_promise).then(jQuery.proxy(this, 'showConfirmationHelper', selected_product_list_item));
+				}
+
+				if (whole_promise)
+				{
+					this.disableElementsOnPromise(whole_promise, 'article[data-item-id="' + selected_item_internalid + '"] a, article[data-item-id="' + selected_item_internalid + '"] button');
+				}
+			}else{
+				var copyItemView = new CartCopyProductView({
+					productType:	d.get('value').internalid,
+					selected_options: 	selected_options,
+					application: this.application,
+					item: product,
+					model: this.model
+				});
+				copyItemView.showInModal();
+				// copyItemView.on('closemodal', copyItemView.close()))
 			}
-			else
-			{
-				//whole_promise = jQuery.when(add_to_cart_promise).then(jQuery.proxy(this, 'showConfirmationHelper', selected_product_list_item));
-			}
-
-			if (whole_promise)
-			{
-				this.disableElementsOnPromise(whole_promise, 'article[data-item-id="' + selected_item_internalid + '"] a, article[data-item-id="' + selected_item_internalid + '"] button');
-			}
-
-			// add_to_cart_promise.success(function ()
-			// {
-			// 	self.showContent()/*.done(function (view)
-			// 	{
-			// 		view.resetColapsiblesState();
-			// 	});*/
-			// });
-
-			// setTimeout(function(){
-			// 	location.reload();
-			// }, 1500);
-
-
-		}
-
+	}
 	,	downloadQuote: function ()
 	{
 		var self = this;

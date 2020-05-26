@@ -135,13 +135,15 @@ define(
 
 			selected_value = _.extend({}, selected_value, _.findWhere(values, {internalid: selected_value.internalid}) || {});
 			selected_value.label = selected_value.label || selected_value.internalid;
-
+			if(this.model.get('cartOptionId').indexOf('custcol_fabric_quantity') != -1){
+				
+			}
 			if(this.options.productType == '3-Piece-Suit' && this.model.get('cartOptionId') == 'custcol_designoptions_waistcoat'){
 				isShowDesignOption = true;
 				isShowFitProfile = true;
 				isShowCogsContents = true;
 			}
-			
+
 			if(this.options.productType == '2-Piece-Suit' && this.model.get('cartOptionId') == 'custcol_designoptions_trouser'){
 				isShowDesignOption = true;
 				isShowFitProfile = true;
@@ -162,7 +164,7 @@ define(
 				isShowFitProfile = true;
 				isShowCogsContents = true;
 			}
-			
+
 			if(this.options.productType != '2-Piece-Suit' && this.options.productType != '3-Piece-Suit' && this.options.productType != 'L-3PC-Suit' && this.options.productType != 'L-2PC-Skirt' && this.options.productType != 'L-2PC-Pants' && this.model.get('cartOptionId').indexOf('custcol_designoptions') != -1){
 				isShowDesignOption = true;
 				isShowFitProfile = true;

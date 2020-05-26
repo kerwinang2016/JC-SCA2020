@@ -49,7 +49,7 @@ define(
 				this.events = {};
 				_.extend(this.events, {
 					'input #designoption-message': 'validateTextArea'
-				});	
+				});
 			} // -End-
 
 			var item_options_default_templates = Configuration.get('ItemOptions.defaultTemplates', {});
@@ -84,6 +84,7 @@ define(
 
 			this.options.templateName = this.options.templateName || 'selector';
 			this.template =	this.config.templates[this.options.templateName];
+			this.customerliningurl = this.options.customerliningurl;
 		}
 
 		// 14/11/2019 Umar Zulfiqar {RFQ: Prevent typing in Special Characters in Text} -Start-
@@ -142,7 +143,7 @@ define(
 					};
 					//@class ProductViews.Option.View
 				});
-				var selectedDesignOption = Utils.itemDetailsDesignOptions(this.options.selectedDesignOption, this.options.options_holder);
+				var selectedDesignOption = Utils.itemDetailsDesignOptions(this.options.selectedDesignOption, this.options.options_holder, this.customerliningurl);
 			// @class ProductViews.Option.View.Context
 			return {
 				selectedDesignOption : selectedDesignOption
@@ -178,6 +179,7 @@ define(
 			,	showLabel: !this.options.hideLabel
 				// @property {Boolean} showSmall
 			,	showSmall: !!this.options.showSmall
+			, customerliningurl: this.customerliningurl
 			};
 			// @class ProductViews.Option.View
 		}

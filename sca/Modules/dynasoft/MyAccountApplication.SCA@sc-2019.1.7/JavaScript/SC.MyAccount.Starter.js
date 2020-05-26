@@ -29,7 +29,7 @@ define(
 	'use strict';
 	SC.sessioncheck = function(){
 		self = this;
-		console.log('hastimedout');
+		// console.log('hastimedout');
 		jQuery.ajax({
 			url: 'https://checkout.na2.netsuite.com/c.3857857/sca-dev-2019-1/services/LiveOrder.Service.ss?internalid=cart'
 		});

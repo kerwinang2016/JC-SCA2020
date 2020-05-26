@@ -217,7 +217,7 @@ define('OrderHistory.Details.View'
 			this.shipaddress = this.model.get('addresses').get(this.model.get('shipaddress'));
 
 			Backbone.View.prototype.render.apply(this, arguments);
-			
+
 		}
 
 		//@method trackEventReorder

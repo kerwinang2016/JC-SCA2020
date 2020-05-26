@@ -62,6 +62,8 @@ define('ProductDetails.Options.Selector.View'
 				this.count = 0;
 				this.selectedLineObj = this.options.selected_line_obj;
 				this.selectedLineData = this.options.selected_line_data;
+
+				this.customerliningurl = this.options.customerliningurl;
 				Backbone.View.prototype.initialize.apply(this, arguments);
 				BackboneCompositeView.add(this);
 			}
@@ -119,6 +121,7 @@ define('ProductDetails.Options.Selector.View'
 						,	show_required_label: this.options.show_required_label
 						,	selectedDesignOption : selectedDesignOption
 						,	options_holder: this.options.options_holder
+						, customerliningurl: this.customerliningurl
 						}
 					});
 				}
@@ -149,6 +152,18 @@ define('ProductDetails.Options.Selector.View'
 						, 	favouriteOptions = this.favouriteOptions
 						, 	designRestrictions = this.designRestrictions
 						, 	designOptions = new Object();
+						var tag = [];
+						tag['Jacket'] = 'j';
+						tag['Trouser'] = 't';
+						tag['Overcoat'] = 'o';
+						tag['Waistcoat'] = 'w';
+						tag['Shirt'] = 's';
+						tag['Short-Sleeves-Shirt'] = 'ss';
+						tag['Trenchcoat'] = 'tc';
+						tag['Shorts'] = 'sh';
+						tag['Ladies-Jacket'] = 'lj';
+						tag['Ladies-Pants'] = 'lp';
+						tag['Ladies-Skirt'] = 'ls';
 					var currentItemTypes;
 					if (this.model.get('custitem_clothing_type') && this.model.get('custitem_clothing_type') != "" && this.model.get('custitem_clothing_type') != "nbsp;"){
 						currentItemTypes = this.model.get('custitem_clothing_type').split(', ');
@@ -179,7 +194,15 @@ define('ProductDetails.Options.Selector.View'
 										restrictions = currentRestriction[0].value.trim().split(",");
 									}
 
-									var currentFavouriteOption = favouriteOptions ? favouriteOptions[field.name] : "";
+									var currentFavouriteOption = "";
+									if(favouriteOptions){
+										 if(favouriteOptions[tag[clothingType.item_type]+'_'+field.name]){
+											 currentFavouriteOption = favouriteOptions[tag[clothingType.item_type]+'_'+field.name];
+										 }else if(favouriteOptions[field.name]){
+											 currentFavouriteOption = favouriteOptions[field.name];
+										 }
+									 }
+									
 									// set restrictions
 									for(var i = 0; i < field.values.length; i++){
 										var currentFieldValue = field.values[i];
@@ -208,7 +231,7 @@ define('ProductDetails.Options.Selector.View'
 													isFavourite : isFavourite
 												});
 											}
-											
+
 											// instantiate if object does not exist yet
 											if (!designOptions[clothingType.item_type]){
 												designOptions[clothingType.item_type] = {};
@@ -269,6 +292,8 @@ define('ProductDetails.Options.Selector.View'
 					,	showPusher: this.options.show_pusher
 						//@property {Boolean} showRequiredLabel
 					,	showRequiredLabel: this.options.show_required_label
+
+					, customerliningurl: this.customerliningurl
 				};
 				//@class ProductDetails.Options.Selector.View
 			}

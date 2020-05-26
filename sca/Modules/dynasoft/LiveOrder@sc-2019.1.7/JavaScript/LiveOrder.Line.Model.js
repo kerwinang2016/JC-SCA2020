@@ -105,11 +105,11 @@ define('LiveOrder.Line.Model'
 				var clientId;
 				if (Backbone.history.fragment.split("?").length > 1) { //Added salman June-2019
 					var fragmentArray = Backbone.history.fragment.split("?")
-				
+
 					for (var i = fragmentArray.length - 1; i >= 0; i--) {
 						if (fragmentArray[i].match('client')) {
 							var tempClientIdSplit = fragmentArray[i].split("=")[1].split("&")[0];
-							
+
 							if(tempClientIdSplit.indexOf('|') != '-1'){
 								clientId = tempClientIdSplit.split('|')[0];
 							} else {
@@ -138,7 +138,7 @@ define('LiveOrder.Line.Model'
 				if(isProductListModule){
 					product.get('options').each(function (product_option)
 					{
-						
+
 						var line_option = line.get('options').findWhere({cartOptionId: product_option.get('cartOptionId')});
 						line_option.attributes = _.extend({}, product_option.attributes, line_option.attributes);
 					});
@@ -156,12 +156,12 @@ define('LiveOrder.Line.Model'
 						vendor: jQuery('#fabric-cmt-vendor').val(),
 						othervendor: jQuery('#fabric-cmt-othervendorname').val()
 					}
-					
+
 					if (line_option.attributes.cartOptionId == 'custcol_othervendorname') {
 						var otherVendorName = jQuery('#fabric-cmt-othervendorname').val() ? jQuery('#fabric-cmt-othervendorname').val() : ''
 						line_option.attributes.value = {internalid: otherVendorName, label: otherVendorName}
 					}
-					
+
 					if (line_option.attributes.cartOptionId == 'custcol_expected_delivery_date') {
 						if(expectedDate){
 							var temp = expectedDate.split('-');
@@ -186,7 +186,7 @@ define('LiveOrder.Line.Model'
 					// // update design option hidden fields
 					if (product.get('custitem_clothing_type') && product.get('custitem_clothing_type') != "&nbsp;") {
 						var clothingTypes = product.get('custitem_clothing_type').split(', ');
-						
+
 						var selectedUnits = "CM";
 
 						_.each(clothingTypes, function (clothingType) {
@@ -258,7 +258,7 @@ define('LiveOrder.Line.Model'
 								}
 							}
 						});
-						
+
 						if (line_option.attributes.cartOptionId == 'custcol_producttype') {
 							line_option.attributes.value = {internalid: product.get('custcol_producttype'), label: product.get('custcol_producttype')}
 						}
@@ -282,7 +282,7 @@ define('LiveOrder.Line.Model'
 						if (line_option.attributes.cartOptionId == 'custcol_tailor_client') {
 							line_option.attributes.value = {internalid: clientId, label: clientId}
 						}
-						
+
 						var tailorPricing = jQuery('span[itemprop="price"]').attr("data-rate") ? jQuery('span[itemprop="price"]').attr("data-rate").replace(",", "") : "0.00";
 						if (line_option.attributes.cartOptionId == 'custcol_tailor_cust_pricing') {
 							line_option.attributes.value = {internalid: tailorPricing, label: tailorPricing}
@@ -313,10 +313,10 @@ define('LiveOrder.Line.Model'
 									'id': mid,
 									'blockvalue': blockvalue
 								});
-								
+
 							}
 						});
-						
+
 						if (line_option.attributes.cartOptionId == 'custcol_fitprofile_summary') {
 							line_option.attributes.value = {internalid: JSON.stringify(fitProfileSummary), label: JSON.stringify(fitProfileSummary)}
 						}
@@ -330,7 +330,7 @@ define('LiveOrder.Line.Model'
 						if (line_option.attributes.cartOptionId == 'custcol_ps_cart_item_id') {
 							line_option.attributes.value = {internalid: "ITEM_" + (Date.now() / 1000 | 0), label: "ITEM_" + (Date.now() / 1000 | 0)}
 						}
-						
+
 						var tailorPricing = jQuery('span[itemprop="price"]').attr("data-rate") ? jQuery('span[itemprop="price"]').attr("data-rate").replace(",", "") : "0.00";
 						if (line_option.attributes.cartOptionId == 'custcol_tailor_cust_pricing') {
 							line_option.attributes.value = {internalid: tailorPricing, label: tailorPricing}
@@ -341,7 +341,7 @@ define('LiveOrder.Line.Model'
 						}
 
 					}
-					
+
 					// // if (this.model.itemOptions && this.model.itemOptions.GIFTCERTRECIPIENTEMAIL) {
 					// //     if (!Backbone.Validation.patterns.email.test(this.model.itemOptions.GIFTCERTRECIPIENTEMAIL.label)) {
 					// //         self.showError(_('Recipient email is invalid').translate());
@@ -355,7 +355,7 @@ define('LiveOrder.Line.Model'
 					if (line_option.attributes.cartOptionId == 'custcol_avt_modified_date_needed') {
 						line_option.attributes.value = {internalid: dateNeeded, label: dateNeeded}
 					}
-					
+
 					if (line_option.attributes.cartOptionId == 'custcol_avt_wbs_copy_key') {
 						line_option.attributes.value = {internalid: 'No Copy', label: 'No Copy'}
 					}
@@ -363,7 +363,7 @@ define('LiveOrder.Line.Model'
 					if (line_option.attributes.cartOptionId == 'custcol_site_cogs') {
 						line_option.attributes.value = {internalid: '<div></div>', label: '<div></div>'}
 					}
-					
+
 					if (line_option.attributes.cartOptionId == 'custcol_avt_date_needed') {
 						line_option.attributes.value = {internalid: dateNeeded, label: dateNeeded}
 					}
@@ -380,7 +380,7 @@ define('LiveOrder.Line.Model'
 					if (line_option.attributes.cartOptionId == 'custcolcustcol_item_check') {
 						line_option.attributes.value = {internalid: isItemChck, label: isItemChck}
 					}
-				
+
 					//Salman End 13-June-2019
 
 						line_option.attributes = _.extend({}, product_option.attributes, line_option.attributes);
@@ -391,24 +391,24 @@ define('LiveOrder.Line.Model'
 				{
 					line.get('item').set('matrix_parent', product.get('item'));
 				}
-				
+
 				return line;
 			}
-		
+
 			// @method createFromOuterLine Creates a LiveOrder.Line.Model from the outer representation of a line exposed by Extensibility Layer
 			// @param {Line} outer_line
 			// @return {LiveOrder.Line.Model}
 		,	createFromOuterLine: function createFromOuterLine (outer_line)
 			{
 				var item = outer_line.item;
-				
+
 				outer_line = _.extend(outer_line, outer_line.extras);
 				delete outer_line.extras;
-				
+
 				item = _.extend(item, item.extras);
 				delete item.extras;
 				outer_line.item = item;
-				
+
 				var new_line = new LiveOrderLineModel(outer_line);
 				return new_line;
 			}

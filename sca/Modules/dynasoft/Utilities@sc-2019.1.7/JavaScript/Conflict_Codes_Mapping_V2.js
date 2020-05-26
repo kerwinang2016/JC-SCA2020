@@ -211,166 +211,6 @@ define('Conflict_Codes_Mapping_V2'
 
     /** ####  END CONFLICT CODE -  T01020203  #### **/
 
-
-    /** #### START CONFLICT CODE - T01020310 #### **/
-
-    OBJ_CONFLICT['T01020310'] = {};
-    OBJ_CONFLICT['T01020310']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020310']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020310']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020310']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch low gorge 8.2cm lapel';
-
-    /** start conflicts -  T010202 **/
-    /**  end conflicts -  T010202  **/
-
-    /** ####  END CONFLICT CODE -  T01020310  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020311 #### **/
-
-    OBJ_CONFLICT['T01020311'] = {};
-    OBJ_CONFLICT['T01020311']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020311']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020311']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020311']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch lapel 6cm';
-
-    /** ####  END CONFLICT CODE -  T01020311  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020312 #### **/
-
-    OBJ_CONFLICT['T01020312'] = {};
-    OBJ_CONFLICT['T01020312']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020312']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020312']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020312']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch lapel 7cm';
-
-    /** ####  END CONFLICT CODE -  T01020312  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020313 #### **/
-
-    OBJ_CONFLICT['T01020313'] = {};
-    OBJ_CONFLICT['T01020313']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020313']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020313']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020313']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch lapel 8cm';
-
-    /** ####  END CONFLICT CODE -  T01020313  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020314 #### **/
-
-    OBJ_CONFLICT['T01020314'] = {};
-    OBJ_CONFLICT['T01020314']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020314']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020314']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020314']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch lapel 9cm';
-
-    /** ####  END CONFLICT CODE -  T01020314  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020315 #### **/
-
-    OBJ_CONFLICT['T01020315'] = {};
-    OBJ_CONFLICT['T01020315']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020315']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020315']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020315']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch lapel 10cm';
-
-    /** ####  END CONFLICT CODE -  T01020315  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020316 #### **/
-
-    OBJ_CONFLICT['T01020316'] = {};
-    OBJ_CONFLICT['T01020316']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020316']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020316']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020316']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch lapel 11cm';
-
-    /** ####  END CONFLICT CODE -  T01020316  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020306 #### **/
-
-    OBJ_CONFLICT['T01020306'] = {};
-    OBJ_CONFLICT['T01020306']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020306']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020306']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020306']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with peak lapel 7cm';
-
-    /** ####  END CONFLICT CODE -  T01020306  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020317 #### **/
-
-    OBJ_CONFLICT['T01020317'] = {};
-    OBJ_CONFLICT['T01020317']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020317']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020317']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020317']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with peak lapel 8cm';
-
-    /** ####  END CONFLICT CODE -  T01020317  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020318 #### **/
-
-    OBJ_CONFLICT['T01020318'] = {};
-    OBJ_CONFLICT['T01020318']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020318']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020318']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020318']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with peak lapel 9cm';
-
-    /** ####  END CONFLICT CODE -  T01020318  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020319 #### **/
-
-    OBJ_CONFLICT['T01020319'] = {};
-    OBJ_CONFLICT['T01020319']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020319']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020319']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020319']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with peak lapel 10cm';
-
-    /** ####  END CONFLICT CODE -  T01020319  #### **/
-
-
-    /** #### START CONFLICT CODE - T01020320 #### **/
-
-    OBJ_CONFLICT['T01020320'] = {};
-    OBJ_CONFLICT['T01020320']['CONFLICT'] = [];
-
-    OBJ_CONFLICT['T01020320']['CONFLICT']['T010221']= [];
-
-    OBJ_CONFLICT['T01020320']['CONFLICT']['T010221']['Fabric']={};
-    OBJ_CONFLICT['T01020320']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with peak lapel 11cm';
-
-    /** ####  END CONFLICT CODE -  T01020320  #### **/
-
-
     /** #### START CONFLICT CODE - T01020801 #### **/
 
     OBJ_CONFLICT['T01020801'] = {};
@@ -1862,19 +1702,6 @@ define('Conflict_Codes_Mapping_V2'
     OBJ_CONFLICT['T01020308']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Patch with flap and pleat side pockets cannot be selected with shawl collar 6cm closure';
     /**  end conflicts -  T010211  **/
 
-    /** start conflicts -  T010202 **/
-    OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']= [];
-
-    OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020201']={};
-    OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020201']['ERROR'] = 'You cannot select this closure with a shawl collar 6cm lapel';
-
-    OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020202']={};
-    OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020202']['ERROR'] = 'You cannot select this closure with a shawl collar 6cm lapel';
-
-    OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020203']={};
-    OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020203']['ERROR'] = 'You cannot select this closure with a shawl collar 6cm lapel';
-    /**  end conflicts -  T010202  **/
-
     /** start conflicts -  T010221 **/
     OBJ_CONFLICT['T01020308']['CONFLICT']['T010221']= [];
 
@@ -2071,19 +1898,6 @@ define('Conflict_Codes_Mapping_V2'
     OBJ_CONFLICT['T01020321']['CONFLICT']['T010211']['T01021106']={};
     OBJ_CONFLICT['T01020321']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Patch with flap and pleat side pockets cannot be selected with shawl collar 7.6cm closure';
     /**  end conflicts -  T010211  **/
-
-    /** start conflicts -  T010202 **/
-    OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']= [];
-
-    OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020201']={};
-    OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020201']['ERROR'] = 'You cannot select this closure with a shawl collar 7.6cm lapel';
-
-    OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020202']={};
-    OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020202']['ERROR'] = 'You cannot select this closure with a shawl collar 7.6cm lapel';
-
-    OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020203']={};
-    OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020203']['ERROR'] = 'You cannot select this closure with a shawl collar 7.6cm lapel';
-    /**  end conflicts -  T010202  **/
 
     /** start conflicts -  T010221 **/
     OBJ_CONFLICT['T01020321']['CONFLICT']['T010221']= [];
@@ -2801,35 +2615,6 @@ define('Conflict_Codes_Mapping_V2'
 
     OBJ_CONFLICT['T01052201'] = {};
     OBJ_CONFLICT['T01052201']['CONFLICT'] = [];
-
-    /** start conflicts -  T010517 **/
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']= [];
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051703']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051703']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051704']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051704']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051705']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051705']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051706']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051706']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051707']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051707']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051708']={};
-    OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051708']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
-
-
     OBJ_CONFLICT['T01052201']['CONFLICT']['T010523'] = {};
     OBJ_CONFLICT['T01052201']['CONFLICT']['T010523']['NA']={};
     OBJ_CONFLICT['T01052201']['CONFLICT']['T010523']['NA']['ERROR'] = 'Monogram Font cannot be NA if Heel Tape Monogram is Yes';
@@ -3029,55 +2814,6 @@ define('Conflict_Codes_Mapping_V2'
     OBJ_CONFLICT['T01060204']['CONFLICT']['T010615']['T01061501']={};
     OBJ_CONFLICT['T01060204']['CONFLICT']['T010615']['T01061501']['ERROR'] = 'Only no elbow patches can be selected with short sleeves';
 
-    /** start conflicts -  T010604 **/
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']= [];
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060401']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060401']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060402']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060402']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060403']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060403']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060404']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060404']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060405']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060405']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060406']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060406']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060407']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060407']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060408']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060408']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060409']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060409']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060410']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060410']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060411']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060411']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060412']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060412']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060413']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060413']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060414']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060414']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060415']={};
-    OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060415']['ERROR'] = 'Only NA cuff can be selected with short sleeves';
-    /**  end conflicts -  T010604  **/
-
     /** ####  END CONFLICT CODE -  T01060204  #### **/
 
     /** #### START CONFLICT CODE - T01021306 #### **/
@@ -3125,7 +2861,7 @@ define('Conflict_Codes_Mapping_V2'
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010642']= [];
 
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010642']['T01064201']={};
-    OBJ_CONFLICT['T01060708']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'Formal Front NA cannot be selected with Formal Front with Studs';
+    OBJ_CONFLICT['T01060708']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'You cannot choose NA for formal front with studs with Formal Front with Studs front placket';
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010648'] = {};
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010648']['TC001']={};
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010648']['TC001']['ERROR'] = 'You must select No for placket contrast piping with that front placket selection';
@@ -3273,6 +3009,9 @@ define('Conflict_Codes_Mapping_V2'
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010648']['TST08']['ERROR'] = 'You must select No for placket contrast piping with that front placket selection';
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010648']['Other']={};
     OBJ_CONFLICT['T01060708']['CONFLICT']['T010648']['Other']['ERROR'] = 'You must select No for placket contrast piping with that front placket selection';
+    OBJ_CONFLICT['T01060708']['CONFLICT']['T010651']={};
+    OBJ_CONFLICT['T01060708']['CONFLICT']['T010651']['T01065101']={};
+    OBJ_CONFLICT['T01060708']['CONFLICT']['T010651']['T01065101']['ERROR'] = 'You cannot choose NA for formal pleats length with Formal Front with Studs';
 
     /** ####  END CONFLICT CODE -  T01060708  #### **/
 
@@ -3285,56 +3024,6 @@ define('Conflict_Codes_Mapping_V2'
 
     OBJ_CONFLICT['T01060205']['CONFLICT']['T010615']['T01061501']={};
     OBJ_CONFLICT['T01060205']['CONFLICT']['T010615']['T01061501']['ERROR'] = 'Only no elbow patches can be selected with short with cuff sleeves';
-
-    /** start conflicts -  T010604 **/
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']= [];
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060401']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060401']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060402']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060402']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060403']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060403']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060404']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060404']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060405']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060405']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060406']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060406']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060407']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060407']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060408']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060408']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060409']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060409']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060410']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060410']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060411']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060411']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060412']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060412']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060413']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060413']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060414']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060414']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060415']={};
-    OBJ_CONFLICT['T01060205']['CONFLICT']['T010604']['T01060415']['ERROR'] = 'Only NA cuff can be selected with short with cuff sleeves';
-    /**  end conflicts -  T010604  **/
-
     /** ####  END CONFLICT CODE -  T01060205  #### **/
 
 
@@ -6393,29 +6082,29 @@ define('Conflict_Codes_Mapping_V2'
 
     /** ####  END CONFLICT CODE - T01170110 #### **/
     /** #### START CONFLICT CODE - T01170109 #### **/
-    OBJ_CONFLICT['T01170110']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170202']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170201']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170201']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170205']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170205']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170206']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170206']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170207']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170207']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170208']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170209']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T01170209']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T011702010']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T011702010']['ERROR'] = 'You must select No for lapel with that closure option';
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T011702011']={};
-    OBJ_CONFLICT['T01170110']['CONFLICT']['T011702']['T011702011']['ERROR'] = 'You must select No for lapel with that closure option';
+    OBJ_CONFLICT['T01170109']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170202']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170201']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170201']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170205']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170205']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170206']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170206']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170207']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170207']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170208']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170209']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T01170209']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T011702010']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T011702010']['ERROR'] = 'You must select U lapel with that closure option';
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T011702011']={};
+    OBJ_CONFLICT['T01170109']['CONFLICT']['T011702']['T011702011']['ERROR'] = 'You must select U lapel with that closure option';
 
-    /** ####  END CONFLICT CODE - T01170110 #### **/
+    /** ####  END CONFLICT CODE - T01170109 #### **/
     /** #### START CONFLICT CODE - T01061602 #### **/
     OBJ_CONFLICT['T01061602']={};
     OBJ_CONFLICT['T01061602']['CONFLICT']={};
@@ -6568,6 +6257,64 @@ define('Conflict_Codes_Mapping_V2'
     OBJ_CONFLICT['T01061602']['CONFLICT']['T010632']['Other']['ERROR'] = 'You must select No for contrast handkerchief when you select No for handkerchief';
 
     /** ####  END CONFLICT CODE - T01061602 #### **/
+    /** #### START CONFLICT CODE - T01060334 #### **/
+    OBJ_CONFLICT['T01060334']={};
+    OBJ_CONFLICT['T01060334']['CONFLICT']={};
+    OBJ_CONFLICT['T01060334']['CONFLICT']['T010608']={};
+    OBJ_CONFLICT['T01060334']['CONFLICT']['T010608']['T01060802']={};
+    OBJ_CONFLICT['T01060334']['CONFLICT']['T010608']['T01060802']['ERROR'] = 'You cannot choose Permanent collar stays with medium spread with round edges collar';
+    /** ####  END CONFLICT CODE - T01060334 #### **/
+    /** #### START CONFLICT CODE - T01065102 #### **/
+    OBJ_CONFLICT['T01065102']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010637']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010637']['T01063703']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010637']['T01063703']['ERROR'] = 'You cannot choose Body 23cm Down for monogram position with standard for formal pleats length';
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010637']['T01063704']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010637']['T01063704']['ERROR'] = 'You cannot choose Body 35cm Down for monogram position with standard for formal pleats length';
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010637']['T01063705']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010637']['T01063705']['ERROR'] = 'You cannot choose Body 45cm Down for monogram position with standard for formal pleats length';
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010642']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010642']['T01064201']={};
+    OBJ_CONFLICT['T01065102']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'You cannot choose NA for formal front with studs with standard formal pleats length';
+
+    /** ####  END CONFLICT CODE - T01065102 #### **/
+    /** #### START CONFLICT CODE - T01065102 #### **/
+    OBJ_CONFLICT['T01065103']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010637']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010637']['T01063703']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010637']['T01063703']['ERROR'] = 'You cannot choose Body 23cm Down for monogram position with 10cm up from bottom for formal pleats length';
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010637']['T01063704']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010637']['T01063704']['ERROR'] = 'You cannot choose Body 35cm Down for monogram position with 10cm up from bottom for formal pleats length';
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010637']['T01063705']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010637']['T01063705']['ERROR'] = 'You cannot choose Body 45cm Down for monogram position with 10cm up from bottom for formal pleats length';
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010642']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010642']['T01064201']={};
+    OBJ_CONFLICT['T01065103']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'You cannot choose NA for formal front with studs with 10cm up from bottom formal pleats length';
+    /** ####  END CONFLICT CODE - T01065103 #### **/
+    /** #### START CONFLICT CODE - T01060713 #### **/
+    OBJ_CONFLICT['T01060713']={};
+    OBJ_CONFLICT['T01060713']['CONFLICT']={};
+    OBJ_CONFLICT['T01060713']['CONFLICT']['T010651']={};
+    OBJ_CONFLICT['T01060713']['CONFLICT']['T010651']['T01065101']={};
+    OBJ_CONFLICT['T01060713']['CONFLICT']['T010651']['T01065101']['ERROR'] = 'You cannot choose NA for formal pleats length with Formal Front with Classic Placket & 4 Studs ';
+    OBJ_CONFLICT['T01060713']['CONFLICT']['T010642']={};
+    OBJ_CONFLICT['T01060713']['CONFLICT']['T010642']['T01064201']={};
+    OBJ_CONFLICT['T01060713']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'You cannot choose NA for formal front with studs with Formal Front with Classic Placket & 4 Studs front placket';
+
+    /** ####  END CONFLICT CODE - T01060713 #### **/
+    /** #### START CONFLICT CODE - T01060714 #### **/
+    OBJ_CONFLICT['T01060714']={};
+    OBJ_CONFLICT['T01060714']['CONFLICT']={};
+    OBJ_CONFLICT['T01060714']['CONFLICT']['T010651']={};
+    OBJ_CONFLICT['T01060714']['CONFLICT']['T010651']['T01065101']={};
+    OBJ_CONFLICT['T01060714']['CONFLICT']['T010651']['T01065101']['ERROR'] = 'You cannot choose NA for formal pleats length with Formal Fly Front';
+    OBJ_CONFLICT['T01060714']['CONFLICT']['T010642']={};
+    OBJ_CONFLICT['T01060714']['CONFLICT']['T010642']['T01064201']={};
+    OBJ_CONFLICT['T01060714']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'You cannot choose NA for formal front with studs with Formal Fly Front front placket';
+
+    /** ####  END CONFLICT CODE - T01060714 #### **/
 
 return {
     OBJ_CONFLICT: OBJ_CONFLICT

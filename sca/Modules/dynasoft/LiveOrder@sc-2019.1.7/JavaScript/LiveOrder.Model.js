@@ -194,7 +194,7 @@ define('LiveOrder.Model'
 			var	self = this;
 			return this.cancelableTrigger('before:LiveOrder.addLines', lines)
 			.then(function(){
-			
+
 				var test = lines instanceof LiveOrderLineCollection ? true : false
 
 				lines = lines instanceof LiveOrderLineCollection ? lines : new LiveOrderLineCollection(lines);
@@ -211,7 +211,7 @@ define('LiveOrder.Model'
 					Tracker.getInstance().trackAddToCart(self.get('lines').get(self.get('latest_addition')));
 					// self.set('latest_addition', '');
 					self.cancelableTrigger('after:LiveOrder.addLines', old_lines, self.get('lines').clone());
-	
+
 				});
 
 				return promise;
@@ -230,7 +230,7 @@ define('LiveOrder.Model'
 		//@param {Product.Model} line
 		//@return {jQuery.Deferred}
 	,	addProduct: function addProduct (product)
-		{ 
+		{
 			return this.addLine(LiveOrderLineModel.createFromProduct(product));
 		}
 
@@ -264,7 +264,7 @@ define('LiveOrder.Model'
 
 			return this.cancelableTrigger('before:LiveOrder.updateLine', line)
 			.then(function(){
-			
+
 				// As the LiveOrder.Live.Service IS NOT REST we cannot use line.save, instead we directly call line.sync
 				return line.sync('update', line, {killerId: AjaxRequestsKiller.getKillerId(), validate: false})
 				.done(function (attributes)
@@ -273,7 +273,7 @@ define('LiveOrder.Model'
 					self.set(attributes);
 
 					Tracker.getInstance().trackAddToCart(self.getLatestAddition());
-					
+
 					self.cancelableTrigger('after:LiveOrder.updateLine', line);
 				})
 				.fail(function (jqXhr)
@@ -298,9 +298,9 @@ define('LiveOrder.Model'
 						}
 					}
 				});
-				
+
 			});
-		} 
+		}
 
 	,	addItem: function (item, options)
 		{
@@ -383,15 +383,15 @@ define('LiveOrder.Model'
 
 			return this.cancelableTrigger('before:LiveOrder.removeLine', line)
 			.then(function(){
-			
+
 				return line.sync('delete', line, {killerId: AjaxRequestsKiller.getKillerId(), validate: false})
 				.done(function (attributes)
 				{
 					self.set(attributes);
-					
+
 					self.cancelableTrigger('after:LiveOrder.removeLine', line);
 				});
-				
+
 			});
 		}
 
@@ -403,7 +403,7 @@ define('LiveOrder.Model'
 
 			return this.cancelableTrigger('before:LiveOrder.submit')
 			.then(function(){
-			
+
 				self.set('internalid', null);
 
 				var	creditcard = self.get('paymentmethods').findWhere({type: 'creditcard'})
@@ -434,7 +434,7 @@ define('LiveOrder.Model'
 				{
 					self.set('internalid', 'cart');
 				});
-				
+
 			});
 		}
 
@@ -541,11 +541,11 @@ define('LiveOrder.Model'
 
 			return lines;
 		}
-		
+
 	,	addPromotion: function addPromotion(promocode)
 		{
 			var self = this;
-			
+
 			return this.cancelableTrigger('before:LiveOrder.addPromotion', {code: promocode})
 			.then(function()
 			{
@@ -557,7 +557,7 @@ define('LiveOrder.Model'
 				.fail(function()
 				{
 					self.set('promocodes', pre_promocodes);
-					
+
 					self.trigger('apply_promocode_failed');
 				})
 				.always(function()
@@ -566,36 +566,36 @@ define('LiveOrder.Model'
 				})
 				.pipe(function()
 				{
-					
+
 					var added_promocode = _.find(self.get('promocodes'), function(promo)
 					{
 						return promo.code === promocode;
 					});
-					
+
 					//We kept the pre existing event
-					self.trigger('promocodeUpdated', 'applied');	
-					self.cancelableTrigger('after:LiveOrder.addPromotion',  added_promocode);	
-					
+					self.trigger('promocodeUpdated', 'applied');
+					self.cancelableTrigger('after:LiveOrder.addPromotion',  added_promocode);
+
 					return added_promocode;
 				});
 
 			});
 		}
-		
+
 	,	removePromotion: function removePromotion(promocode_internal_id)
 		{
 			var self = this;
-			
+
 			return this.cancelableTrigger('before:LiveOrder.removePromotion', {internalid: promocode_internal_id})
 			.then(function()
 			{
 				var	promocodes = self.get('promocodes') || [];
-				
+
 				promocodes = _.reject(promocodes, function (promocode)
 				{
 					return promocode.internalid === promocode_internal_id;
 				});
-				
+
 				return self
 				.save({promocodes: promocodes})
 				.always(function()
@@ -610,11 +610,11 @@ define('LiveOrder.Model'
 				});
 			});
 		}
-		
+
 	,	addPayment: function addPayment(payment_method, save)
 		{
 			var self = this;
-			
+
 			return this.cancelableTrigger('before:LiveOrder.addPayment', payment_method)
 			.pipe(function()
 			{
@@ -627,7 +627,7 @@ define('LiveOrder.Model'
 					{
 						promise = self.save();
 					}
-					
+
 					return promise.then(function()
 					{
 						self.cancelableTrigger('after:LiveOrder.addPayment', payment_method);
@@ -635,12 +635,12 @@ define('LiveOrder.Model'
 				}
 				catch(error)
 				{
-					return jQuery.Deferred().reject(error);	
+					return jQuery.Deferred().reject(error);
 				}
-				
+
 			});
 		}
-		
+
 	,	setAddress: function setAddress(address_type, address_id, options, save)
 		{
 			var self = this
@@ -648,20 +648,20 @@ define('LiveOrder.Model'
 					id: address_id
 				,	type: address_type
 				};
-			
+
 			return this.cancelableTrigger('before:LiveOrder.setAddress', address)
 			.pipe(function()
 			{
 				try
 				{
 					TransactionModel.prototype.setAddress.apply(self, [address_type, address_id, options]);
-					
+
 					var promise = jQuery.Deferred().resolve();
 					if(save)
 					{
 						promise = self.save();
 					}
-					
+
 					return promise.then(function()
 					{
 						self.cancelableTrigger('after:LiveOrder.setAddress', address);
@@ -669,9 +669,9 @@ define('LiveOrder.Model'
 				}
 				catch(error)
 				{
-					return jQuery.Deferred().reject(error);	
+					return jQuery.Deferred().reject(error);
 				}
-				
+
 			});
 		}
 
