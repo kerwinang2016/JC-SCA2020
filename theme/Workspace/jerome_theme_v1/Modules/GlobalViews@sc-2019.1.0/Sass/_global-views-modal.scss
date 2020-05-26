@@ -1,3 +1,6 @@
+.global-views-modal-small{
+	@extend .modal-sm;
+}
 .global-views-modal-large {
 	@extend .modal-lg;
 }
@@ -32,4 +35,3 @@
     color: #a6a6a6;
     line-height: 24px;
 }
-

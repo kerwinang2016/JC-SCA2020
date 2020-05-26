@@ -31,9 +31,9 @@ table.order-history-list-recordviews-actionable-table td {display: static !impor
 		<!-- 22-06-2019 -->
 
 	</header>
-	<button class="orderfilters"type="button" data-toggle="collapse" data-target="#orderfilters" aria-expanded="false" aria-controls="orderfilters">
+	<div class="orderfilters collapsed fa"type="button" data-toggle="collapse" data-target="#orderfilters" aria-expanded="false" aria-controls="orderfilters">
     Filters
-  </button>
+  </div>
 	<div class="collapse" id="orderfilters">
 		<div class="list-header-view-datepicker-from">
 			<div class="list-header-view-datepicker-container-input">

@@ -163,14 +163,15 @@ background: #ccc;
 
 </style>
 	<header class="shopping-cart-header">
-		{{#if showLines}} <!--zain 11-09-19 -->
-				
-			<a class="pull-right btn btn-expanded continue-shopping custom-btn" href="/fitprofile" data-touchpoint="home" data-hashtag="#/fitprofile" style="margin-top: -60px; margin-right: 90px;font-size: 13px;padding: 4px 13px; color: #333333;"> <!-- zain 19-08-19 --> <!-- zain 22-01-2020 -->
-				Continue Shopping
-			</a>
-		{{/if}} <!--zain 11-09-19 -->
+
 			<h1 classs="no-margin-top" style="margin-left: 84px;margin-bottom: 16px; font-weight: normal;font-size: 27px;color: #A6A6A6"> Order List</h1> <!--  zain 17/12/2019 --> <!-- zain 22-01-2020 -->
 	</header>
+  {{#if showLines}}
+
+    <a class="pull-right btn btn-expanded continue-shopping custom-btn" href="/fitprofile" data-touchpoint="home" data-hashtag="#/fitprofile" style="margin-top: -60px; margin-right: 90px;font-size: 13px;padding: 4px 13px; color: #333333;"> <!-- zain 19-08-19 --> <!-- zain 22-01-2020 -->
+      Continue Shopping
+    </a>
+  {{/if}} 
 <div class="cart-detailed">
 	<!-- <div class="cart-detailed-view-header">
 		<header class="cart-detailed-header">
@@ -191,7 +192,7 @@ background: #ccc;
 
 	<div data-cms-area="cart_detailed_cms_area_1" data-cms-area-filters="path"></div>
 
-	<div class="cart-detailed-body"> 
+	<div class="cart-detailed-body">
 		<section class="{{#if showLines}}cart-detailed-left {{else}}cart-detailed-empty{{/if}}">
 			{{#unless showLines}}
 				<!-- <div data-view="Quick.Order.EmptyCart"> -->
@@ -234,26 +235,26 @@ background: #ccc;
 		</div>
 		<!-- zain 19-08-19 end -->
 	</div>
-	
-		
+
+
 </div>
 
 <script>
 	$(document).ready(function () {
-  
+
 	  $(".toggle-accordion").on("click", function () {
 		var accordionId = $(this).attr("accordion-id"),
 		  numPanelOpen = $(accordionId + ' .collapse.in').length;
-  
+
 		$(this).toggleClass("active");
-  
+
 		if (numPanelOpen == 0) {
 		  openAllPanels(accordionId);
 		} else {
 		  closeAllPanels(accordionId);
 		}
 	  })
-  
+
 	  openAllPanels = function (aId) {
 		//console.log("setAllPanelOpen");
 		$(aId + ' .panel-collapse:not(".in")').collapse('show');
@@ -262,19 +263,19 @@ background: #ccc;
 		//console.log("setAllPanelclose");
 		$(aId + ' .panel-collapse.in').collapse('hide');
 		}
-		
+
 		// $( "#design-option" ).accordion();
 		$('.accordion-toggle').on('click', function(event){
     	event.preventDefault();
     	// create accordion variables
     	var accordion = $(this);
     	var accordionContent = accordion.next('.accordion-content');
-    	
+
     	// toggle accordion link open class
     	accordion.toggleClass("open");
     	// toggle accordion content
     	accordionContent.slideToggle(250);
-    	
+
     });
 	});
 

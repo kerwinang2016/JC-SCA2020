@@ -217,7 +217,9 @@
                     "Modules/Profile@sc-2019.1.0/Templates/training_guide.tpl",
                     "Modules/Cart@sc-2019.1.0/Templates/cart_summary_updated.tpl",
                     "Modules/Cart@sc-2019.1.0/Templates/inventory.tpl",
-                    "Modules/OrderHistory@sc-2019.1.0/Templates/orderhistoryRecordsView.tpl"
+                    "Modules/OrderHistory@sc-2019.1.0/Templates/orderhistoryRecordsView.tpl",
+                    "Modules/UstyylitApplications@v1.0.0/Templates/ustyylitapplications.tpl",
+                    "Modules/Cart@sc-2019.1.0/Templates/cart_copyproduct_modal.tpl"
                 ]
             },
             "myaccount": {
@@ -517,7 +519,9 @@
                     "Modules/Profile@sc-2019.1.0/Templates/training_guide.tpl",
                     "Modules/Cart@sc-2019.1.0/Templates/cart_summary_updated.tpl",
                     "Modules/Cart@sc-2019.1.0/Templates/inventory.tpl",
-                    "Modules/OrderHistory@sc-2019.1.0/Templates/orderhistoryRecordsView.tpl"
+                    "Modules/OrderHistory@sc-2019.1.0/Templates/orderhistoryRecordsView.tpl",
+                    "Modules/UstyylitApplications@v1.0.0/Templates/ustyylitapplications.tpl",
+                    "Modules/Cart@sc-2019.1.0/Templates/cart_copyproduct_modal.tpl"
                 ]
             },
             "checkout": {
@@ -783,7 +787,9 @@
                     "Modules/Profile@sc-2019.1.0/Templates/training_guide.tpl",
                     "Modules/Cart@sc-2019.1.0/Templates/cart_summary_updated.tpl",
                     "Modules/Cart@sc-2019.1.0/Templates/inventory.tpl",
-                    "Modules/OrderHistory@sc-2019.1.0/Templates/orderhistoryRecordsView.tpl"
+                    "Modules/OrderHistory@sc-2019.1.0/Templates/orderhistoryRecordsView.tpl",
+                    "Modules/UstyylitApplications@v1.0.0/Templates/ustyylitapplications.tpl",
+                    "Modules/Cart@sc-2019.1.0/Templates/cart_copyproduct_modal.tpl"
                 ]
             }
         }
@@ -1260,7 +1266,8 @@
             "Modules/OrderWizard.Module.MultiShipTo.EnableLink@sc-2019.1.0/Sass/_order-wizard-msr-enablelink-module.scss",
             "Modules/OrderWizard.Module.MultiShipTo.EnableLink@sc-2019.1.0/Sass/_order-wizard-msr-removed-promocodes.scss",
             "Modules/Profile@sc-2019.1.0/Sass/_terms-conditions.scss",
-            "Modules/Profile@sc-2019.1.0/Sass/_train-guide.scss"
+            "Modules/Profile@sc-2019.1.0/Sass/_train-guide.scss",
+            "Modules/Cart@sc-2019.1.0/Sass/_cart-copyproduct-modal.scss"
         ]
     },
     "assets": {
@@ -1346,7 +1353,9 @@
                 "img/sprite.png",
                 "img/star.png",
                 "img/twitter.png",
-                "img/visa.png"
+                "img/visa.png",
+                "img/slider_lining.jpg",
+                "img/slider_styylcart.jpg"
             ]
         },
         "font-awesome": {

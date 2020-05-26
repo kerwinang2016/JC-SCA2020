@@ -237,3 +237,11 @@ input.list-header-view-accordion-body-input{
 input, select, textarea{
 	font-size:10px;
 }
+.orderfilters.collapsed:after {
+    content: "\f054";
+		float:right;
+}
+.orderfilters:after {
+    content: "\f078";
+		float: right;
+}

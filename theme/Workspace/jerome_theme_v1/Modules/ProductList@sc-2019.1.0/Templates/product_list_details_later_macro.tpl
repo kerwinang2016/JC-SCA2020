@@ -34,7 +34,7 @@
 					</td>
 					<td>
 						<p class="product-list-details-later-macro-name">
-							{{model.item._name}}
+							{{itemname}}
 						</p>
 					</td>
 					<td>

@@ -22,7 +22,7 @@
 		</div>
 		<div class="cart-field">
 			<label>{{currencSymbol}}</label>
-			<input type="number" data-internalid="{{lineId}}" value="{{tailorCustomPrice}}" id="order_list_line_item_total_{{lineId}}" name="order_list_line_item_total" onkeypress="return event.charCode != 45" min="0.00"  class="input-cart-field">
+			<input type="number" data-internalid="{{lineId}}" value="{{tailorCustomPrice}}" id="order_list_line_item_total_{{lineId}}" name="order_list_line_item_total" onkeypress="return (event.charCode != 60 && event.charCode != 62)" min="0.00"  class="input-cart-field">
 		</div>
 		<!-- <div class="cart-lines-price">
 			<div data-view="Item.Price"></div>
@@ -39,7 +39,7 @@
 
 		<div data-view="StockDescription"></div>
 
-        
+
 	</div>
 	<div class="cart-lines-table-last">
 	<div class="cart-lines-item-actions-desktop" data-view="Item.Actions.View"></div>
@@ -65,8 +65,8 @@
 
 
 {{!----
-Use the following context variables when customizing this template: 
-	
+Use the following context variables when customizing this template:
+
 	line (Object)
 	line.item (Object)
 	line.item.internalid (Number)
