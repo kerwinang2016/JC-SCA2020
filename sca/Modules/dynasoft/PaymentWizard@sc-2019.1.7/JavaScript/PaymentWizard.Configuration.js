@@ -133,10 +133,6 @@ define(
                           var deposit = this.wizard.model.getAppliedTransactions('deposits').models[i];
                           items.push({name:credit.get('refnum'), quantity:1, unitPrice: parseFloat(credit.get('amount'))*-1})
                         }
-                        //var orderid = SC.ENVIRONMENT.customer_internalid+"_"+a.getTime();
-                        // console.log('this.wizard.model');
-                        // console.log(this.wizard.model);
-                        // var pm = this.wizard.model.get('paymentmethods').model[0];
                         var sourceOfFunds = {
                         	type:'CARD',
                         	provided:{
@@ -151,25 +147,25 @@ define(
                         		}
                         	}
                         }
+                        console.log(sourceOfFunds);
                         var data = {'apiOperation':'PAY'
-                                    , 'order':
-                                            {
-                                              'currency':SC.ENVIRONMENT.currentCurrency.code,
-                                              'amount':this.wizard.model.get('payment'),
-                                              'items': items
-                                            }
-                                    , 'sourceOfFunds': sourceOfFunds
-                                    }
-                        // console.log(data);
-                          jQuery.ajax({
-                            url: _.getAbsoluteUrl('services/PaymentIntegration.Service.ss'),
-                            type: 'put',
-                            data: data,
-                            dataType: 'json',
-                            success: function (d) {
-                              self.wizard.model.save();
-                            }
-                          });
+                          , 'order':
+                                  {
+                                    'currency':SC.ENVIRONMENT.currentCurrency.code,
+                                    'amount':this.wizard.model.get('payment'),
+                                    'items': items
+                                  }
+                          , 'sourceOfFunds': sourceOfFunds
+                          }
+                          // jQuery.ajax({
+                          //   url: _.getAbsoluteUrl('services/PaymentIntegration.Service.ss'),
+                          //   type: 'put',
+                          //   data: data,
+                          //   dataType: 'json',
+                          //   success: function (d) {
+                          //     self.wizard.model.save();
+                          //   }
+                          // });
                     }
                 }
             ,	{

@@ -58,19 +58,12 @@ define('Cart.CopyProduct.View'
 			this.application = options.application;
 			this.item = options.item;
 			this.model = options.model;
-			var scriptId = "customscript_ps_sl_set_scafieldset",
-			deployId = "customdeploy_ps_sl_set_scafieldset";
-			Utils.requestUrl(scriptId, deployId, "GET", {type: "get_block_quantity_measurement_mapping"}).always(function(data){
-					self.blockQuantityMeasurementData = JSON.parse(data)[0] || {};
+			jQuery.get(_.getAbsoluteUrl('javascript/extraQuantity.json')).done(function (data) {
+					self.extraQuantity = data;
 			});
-			var url = Utils.getAbsoluteUrl('javascript/extraQuantity.json');
-			jQuery.ajax({
-				url: url,
-				type: 'get',
-				async: false,
-				success: function(data){
-					this.extraQuantity = data;
-				}
+
+			jQuery.get(_.getAbsoluteUrl('services/BlockQuantity.Service.ss')).done(function (data) {
+				self.blockQuantity = data;
 			});
 			BackboneCompositeView.add(this);
 		}
@@ -88,7 +81,7 @@ define('Cart.CopyProduct.View'
 				var selected_item = self.item.get('item');
 				var selected_item_internalid = selected_item.get('internalid');
 				var item_detail = self.getItemForCart(selected_item_internalid, self.item.get('quantity'));
-				console.log(selected_options);
+
 				var d = _.find(selected_options,function(data){
 					return data.cartOptionId == "custcol_producttype";
 				});
@@ -96,28 +89,25 @@ define('Cart.CopyProduct.View'
 					internalid: pt,
 					label: pt
 				}
-				var f = _.find(selected_options,function(data){
+				var fpsummary = _.find(selected_options,function(data){
 					return data.cartOptionId == "custcol_fitprofile_summary";
 				});
 
-				var val = JSON.parse(f.value.internalid);
-					var newval = _.filter(val,function(v){return v.name == pt;});
-					f.value ={
-						internalid: JSON.stringify(newval),
-						label:  JSON.stringify(newval)
-					};
+				var fpsummaryval = JSON.parse(fpsummary.value.internalid);
+				var fitprofile = _.filter(fpsummaryval,function(v){return v.name == pt;});
+				fpsummary.value ={
+					internalid: JSON.stringify(fitprofile),
+					label:  JSON.stringify(fitprofile)
+				};
+				var fabricExtra = _.find(selected_options,function(data){
+					return data.cartOptionId == "custcol_fabric_extra";
+				});
+				var fabricQuantity = _.find(selected_options,function(data){
+					return data.cartOptionId == "custcol_fabric_quantity";
+				});
 
 				switch(self.productType){
 					case '3-Piece-Suit':
-						var g = _.find(selected_options,function(data){
-							return data.cartOptionId == "custcol_fabric_quantity";
-						});
-						var qty = 0;
-						// var correctQuantity = this.updateQuantity(self.item,selected_options, pt, newval);
-						// g.value ={
-						// 	internalid: correctQuantity,
-						// 	label:  correctQuantity
-						// });
 							if(pt == 'Jacket'){
 								for(var i = 0; i < selected_options.length; i++){
 									if (selected_options[i].cartOptionId == "custcol_designoptions_waistcoat" ||
@@ -132,6 +122,14 @@ define('Cart.CopyProduct.View'
 											};
 									}
 								}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_jacket";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 							else if(pt=='Trouser'){
 								for(var i = 0; i < selected_options.length; i++){
@@ -147,162 +145,252 @@ define('Cart.CopyProduct.View'
 											};
 									}
 								}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_trouser";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 							else if(pt=='Waistcoat'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_trouser" ||
-										selected_options[i].cartOptionId == "custcol_designoptions_jacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_jacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_trouser" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_jacket_in" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_trouser_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
+									if (selected_options[i].cartOptionId == "custcol_designoptions_trouser" ||
+											selected_options[i].cartOptionId == "custcol_designoptions_jacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_jacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_trouser" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_jacket_in" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_trouser_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
 								}
-							}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_waistcoat";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 						break;
 					case '2-Piece-Suit':
 							if(pt == 'Jacket'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_trouser" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_trouser" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_trouser_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
-								}}
+									if (selected_options[i].cartOptionId == "custcol_designoptions_trouser" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_trouser" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_trouser_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
+								}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_jacket";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 							else if(pt=='Trouser'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_jacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_jacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_jacket_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
+									if (selected_options[i].cartOptionId == "custcol_designoptions_jacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_jacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_jacket_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
 								}
-							}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_trouser";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 						break;
 					case 'L-2PC-Skirt':
 							if(pt == 'Ladies-Jacket'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesskirt" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
-								}}
+									if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesskirt" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
+								}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_ladiesjacket";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 							else if(pt=='Ladies-Skirt'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
-								}}
+									if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
+								}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_ladiesskirt";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 						break;
 					case 'L-2PC-Pants':
 							if(pt == 'Ladies-Jacket'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_ladiespants" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
+									if (selected_options[i].cartOptionId == "custcol_designoptions_ladiespants" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
 								}
-							}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_ladiesjacket";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 							else if(pt=='Ladies-Pants'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
-								}}
+									if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
+								}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_ladiespants";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 						break;
 					case 'L-3PC-Suit':
 							if(pt == 'Ladies-Jacket'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesskirt" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt_in" ||
-										selected_options[i].cartOptionId == "custcol_designoptions_ladiespants" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
+									if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesskirt" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt_in" ||
+											selected_options[i].cartOptionId == "custcol_designoptions_ladiespants" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
 								}
-							}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_ladiesjacket";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 							else if(pt=='Ladies-Skirt'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in" ||
-										selected_options[i].cartOptionId == "custcol_designoptions_ladiespants" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
+									if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in" ||
+											selected_options[i].cartOptionId == "custcol_designoptions_ladiespants" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiespants_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
 								}
-							}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_ladiesskirt";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 							else if(pt=='Ladies-Pants'){
 								for(var i = 0; i < selected_options.length; i++){
-								if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in" ||
-										selected_options[i].cartOptionId == "custcol_designoptions_ladiesskirt" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt" ||
-										selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt_in") {
-										selected_options[i].value ={
-											internalid: "",
-											label: ""
-										};
+									if (selected_options[i].cartOptionId == "custcol_designoptions_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesjacket_in" ||
+											selected_options[i].cartOptionId == "custcol_designoptions_ladiesskirt" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt" ||
+											selected_options[i].cartOptionId == "custcol_fitprofile_ladiesskirt_in") {
+											selected_options[i].value ={
+												internalid: "",
+												label: ""
+											};
+									}
 								}
-							}
+								var dop = _.find(selected_options,function(data){
+									return data.cartOptionId == "custcol_designoptions_ladiespants";
+								});
+								var correctQuantity = self.getUpdatedQuantity(pt, fitprofile,fabricExtra.value.internalid, dop.value.internalid);
+								fabricQuantity.value ={
+									internalid: correctQuantity,
+									label:  correctQuantity
+								};
 							}
 						break;
 				}
-				console.log(selected_options);
 				var add_to_cart_promise = self.copyItemToCart(item_detail, selected_options);
 			});
 			self.options.application.getLayout().closeModal();
 		}
-		, updateQuantity: function(model, selected_options, productType, fitprofileSummary){
-				var item = productType;
+		, getUpdatedQuantity: function(productType, fitProfileSummary, fabricextra,dop){
+			// 1. product type block size
+			// 2. extra quantity
+			// 3. design options
+				var item = productType, self = this;
 				var qty = 0;
-				console.log(productType);
-				console.log(fitProfileSummary);
-				console.log(this.blockQuantityMeasurementData);
 				for (var i = 0; i < fitProfileSummary.length; i++) {
-						var profileID = fitProfileSummary[i].value;
 						if (fitProfileSummary[i].value){
-								if(fitProfileSummary[i].block){
-										var bq = _.find(this.blockQuantityMeasurementData,function(q){
-											return q.custrecord_bqm_producttext == item && q.custrecord_bqm_block == fitProfileSummary[i].block;
+								if(fitProfileSummary[i].blockvalue){
+										var bq = _.find(this.blockQuantity,function(q){
+											return q.custrecord_bqm_producttext == fitProfileSummary[i].value && q.custrecord_bqm_block == fitProfileSummary[i].blockvalue;
 										})
 										if(bq){
 											if(qty < parseFloat(bq.custrecord_bqm_quantity))
@@ -312,24 +400,32 @@ define('Cart.CopyProduct.View'
 						}
 				}
 				var extra = 0;
-				if(jQuery('#fabric_extra').val() != "" && jQuery('#fabric_extra').val() != "Please Select")
-					extra = parseFloat(jQuery('#fabric_extra').val())
+				var extraQuantityCodes = _.find(self.extraQuantity[1].values,function(temp){
+					return temp.code == productType;
+				});
+				if(extraQuantityCodes){
+						var val = _.find(extraQuantityCodes.design,function(temp2){
+							return temp2.code == fabricextra
+						});
+						if(val && val.value != "")
+							extra = parseFloat(val.value);
+				}
 				for (var i = 0; i < fitProfileSummary.length; i++) {
 					var ptype = fitProfileSummary[i].name;
-					var designQuantityCodes = _.find(this.extraQuantity[0].values,function(temp){
-						return temp.code == ptype;
+					var designQuantityCodes = _.find(self.extraQuantity[0].values,function(temp){
+						return temp.code == productType;
 					});
 					if(designQuantityCodes){
-					_.each(jQuery('[data-type="fav-option-customization"]'),function(temp){
+					_.each(JSON.parse(dop),function(temp){
 						var val = _.find(designQuantityCodes.design,function(temp2){
 							return temp2.code == temp.value
 						});
 						if(val && val.value != "")
 							extra+= parseFloat(val.value);
-					});
+						});
 					}
 				}
-				jQuery('[name="custcol_fabric_quantity"]').val((qty + extra).toFixed(2));
+				return (qty + extra).toFixed(2);
 		}
 	,	copyItemToCart: function (item, options)
 		{

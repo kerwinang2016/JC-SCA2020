@@ -103,7 +103,7 @@ define(
 			//@property {Object} baseEvents
 		,	baseEvents: {
 					'submit [data-action="submit-form"]': 'mainActionHandler'
-				, 	'change #fabric-cmt-vendor': 'fabricVendorChange'
+				, 'change #fabric-cmt-vendor': 'fabricVendorChange'
 				,	'change .display-option-dropdown': 'propertyValueChange'  //15/07/2019 Saad
 				//, 	'focus .display-option-dropdown': 'propertyValueChange'   // 27/08/2019 Saad
 				,	'click .design-options-dropdown-on-click-set': 'showHideGroupedOptions'
@@ -138,11 +138,12 @@ define(
 			//@return {Void}
 		,	initialize: function initialize (options)
 			{
+				this.extraQuantity = options.extraQuantity;
+				this.vendorDetails = options.vendorDetails;
 				this.cart = this.model.cart;
 				this.profile_model = ProfileModel.getInstance();
 				this.events = _.extend(this.events || {}, this.baseEvents);
 				Backbone.View.prototype.initialize.apply(this, arguments);
-
 				this.application = options.application;
 
 				this.generateViewBindings();
@@ -164,7 +165,7 @@ define(
 							if(selectedLineAttributes!=''){
 								self.selectedLineData = selectedLineAttributes;
 								self.setOptionsHolder();
-								self.setExtraQuantity();
+								// self.setExtraQuantity();
 								self._render();
 								clearInterval(tempRecheck);
 							}
@@ -226,8 +227,17 @@ define(
 					,	model: this.model
 					});
 				}
-				this.setVendorDetails();
-				this.setExtraQuantity();
+				//this.setVendorDetails();
+				// this.setExtraQuantity();
+				var responseJSON = jQuery.ajax({
+					url: _.getAbsoluteUrl('services/UstyylitApplications.Service.ss'),
+					type: 'get',
+					dataType: 'json',
+					async: false
+				}).responseJSON;
+				this.customerliningurl = JSON.parse(responseJSON[0]).url;
+				this.stylecarturl = JSON.parse(responseJSON[1]).url;
+
 				SC.sessioncheck();
 			}
 
@@ -361,7 +371,7 @@ define(
 
 		, fabricVendorChange: function(e)
 			{
-				if(jQuery(e.target).val() == '29')
+				if(jQuery(e.target).val() == '33')
 				{
 					jQuery('#fabric-cmt-othervendorname').parent().show();
 				}else
@@ -466,8 +476,10 @@ define(
 				_.extend(this.bindings, option_bindings);
 			}
 
-		,   showHideGroupedOptions: function ()
+		,   showHideGroupedOptions: function (e)
 			{
+				//console.log(e);
+				//jQuery('html, body').animate({scrollTop:jQuery(e.target).offset().top },300);
 				if (jQuery('#T010622').val() == "Other") {
 					jQuery('#T010622_other').parent().parent().show();
 				} else {
@@ -754,8 +766,6 @@ define(
 		,	childViews: {
 				'Product.Options': function ()
 				{
-
-
 					return new ProductDetailsOptionsSelectorView({
 						model: this.model
 					,	application: this.application
@@ -764,6 +774,7 @@ define(
 					,	selected_line_obj: this.selectedLineObj
 					,	selected_line_data: this.selectedLineData
 					,	options_holder: this.optionsHolder
+					, customerliningurl: this.customerliningurl
 					});
 
 				}
@@ -853,178 +864,179 @@ define(
 				}
 			}
 
-		,	getVendorPickListContent: function()
-			{
-				var vendorPickListContent = '';
-				var vendorPickListData = this.getVendorPickList();
-				var selectedVendor = '';
-				if(this.optionsHolder["custcol_custom_fabric_details"]){
-					var customFabricDetail = JSON.parse(this.optionsHolder["custcol_custom_fabric_details"]);
-					selectedVendor = customFabricDetail.vendor;
-				}
+		// ,	getVendorPickListContent: function()
+		// 	{
+		// 		var vendorPickListContent = '';
+		// 		var vendorPickListData = this.getVendorPickList();
+		// 		var selectedVendor = '';
+		// 		if(this.optionsHolder["custcol_custom_fabric_details"]){
+		// 			var customFabricDetail = JSON.parse(this.optionsHolder["custcol_custom_fabric_details"]);
+		// 			selectedVendor = customFabricDetail.vendor;
+		// 		}
+		//
+		// 		vendorPickListContent += '<select name="fabric-cmt-vendor" id="fabric-cmt-vendor" class="input-large" style="width:40%;">';
+		// 		vendorPickListContent += '<option value=""></option>';
+		// 		for(var i = 0; i < vendorPickListData.length; i++){
+		// 			if(selectedVendor){
+		// 				if(selectedVendor.trim() == vendorPickListData[i].internalid.trim()){
+		// 					vendorPickListContent += '<option selected value="' +  vendorPickListData[i].internalid + '" >' +  vendorPickListData[i].label + ' </option>';
+		// 				}
+		// 			} else {
+		// 					vendorPickListContent += '<option value="' +  vendorPickListData[i].internalid + '" >' +  vendorPickListData[i].label + ' </option>';
+		// 			}
+		// 		}
+		// 		vendorPickListContent += '</select>';
+		//
+		// 		return vendorPickListContent;
+		//
+		// 	}
 
-				vendorPickListContent += '<select name="fabric-cmt-vendor" id="fabric-cmt-vendor" class="input-large" style="width:40%;">';
-				vendorPickListContent += '<option value=""></option>';
-				for(var i = 0; i < vendorPickListData.length; i++){
-					if(selectedVendor){
-						if(selectedVendor.trim() == vendorPickListData[i].internalid.trim()){
-							vendorPickListContent += '<option selected value="' +  vendorPickListData[i].internalid + '" >' +  vendorPickListData[i].label + ' </option>';
-						}
-					} else {
-							vendorPickListContent += '<option value="' +  vendorPickListData[i].internalid + '" >' +  vendorPickListData[i].label + ' </option>';
-					}
-				}
-				vendorPickListContent += '</select>';
+		// ,	setVendorDetails: function()
+		// 	{
+		// 		var self = this;
+		// 		var vendorName = this.model.get('item').get('custitem_vendor_name');
+		// 		Utils.suiteRestGetData('getVendorLink', this.model.get('item').id).always(function (data) {
+		// 			if (data) {
+		// 				//TODO: VENDOR LINKS...
+		// 				// self.model.get('item').set('vendorDetails', data);
+		// 				// var vendorHtmlContent = self.getVendorHtmlContent(data);
+		// 				// jQuery("#vendor-detail-content").html('');
+		// 				// jQuery("#vendor-detail-content").html(vendorHtmlContent);
+		// 			}
+		//
+		// 		})
+		//
+		//
+		// 	}
 
-				return vendorPickListContent;
-
-			}
-
-		,	setVendorDetails: function()
-			{
-				var self = this;
-				var vendorName = this.model.get('item').get('custitem_vendor_name');
-				Utils.suiteRestGetData('getVendorLink', this.model.get('item').id).always(function (data) {
-					if (data) {
-						self.model.get('item').set('vendorDetails', data);
-						var vendorHtmlContent = self.getVendorHtmlContent(data);
-						jQuery("#vendor-detail-content").html('');
-						jQuery("#vendor-detail-content").html(vendorHtmlContent);
-					}
-
-				})
-
-
-			}
-
-		,	getVendorHtmlContent: function(vendorDetails){
-				var setFabricCheckBox = "";
-				var isFabrickChecked, selectedFabricCollection = '', selectedFabricCode = '', selectedOtherVendor = '';
-
-				var vendorPickList = this.getVendorPickListContent();
-
-				if(this.optionsHolder){
-					isFabrickChecked = this.optionsHolder["custcolcustcol_item_check"] ? this.optionsHolder["custcolcustcol_item_check"] : false;
-					if(this.optionsHolder["custcol_custom_fabric_details"]){
-						var customFabricDetail = JSON.parse(this.optionsHolder["custcol_custom_fabric_details"]);
-						selectedFabricCollection = customFabricDetail.collection ? customFabricDetail.collection : '';
-						selectedFabricCode = customFabricDetail.code ? customFabricDetail.code : '';
-						selectedOtherVendor =  customFabricDetail.othervendor ? customFabricDetail.othervendor : '';
-					}
-
-				}
-
-				var vendorName = this.model.get('item').get('_vendorName');
-				// 13/11/2019 Umar Zulfiqar {RFQ: Item Details Template - Removed Filarte for default checked}
-				//removed vendorName == 'Filarte'
-				if (vendorName == "AC Shirt" || vendorName == "Jerome Clothiers" || vendorName == "Jerome Clothiers Cut Length" || isFabrickChecked == true || isFabrickChecked == 'T') {
-					setFabricCheckBox = "checked";
-				}
-
-				var template = '';
-				template += '<h2 class="section-header">Fabric</h2>';
-				template += '<hr/>';
-				template += '<div class="accordion" id="fabric-availability">';
-				template += '<div class="accordion-group">';
-				template += '<div class="accordion-heading">';
-				template += '<a class="accordion-toggle" data-toggle="collapse" data-target="#fabric-availability-options" data-parent="#fabric-availability">';
-				template += 'Fabric Availability';
-				template += '<span class="accord-arrow-down">‣</span>'
-				template += '</a>';
-				template += '</div>';
-				template += '<div id="fabric-availability-options" class="accordion-body collapse">';
-				var path=window.location.pathname; //07/02/2020
-				if (vendorDetails.vendorLink) {
-					template += '<div class="control-group" style="padding-left:15px;">';
-					template += '<label class="control-label" style="font-size: 13px;font-weight: normal;line-height: 18px;padding-left:0;">Vendor Link:</label>';
-					if(vendorDetails.vendorLink=='N/A')
-					{
-						template += '<label href="' + vendorDetails.vendorLink + '" style="text-decoration:underline;" target="_blank">"' + vendorDetails.vendorLink + '"</label>';
-					}
-					else
-					{
-						template += '<a href="' + vendorDetails.vendorLink + '" style="text-decoration:underline;" target="_blank">"' + vendorDetails.vendorLink + '"</a>';
-					}
-					template += '</div>';
-				} else {
-					template += '<div class="control-group" style="padding-left:15px;">';
-					template += '<label class="control-label" style="font-size: 13px;font-weight: normal;line-height: 18px;padding-left:0;">Vendor File:</label>';
-					if (vendorDetails.vendorFileName) {
-						template += '<a href="' + vendorDetails.vendorFile + '" style="text-decoration:underline;" target="_blank">' + vendorDetails.vendorFileName + '</a>';
-					} else {
-						if(path.indexOf('CMT-Item')!=-1)
-						{
-							vendorDetails.vendorFile='N/A';
-							template += '<label href="' + vendorDetails.vendorFile + '" style="text-decoration:underline;" target="_blank">' + vendorDetails.vendorFile + '</label>';
-						}
-						else
-						{
-							template += '<a href="' + vendorDetails.vendorFile + '" style="text-decoration:underline;" target="_blank">' + vendorDetails.vendorFile + '</a>';
-						}
-					}
-					template += '</div>';
-				}
-				template += '<div class="control-group">';
-				template += '<label class="control-label" style="font-size: 13px;font-weight: normal;line-height: 18px;margin-right:10px;">Checked?</label>';
-				template += '<label style="font-size: 1em">';
-				template += '<input type="checkbox" value="" id="chkItem"' + setFabricCheckBox + '>';
-				template += '</label>';
-				template += '</div>';
-				template += '</div>';
-				template += '</div>';
-				template += '</div>';
-				template += '<div class="accordion" id="fabric-cmt">';
-				template += '<div class="accordion-group">';
-				template += '<div class="accordion-heading">';
-				if(this.page_header=='CMT Item')
-				{
-					template += '<a class="accordion-toggle" data-toggle="collapse" data-target="#fabric-cmt-options" data-parent="#fabric-cmt">';
-					template += 'CMT Fabric';
-					template += '<span class="accord-arrow-down">‣</span>';
-					template += '</a>';
-				}
-				template += '</div>';
-				template += '<div id="fabric-cmt-options" class="accordion-body collapse">';
-				template += '<div class="control-group">';
-				template += '<div class="col-md-4">';
-				template += '<label class="control-label" for="fabric-cmt-vendor"';
-				template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;">Fabric Vendor</label></div>';
-				template += '<div class="col-md-6">' + vendorPickList + '</div>';
-				template += '</div>';
-				template += '<div class="control-group" style="display: none;">'
-				template += '<label class="col-md-4 control-label" for="fabric-cmt-othervendorname"';
-				template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;padding-left: 11px;">*Other';
-				template += 'Fabric Vendor </label>';
-				template += '<input type="text" value="" name="fabric-cmt-othervendorname"';
-				template += 'id="fabric-cmt-othervendorname" class="input-large col-md-6" style="height: 30px;padding: 5px;margin-left: 15px;min-width: auto;width: 44.5%;"';
-				template += 'value="' + selectedOtherVendor + '">';
-				template += '</div>';
-				template += '<div class="control-group">';
-				template += '<div class="col-md-4">';
-				template += '<label class="control-label" for="fabric-cmt-collection"';
-				template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;">Fabric ';
-				template += 'Collection ' + selectedFabricCollection + '</label>';
-				template += '</div>';
-				template += '<div class="col-md-6">';
-				template += '<input type="text" value="' + selectedFabricCollection + '" name="fabric-cmt-collection"';
-				template += 'id="fabric-cmt-collection" class="input-large" style="" >';
-				template += '</div></div>';
-				template += '<div class="control-group">';
-				template += '<div class="col-md-4">';
-				template += '<label class="control-label" for="fabric-cmt-code"';
-				template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;">Fabric ';
-				template += 'Code </label>';
-				template += '</div>';
-				template += '<div class="col-md-6">';
-				template += '<input type="text" value="' + selectedFabricCode + '" name="fabric-cmt-code" id="fabric-cmt-code"';
-				template += 'class="input-large" style="" >';
-				template += '</div></div>';
-				template += '</div>';
-				template += '</div>';
-				template += '</div>';
-				return template;
-			}
-
+		// ,	getVendorHtmlContent: function(vendorDetails){
+		// 		var setFabricCheckBox = "";
+		// 		var isFabrickChecked, selectedFabricCollection = '', selectedFabricCode = '', selectedOtherVendor = '';
+		//
+		// 		var vendorPickList = this.getVendorPickListContent();
+		//
+		// 		if(this.optionsHolder){
+		// 			isFabrickChecked = this.optionsHolder["custcolcustcol_item_check"] ? this.optionsHolder["custcolcustcol_item_check"] : false;
+		// 			if(this.optionsHolder["custcol_custom_fabric_details"]){
+		// 				var customFabricDetail = JSON.parse(this.optionsHolder["custcol_custom_fabric_details"]);
+		// 				selectedFabricCollection = customFabricDetail.collection ? customFabricDetail.collection : '';
+		// 				selectedFabricCode = customFabricDetail.code ? customFabricDetail.code : '';
+		// 				selectedOtherVendor =  customFabricDetail.othervendor ? customFabricDetail.othervendor : '';
+		// 			}
+		//
+		// 		}
+		//
+		// 		var vendorName = this.model.get('item').get('_vendorName');
+		// 		// 13/11/2019 Umar Zulfiqar {RFQ: Item Details Template - Removed Filarte for default checked}
+		// 		//removed vendorName == 'Filarte'
+		// 		if (vendorName == "AC Shirt" || vendorName == "Jerome Clothiers" || vendorName == "Jerome Clothiers Cut Length" || isFabrickChecked == true || isFabrickChecked == 'T') {
+		// 			setFabricCheckBox = "checked";
+		// 		}
+		//
+		// 		var template = '';
+		// 		template += '<h2 class="section-header">Fabric</h2>';
+		// 		template += '<hr/>';
+		// 		template += '<div class="accordion" id="fabric-availability">';
+		// 		template += '<div class="accordion-group">';
+		// 		template += '<div class="accordion-heading">';
+		// 		template += '<a class="accordion-toggle" data-toggle="collapse" data-target="#fabric-availability-options" data-parent="#fabric-availability">';
+		// 		template += 'Fabric Availability';
+		// 		template += '<span class="accord-arrow-down">‣</span>'
+		// 		template += '</a>';
+		// 		template += '</div>';
+		// 		template += '<div id="fabric-availability-options" class="accordion-body collapse">';
+		// 		var path=window.location.pathname; //07/02/2020
+		// 		if (vendorDetails.vendorLink) {
+		// 			template += '<div class="control-group" style="padding-left:15px;">';
+		// 			template += '<label class="control-label" style="font-size: 13px;font-weight: normal;line-height: 18px;padding-left:0;">Vendor Link:</label>';
+		// 			if(vendorDetails.vendorLink=='N/A')
+		// 			{
+		// 				template += '<label href="' + vendorDetails.vendorLink + '" style="text-decoration:underline;" target="_blank">"' + vendorDetails.vendorLink + '"</label>';
+		// 			}
+		// 			else
+		// 			{
+		// 				template += '<a href="' + vendorDetails.vendorLink + '" style="text-decoration:underline;" target="_blank">"' + vendorDetails.vendorLink + '"</a>';
+		// 			}
+		// 			template += '</div>';
+		// 		} else {
+		// 			template += '<div class="control-group" style="padding-left:15px;">';
+		// 			template += '<label class="control-label" style="font-size: 13px;font-weight: normal;line-height: 18px;padding-left:0;">Vendor File:</label>';
+		// 			if (vendorDetails.vendorFileName) {
+		// 				template += '<a href="' + vendorDetails.vendorFile + '" style="text-decoration:underline;" target="_blank">' + vendorDetails.vendorFileName + '</a>';
+		// 			} else {
+		// 				if(path.indexOf('CMT-Item')!=-1)
+		// 				{
+		// 					vendorDetails.vendorFile='N/A';
+		// 					template += '<label href="' + vendorDetails.vendorFile + '" style="text-decoration:underline;" target="_blank">' + vendorDetails.vendorFile + '</label>';
+		// 				}
+		// 				else
+		// 				{
+		// 					template += '<a href="' + vendorDetails.vendorFile + '" style="text-decoration:underline;" target="_blank">' + vendorDetails.vendorFile + '</a>';
+		// 				}
+		// 			}
+		// 			template += '</div>';
+		// 		}
+		// 		template += '<div class="control-group">';
+		// 		template += '<label class="control-label" style="font-size: 13px;font-weight: normal;line-height: 18px;margin-right:10px;">Checked?</label>';
+		// 		template += '<label style="font-size: 1em">';
+		// 		template += '<input type="checkbox" value="" id="chkItem"' + setFabricCheckBox + '>';
+		// 		template += '</label>';
+		// 		template += '</div>';
+		// 		template += '</div>';
+		// 		template += '</div>';
+		// 		template += '</div>';
+		// 		template += '<div class="accordion" id="fabric-cmt">';
+		// 		template += '<div class="accordion-group">';
+		// 		template += '<div class="accordion-heading">';
+		// 		if(this.page_header=='CMT Item')
+		// 		{
+		// 			template += '<a class="accordion-toggle" data-toggle="collapse" data-target="#fabric-cmt-options" data-parent="#fabric-cmt">';
+		// 			template += 'CMT Fabric';
+		// 			template += '<span class="accord-arrow-down">‣</span>';
+		// 			template += '</a>';
+		// 		}
+		// 		template += '</div>';
+		// 		template += '<div id="fabric-cmt-options" class="accordion-body collapse">';
+		// 		template += '<div class="control-group">';
+		// 		template += '<div class="col-md-4">';
+		// 		template += '<label class="control-label" for="fabric-cmt-vendor"';
+		// 		template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;">Fabric Vendor</label></div>';
+		// 		template += '<div class="col-md-6">' + vendorPickList + '</div>';
+		// 		template += '</div>';
+		// 		template += '<div class="control-group" style="display: none;">'
+		// 		template += '<label class="col-md-4 control-label" for="fabric-cmt-othervendorname"';
+		// 		template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;padding-left: 11px;">*Other';
+		// 		template += 'Fabric Vendor </label>';
+		// 		template += '<input type="text" value="" name="fabric-cmt-othervendorname"';
+		// 		template += 'id="fabric-cmt-othervendorname" class="input-large col-md-6" style="height: 30px;padding: 5px;margin-left: 15px;min-width: auto;width: 44.5%;"';
+		// 		template += 'value="' + selectedOtherVendor + '">';
+		// 		template += '</div>';
+		// 		template += '<div class="control-group">';
+		// 		template += '<div class="col-md-4">';
+		// 		template += '<label class="control-label" for="fabric-cmt-collection"';
+		// 		template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;">Fabric ';
+		// 		template += 'Collection ' + selectedFabricCollection + '</label>';
+		// 		template += '</div>';
+		// 		template += '<div class="col-md-6">';
+		// 		template += '<input type="text" value="' + selectedFabricCollection + '" name="fabric-cmt-collection"';
+		// 		template += 'id="fabric-cmt-collection" class="input-large" style="" >';
+		// 		template += '</div></div>';
+		// 		template += '<div class="control-group">';
+		// 		template += '<div class="col-md-4">';
+		// 		template += '<label class="control-label" for="fabric-cmt-code"';
+		// 		template += 'style="font-size: 13px;font-weight: normal;line-height: 18px;">Fabric ';
+		// 		template += 'Code </label>';
+		// 		template += '</div>';
+		// 		template += '<div class="col-md-6">';
+		// 		template += '<input type="text" value="' + selectedFabricCode + '" name="fabric-cmt-code" id="fabric-cmt-code"';
+		// 		template += 'class="input-large" style="" >';
+		// 		template += '</div></div>';
+		// 		template += '</div>';
+		// 		template += '</div>';
+		// 		template += '</div>';
+		// 		return template;
+		// 	}
+		//
 		,	getVendorPickList: function(){
 				var vendorpick = _.find(this.model.get('item').get('itemoptions_detail').fields,function(f){return f.internalid == "custcol_vendorpicked";});
 				var vendorpicklist = [];
@@ -1037,96 +1049,95 @@ define(
 			}
 
 
-		,	setExtraQuantity: function() {
-				var self = this;
-				var url = Utils.getAbsoluteUrl('javascript/extraQuantity.json');
-				jQuery.get(url).always(function(data){
-					if(data){
-						window.extraQuantity = data;
-						self.model.get('item').set('extraQuantity', data);
-						var extraQunatityHtmlContent = self.getExtraQuantityHtmlContent();
-						jQuery("#extra-quantity-content").html(extraQunatityHtmlContent);
+		// ,	setExtraQuantity: function() {
+		// 		var self = this;
+		// 		var url = Utils.getAbsoluteUrl('javascript/extraQuantity.json');
+		// 		jQuery.get(url).always(function(data){
+		// 			if(data){
+		// 				window.extraQuantity = data[1];
+		// 				self.model.get('item').set('extraQuantity', data[1]);
+		// 				var extraQunatityHtmlContent = self.getExtraQuantityHtmlContent();
+		// 				jQuery("#extra-quantity-content").html(extraQunatityHtmlContent);
+		//
+		// 			}
+		// 		});
+		// 	}
 
-					}
-				});
-			}
-
-		, 	getExtraQuantityHtmlContent: function()
-			{
-				var template = '';
-				var extraQuantity = window.extraQuantity;
-				if(extraQuantity){
-					var selectedExtraQty = '';
-					if(this.optionsHolder){
-						selectedExtraQty = this.optionsHolder['custcol_fabric_extra'];
-					}
-					var itemType = this.model.get('custitem_clothing_type').split(', ');
-					template += '<select id="fabric_extra" style="width:220px;" class="display-option-dropdown" name="fabric_extra" data-type="fabric_extra">';
-					template += '<option value="Please Select"> Please Select </option>'; // 13/11/2019 Umar Zulfiqar {RFQ: Set Please Select for default on Drop down}
-					var extraQuantityValues = _.find(extraQuantity, function(option){
-						if(option.name == "extra"){
-							return option;
-						}
-					});
-					extraQuantityValues = extraQuantityValues.values;
-					if (itemType.length == 3) {
-						var result = _.find(extraQuantityValues, function (fextra) {
-							return (fextra.code == '3-Piece-Suit' || fextra.code == 'L-3PC-Suit');  //04/02/2020
-						});
-
-						if (result) {
-							_.each(result.design, function (option) {
-								if(option.code == selectedExtraQty){
-									template += '<option selected value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
-
-								} else {
-									template += '<option value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
-								}
-							});
-						}
-					} else if (itemType.length == 2) {
-						var result = _.find(extraQuantityValues, function (fextra) {
-							return (fextra.code == '2-Piece-Suit' || fextra.code == 'L-2PC-Pants'|| fextra.code == 'L-2PC-Skirt');	 //04/02/2020
-						});
-						if (result) {
-							_.each(result.design, function (option) {
-								if(option.code == selectedExtraQty){
-									template += '<option selected value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
-
-								} else {
-									template += '<option value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
-								}
-							});
-						}
-					} else {
-						var result = _.find(extraQuantityValues, function (fextra) {
-							return fextra.code == itemType[0];
-						});
-
-						if (result) {
-							_.each(result.design, function (option) {
-								if(option.code == selectedExtraQty){
-									template += '<option selected value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
-
-								} else {
-									template += '<option value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
-								}
-							});
-						}
-					}
-					template += '</select>';
-			}
-				return template;
-			}
+		// , 	getExtraQuantityHtmlContent: function()
+		// 	{
+		// 		var template = '';
+		// 		var extraQuantity = window.extraQuantity;
+		// 		if(extraQuantity){
+		// 			var selectedExtraQty = '';
+		// 			if(this.optionsHolder){
+		// 				selectedExtraQty = this.optionsHolder['custcol_fabric_extra'];
+		// 			}
+		// 			var itemType = this.model.get('custitem_clothing_type').split(', ');
+		// 			template += '<select id="fabric_extra" style="width:220px;" class="display-option-dropdown" name="fabric_extra" data-type="fabric_extra">';
+		// 			template += '<option value="Please Select"> Please Select </option>'; // 13/11/2019 Umar Zulfiqar {RFQ: Set Please Select for default on Drop down}
+		// 			var extraQuantityValues = _.find(extraQuantity, function(option){
+		// 				if(option.name == "extra"){
+		// 					return option;
+		// 				}
+		// 			});
+		// 			var extraQuantityValues = extraQuantity.values;
+		// 			if (itemType.length == 3) {
+		// 				var result = _.find(extraQuantityValues, function (fextra) {
+		// 					return (fextra.code == '3-Piece-Suit' || fextra.code == 'L-3PC-Suit');  //04/02/2020
+		// 				});
+		//
+		// 				if (result) {
+		// 					_.each(result.design, function (option) {
+		// 						if(option.code == selectedExtraQty){
+		// 							template += '<option selected value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
+		//
+		// 						} else {
+		// 							template += '<option value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
+		// 						}
+		// 					});
+		// 				}
+		// 			} else if (itemType.length == 2) {
+		// 				var result = _.find(extraQuantityValues, function (fextra) {
+		// 					return (fextra.code == '2-Piece-Suit' || fextra.code == 'L-2PC-Pants'|| fextra.code == 'L-2PC-Skirt');	 //04/02/2020
+		// 				});
+		// 				if (result) {
+		// 					_.each(result.design, function (option) {
+		// 						if(option.code == selectedExtraQty){
+		// 							template += '<option selected value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
+		// 						} else {
+		// 							template += '<option value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
+		// 						}
+		// 					});
+		// 				}
+		// 			} else {
+		// 				var result = _.find(extraQuantityValues, function (fextra) {
+		// 					return fextra.code == itemType[0];
+		// 				});
+		//
+		// 				if (result) {
+		// 					_.each(result.design, function (option) {
+		// 						if(option.code == selectedExtraQty){
+		// 							template += '<option selected value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
+		// 						} else {
+		// 							template += '<option value="' + option.value + '" name="' + option.code + '" >' + option.code + '</option>';
+		// 						}
+		// 					});
+		// 				}
+		// 			}
+		// 			template += '</select>';
+		// 		}
+		// 		return template;
+		// 	}
 			//@method getContext
 			//@return {ProductDetails.Base.View.Context}
 		,	getContext: function ()
 			{
+				var self= this;
 				var item_model = this.model.get('item');
 				var changeFabricUrl = '';
 				var fabricQuantity = '';
 				var vendorName = item_model.get('_vendorName');
-				var vendorPickListContent = this.getVendorPickListContent();
+				var vendorPickList = this.getVendorPickList();
 				var isFabrickChecked, selectedFabricCollection = '', selectedFabricCode = '', selectedOtherVendor = '';
 				if(this.optionsHolder){
 					isFabrickChecked = this.optionsHolder["custcolcustcol_item_check"] ? this.optionsHolder["custcolcustcol_item_check"] : false;
@@ -1147,6 +1158,8 @@ define(
 				if(this.selectedLineObj.productList && this.selectedLineObj.clientId && this.selectedLineObj.product){
 					changeFabricUrl = "/item-type/" + this.selectedLineObj.product + "?client=" + this.selectedLineObj.clientId + "|" + this.selectedLineObj.productList;
 				}
+				var extraQuantityList = _.filter(this.extraQuantity.values,function(v){return v.code == self.model.get('custcol_producttype');});
+
 				//@class ProductDetails.Base.View.Context
 				return {
 					//@property {Transaction.Line.Model} model
@@ -1159,14 +1172,14 @@ define(
 				,	isItemProperlyConfigured: item_model.isProperlyConfigured()
 					//@property {Boolean} isPriceEnabled
 				,	isPriceEnabled: !ProfileModel.getInstance().hidePrices()
-				,	vendorDetails: {}
+				,	vendorDetails: this.vendorDetails
 				,	setFabricCheckBox : (vendorName == "AC Shirt" || vendorName == "Filarte" || vendorName == "Jerome Clothiers" || vendorName == "Jerome Clothiers Cut Length" || isFabrickChecked == true || isFabrickChecked == 'T') ? "checked":""
-				,	vendorPickList: vendorPickListContent
+				,	vendorPickList: vendorPickList
 				,	clothingType: (item_model.get('custitem_clothing_type') != "&nbsp;") ? true : false
 				,	isNonInvtItemPart: (item_model.get('_itemType') == 'NonInvtPart') ? true : false
 				,	isNotEqualToGiftCert: (item_model.get('_itemType') != 'GiftCert') ? true : false
 				,	minimumQuantity : item_model.get('_minimumQuantity') ? item_model.get('_minimumQuantity') : 0
-				,	extraQuantityContent: true
+				,	extraQuantity: extraQuantityList?extraQuantityList[0].design:null
 				,	selectedFabricCollection: selectedFabricCollection
 				,	selectedFabricCode: selectedFabricCode
 				,	selectedOtherVendor: selectedOtherVendor

@@ -220,10 +220,11 @@ define(
 		// @return {Boolean}
 	,	addToCart: function addToCart (e)
 		{
+			console.log('addtocart');
 			e.preventDefault();
 			var self = this
 			,	cart_promise;
-
+			console.log(this.model);
 			if (!this.model.areAttributesValid(['options','quantity'], self.getAddToCartValidators()))
 			{
 				return;

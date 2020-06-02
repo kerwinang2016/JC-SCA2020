@@ -113,6 +113,7 @@ define(
 			,	product = new ProductModel()
 			,	ViewConstructor = this.getView()
 			,	item = product.get('item');
+			var vendorDetails, extraQuantity;
 
 			item.fetch({
 				data: api_query
@@ -154,7 +155,7 @@ define(
 						{
 							product.set('quantity', product.get('_minimumQuantity'));
 						}
-						
+
 						var productTypeArr = {
 							"3-Piece-Suit": "Jacket, Trouser, Waistcoat"
 						,	"2-Piece-Suit": "Jacket, Trouser"
@@ -163,7 +164,7 @@ define(
 						,	"L-2PC-Pants": "Ladies-Jacket, Ladies-Pants"
 						}
 
-						if(options && options['product']){		
+						if(options && options['product']){
 							product.set('custcol_producttype',options['product']);
 							product.set('custitem_clothing_type',productTypeArr[options['product']] || options['product']);
 						}else{
@@ -171,11 +172,31 @@ define(
 							product.set('custcol_producttype',tempProductType);
 							product.set('custitem_clothing_type',productTypeArr[tempProductType] || tempProductType);
 						}
-
+						jQuery.ajax({
+							url: '/app/site/hosting/scriptlet.nl?script=154&deploy=1&compid=3857857&h=70494400753de3ffe57b&inputJson='+ "{'func': 'getVendorLink',	'data': "+product.get('item').id+"}",
+							type: 'get',
+							async: false,
+							dataType: "json",
+							success: function(data){
+								vendorDetails = data;
+							}
+						});
+						var url = Utils.getAbsoluteUrl('javascript/extraQuantity.json');
+						jQuery.ajax({
+							url: url,
+							type: 'get',
+							async: false,
+							success: function(data){
+								extraQuantity = data[1];
+								window.extraQuantity = data
+							}
+						});
 						var	view = new ViewConstructor({
 								model: product
 							,	baseUrl: base_url
 							,	application: application
+							, vendorDetails: vendorDetails
+							, extraQuantity: extraQuantity
 							});
 
 						// then we show the content

@@ -155,19 +155,18 @@ define('Facets.Browse.View'
 
 			// @method getPagination Return the info of the current options in the PLP
 			// @return {Object}
-			,
-		getPagination: function getPagination() {
-				return {
-					currentPage: this.translator.getOptionValue('page'),
-					pageCount: this.totalPages,
-					itemCount: this.model.get('total'),
-					pageSize: parseInt(this.translator.getOptionValue('show'), 10),
-					sorting: this.translator.getOptionValue('order'),
-					display: this.translator.getOptionValue('display'),
-					filters: this._getFacetsTranslator(this.translator),
-					searchText: this.translator.getOptionValue('keywords')
-				};
-			}
+		,	getPagination: function getPagination() {
+			return {
+				currentPage: this.translator.getOptionValue('page'),
+				pageCount: this.totalPages,
+				itemCount: this.model.get('total'),
+				pageSize: parseInt(this.translator.getOptionValue('show'), 10),
+				sorting: this.translator.getOptionValue('order'),
+				display: this.translator.getOptionValue('display'),
+				filters: this._getFacetsTranslator(this.translator),
+				searchText: this.translator.getOptionValue('keywords')
+			};
+		}
 
 		,	keyAction: function(e)
 		{
@@ -203,7 +202,6 @@ define('Facets.Browse.View'
 			Backbone.history.navigate(navigateUrl, {
 				trigger: true
 			});
-
 		}
 
 		,
@@ -545,27 +543,25 @@ define('Facets.Browse.View'
 				});
 			}
 
-			,
-		render: function () {
-				var list_type = 'Facets';
+		, render: function () {
+			var list_type = 'Facets';
 
-				if (this.model.get('category')) {
-					list_type = 'Category';
-				} else if (this.translator.getOptionValue('keywords')) {
-					list_type = 'Search';
-				}
-
-				Tracker.getInstance().trackProductList(this.model.get('items'), list_type);
-
-				this._render();
+			if (this.model.get('category')) {
+				list_type = 'Category';
+			} else if (this.translator.getOptionValue('keywords')) {
+				list_type = 'Search';
 			}
+			console.log('facetbrowse view track items');
+			Tracker.getInstance().trackProductList(this.model.get('items'), list_type);
 
-			// @method getBreadcrumbPages
-			// It will generate an array suitable to pass it to the breadcrumb macro
-			// It looks in the category facet value
-			// @return {Array<Object>}
-			,
-		getBreadcrumbPages: function () {
+			this._render();
+		}
+
+		// @method getBreadcrumbPages
+		// It will generate an array suitable to pass it to the breadcrumb macro
+		// It looks in the category facet value
+		// @return {Array<Object>}
+		,	getBreadcrumbPages: function () {
 				var breadcrumb = [];
 
 				if (this.model.get('category')) {
@@ -710,8 +706,7 @@ define('Facets.Browse.View'
 					});
 				}
 
-				,
-			'Facets.FacetsDisplay': function () {
+			, 'Facets.FacetsDisplay': function () {
 					var facets = this.translator.cloneWithoutFacetId('category').getAllFacets().sort(function (a, b) {
 						return b.config.priority - a.config.priority;
 					});
@@ -722,8 +717,7 @@ define('Facets.Browse.View'
 					});
 				}
 
-				,
-			'Facets.ItemListDisplaySelector': function () {
+			,	'Facets.ItemListDisplaySelector': function () {
 					return new FacetsItemListDisplaySelectorView({
 						configClasses: 'pull-right',
 						options: this.itemsDisplayOptions,
@@ -797,7 +791,7 @@ define('Facets.Browse.View'
 					},
 					viewsPerRow: parseInt(display_option.columns, 10),
 					collection: items //17/12/2019 saad
-						,
+					,
 					cellTemplate: facets_items_collection_view_cell_tpl,
 					rowTemplate: facets_items_collection_view_row_tpl,
 					template: facets_items_collection_tpl,
@@ -908,7 +902,6 @@ define('Facets.Browse.View'
 			if (this.model.get('category') !== undefined && this.model.get('category').get('name').toLowerCase() == 'item type') {
 				isCategory = true;
 			}
-
 			// @class Facets.Browse.View.Context
 			return {
 				// @property {Number} total

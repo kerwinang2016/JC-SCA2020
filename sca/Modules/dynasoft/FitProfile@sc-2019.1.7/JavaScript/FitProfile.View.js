@@ -1226,6 +1226,7 @@ define('FitProfile.View',
                             }
                             self.extra_fabric = jQuery('#fabric_extra').val();
                             self.reCalculateQuantity();
+                            console.log('here recalculat')
                         }
                     });
                 }

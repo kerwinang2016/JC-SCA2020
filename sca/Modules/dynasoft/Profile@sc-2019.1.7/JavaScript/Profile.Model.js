@@ -110,7 +110,7 @@ define(
 					//             }
 					//         }
 
-					//     } 
+					//     }
 					// }
 
 					,
@@ -267,7 +267,7 @@ define(
 							})
 
 							this.set("current_" + type, "");
-							
+
 							Utils.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function (data) {
 								var responseData = JSON.parse(data)
 								if (responseData.status) {
@@ -317,8 +317,9 @@ define(
 					// @method getSearchApiUrl
 					// @return {String}
 					,
-				getSearchApiUrl: function () {
+					getSearchApiUrl: function () {
 						//We've got to disable passwordProtectedSite and loginToSeePrices features if customer registration is disabled.
+
 						if (Configuration.getRegistrationType() !== 'disabled' &&
 							(Configuration.get('siteSettings.requireloginforpricing', 'F') === 'T' || Configuration.get('siteSettings.siteloginrequired', 'F') === 'T') &&
 							this.get('isLoggedIn') === 'T') {
@@ -331,7 +332,7 @@ define(
 					// @method isAvoidingDoubleRedirect
 					// @return {Boolean}
 					,
-				isAvoidingDoubleRedirect: function () {
+					isAvoidingDoubleRedirect: function () {
 						//We've got to disable passwordProtectedSite and loginToSeePrices features if customer registration is disabled.
 						return Configuration.getRegistrationType() !== 'disabled' &&
 							(Configuration.get('siteSettings.requireloginforpricing', 'F') === 'T' || Configuration.get('siteSettings.siteloginrequired', 'F') === 'T') &&
