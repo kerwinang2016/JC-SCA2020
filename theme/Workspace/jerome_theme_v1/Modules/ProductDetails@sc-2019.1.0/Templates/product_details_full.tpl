@@ -1,6 +1,6 @@
 <!-- start salman 5/29/2019 -->
 
-<style> 
+<style>
 /**** zain 11-09-19 start ****/
 	@media (min-width: 768px){
 .modal-dialog {width: 615px !important;}
@@ -31,14 +31,14 @@
 				<h1 class="product-details-full-content-header-title" itemprop="name">{{pageHeader}}</h1>
 				<!--zain 05-07-19 sart -->
 				{{#if changeFabricUrl}}
-					<a class="custom-btn" href="{{changeFabricUrl}}" >Change Fabric</a> <!-- 26/07/2019 --> 
+					<a class="custom-btn" href="{{changeFabricUrl}}" >Change Fabric</a> <!-- 26/07/2019 -->
 
 				{{else}}
-					<a class="custom-btn" onclick="goBack()" >Change Fabric</a> <!-- 26/07/2019 --> 
+					<a class="custom-btn" onclick="goBack()" >Change Fabric</a> <!-- 26/07/2019 -->
 
 				{{/if}}
 				<!--zain 05-07-19 end -->
-				<hr>			
+				<hr>
 				<!-- <div class="product-details-full-rating" data-view="Global.StarRating"></div> -->
 				<div data-cms-area="item_info" data-cms-area-filters="path"></div>
 			</div>
@@ -70,8 +70,9 @@
 					{{#if isItemProperlyConfigured}}
 					<form id="product-details-full-form" data-action="submit-form" method="POST">
 
-						{{#if vendorDetails}}
+
 						<div id="vendor-detail-content">
+							{{#if vendorDetails}}
 							<h2 class="section-header">Fabric</h2>
 							<hr/>
 							<div class="accordion" id="fabric-availability">
@@ -118,6 +119,8 @@
 									</div>
 								</div>
 							</div>
+
+							{{/if}}
 							<div class="accordion" id="fabric-cmt">
 								<div class="accordion-group">
 									<div class="accordion-heading">
@@ -134,7 +137,14 @@
 												style="font-size: 13px;font-weight: normal;line-height: 18px;">Fabric
 												Vendor</label></div>
 												<div class="col-md-6">
-											{{{vendorPickList}}}
+													<select name="fabric-cmt-vendor" id="fabric-cmt-vendor" class="input-large" style="width:40%;">
+													<option value></option>
+													{{#each vendorPickList}}
+													<option
+														value="{{internalid}}"
+														>{{label}}</option>
+													{{/each}}
+													</select>
 										</div>
 										</div>
 
@@ -170,7 +180,6 @@
 								</div>
 							</div>
 						</div>
-						{{/if}}						
 
 
 						<section class="product-details-full-info">
@@ -185,12 +194,12 @@
 							<div data-view="AddToProductList" class="product-details-full-actions-addtowishlist">
 							</div>
 						</div>
-						
+
 						<div data-view="FitProfile"></div>
 
 						<!-- <div data-view="Product.Sku"></div> -->
 
-						<!-- <div data-view="Product.Price"></div> --> 
+						<!-- <div data-view="Product.Price"></div> -->
 						<!-- <div data-view="Quantity.Pricing"></div> -->
 
 						<!-- -----------start---------------- -->
@@ -210,7 +219,14 @@
 							<div class="control-group" style="margin-bottom:5px;">
 								<label class="control-label"
 									style="width: 100px;float: left;font-size: 13px;font-weight: normal;line-height: 18px;">Design</label>
-								<div id='extra-quantity-content'>{{{extraQuantityContent}}}</div>
+									<select id="fabric_extra" style="width:220px;" class="display-option-dropdown" name="fabric_extra" data-type="fabric_extra">
+										<option value="Please Select" name="Please Select">	Please Select</option>
+										{{#each extraQuantity}}
+										<option
+											value="{{value}}"
+											>{{code}}</option>
+										{{/each}}
+									</select>
 							</div>
 							{{#if isNonInvtItemPart}}
 
@@ -226,12 +242,12 @@
 								{{#if clothingType}}  <!-- 08/01/2019 -->
 								<input style="float: left;" type="number" name="custcol_fabric_quantity" id="quantity" class="input-mini quantity"
 									value="1" min="1" readonly>
-									
+
 								{{else}}
 								{{#if isNonInvtItemPart}}  <!-- 08/01/2019 -->
 								<input style="float: left;" type="number" name="custcol_fabric_quantity" id="quantity" class="input-mini quantity" value="{{fabricQuantity}}"
 									readonly>
-									
+
 								{{/if}}
 								{{/if}}
 							<!-- 28/08/2019 -->
@@ -316,7 +332,7 @@
 	function goBack() {
 		window.history.back();
 	}
-	
+
 	$(document).ready(function(){
 		if(window.fabricQuantity){ //This work on when client edit profile
 			jQuery('[name="custcol_fabric_quantity"]').val(fabricQuantity);
@@ -327,12 +343,12 @@
 		$(".header-mini-cart").toggleClass("display-trigger");
 	});
 	// zain 06-09-19 end
-	
-	// zain 13-09-19 start 
+
+	// zain 13-09-19 start
 	$(document).ready(function(){
 		$("#product-details-full-form h1").html("Fit Profile"); // zain 01-10-19
 	});
-	// zain 13-09-19 end 
+	// zain 13-09-19 end
 </script>
 
 
