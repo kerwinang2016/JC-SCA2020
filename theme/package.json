@@ -52,7 +52,7 @@
         "suitetalk": "file:./ns_npm_repository/suitetalk4node",
         "through": "file:./ns_npm_repository/through",
         "through2": "3.0.1",
-        "underscore": "1.9.1",
+        "underscore": "1.12.1",
         "xml2js": "0.4.19",
         "yargs": "13.2.4",
         "yeoman-environment": "2.3.4"
